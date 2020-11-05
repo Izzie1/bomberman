@@ -2,6 +2,8 @@ package com.izzist.game.entity;
 
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.states.GameStateManager;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
@@ -21,6 +23,10 @@ public class Player extends Entity {
 
         animation = new Animation();
         setAnimation(DOWN, sprite.getSpriteArray(DOWN,0), 5);
+        bounds.setWidth(24);
+        bounds.setHeight(24);
+        bounds.setxOffset(12);
+        bounds.setyOffset(10);
     }
 
     @Override
@@ -49,12 +55,21 @@ public class Player extends Entity {
     public void update() {
         super.update();
         move();
-        vector2D.x += dx;
-        vector2D.y += dy;
+        if(!bounds.collisionTile(dx,0)){
+            GameStateManager.map.x+=dx;
+            vector2D.x += dx;
+        }
+        if(!bounds.collisionTile(0,dy)){
+            GameStateManager.map.y+=dy;
+            vector2D.y += dy;
+        }
+
     }
 
     @Override
     public void render(Graphics2D g2D) {
+        g2D.setColor(Color.BLUE);
+        g2D.drawRect((int)(vector2D.getWorldXY().x+bounds.getxOffset()),(int)(vector2D.getWorldXY().y+bounds.getyOffset()),(int)bounds.getWidth(),(int)bounds.getHeight());
         g2D.drawImage(animation.getImage(),(int)(vector2D.x),(int)(vector2D.y),size,size,null);
     }
 

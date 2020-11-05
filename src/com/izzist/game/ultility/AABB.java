@@ -1,6 +1,8 @@
 package com.izzist.game.ultility;
 
 import com.izzist.game.entity.Entity;
+import com.izzist.game.tiles.TileMap;
+import com.izzist.game.tiles.TilemapObj;
 
 public class AABB {
     private Vector2D pos;
@@ -54,6 +56,14 @@ public class AABB {
         return radius;
     }
 
+    public float getxOffset() {
+        return xOffset;
+    }
+
+    public float getyOffset(){
+        return yOffset;
+    }
+
     public void setRadius(float radius) {
         this.radius = radius;
     }
@@ -100,6 +110,18 @@ public class AABB {
         float yDelta = cy - Math.max(aBox.pos.getWorldXY().y + (aBox.getWidth() / 2), Math.min(cy, aBox.pos.getWorldXY().y));
         if ((xDelta * xDelta + yDelta * yDelta) < ((this.radius / Math.sqrt(2)) * (this.radius / Math.sqrt(2)))) {
             return true;
+        }
+        return false;
+    }
+
+    public boolean collisionTile(float ax,float ay){
+        for(int i =0;i<4;i++){
+            int xt=(int)((pos.x+ax)+(i%2)*w+xOffset)/32;
+            int yt=(int)((pos.y+ay)+(i%2)*w+yOffset)/32;
+            if(TilemapObj.tmo_blocks.containsKey(String.valueOf(xt)+","+String.valueOf(yt))){
+                return TilemapObj.tmo_blocks.get(String.valueOf(xt)+","+String.valueOf(yt)).update(this);
+
+            }
         }
         return false;
     }
