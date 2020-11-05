@@ -19,6 +19,7 @@ public class TileMapNorm extends TileMap {
 
         for (int i = 0; i < width * height; i++) {
             int temp = Integer.parseInt(block[i].replaceAll("\\s+", ""));
+            System.out.println(temp);
             if (temp != 0) {
                 blocks.add(new NormBlock(sprite.getSprite((int) ((temp - 1) % tileColumns), (int) ((temp - 1) / tileColumns)),
                 new Vector2D((int) (i % width) * tileWidth, (int) (i / height) * tileHeight), tileWidth, tileHeight));

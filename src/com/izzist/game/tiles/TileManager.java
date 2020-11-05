@@ -68,14 +68,13 @@ public class TileManager {
                 }
                 data[i] = eElement.getElementsByTagName("data").item(0).getTextContent();
 
-                if (i == 1) {
+                if (i == 1||i==2) {
                     tm.add(new TileMapNorm(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
-
                 } else {
                     tm.add(new TilemapObj(data[i], sprite, width, height, blockWidth, blockHeight, tileColumns));
-                    System.out.println(data[i]);
                 }
             }
+            System.out.println(layers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -20,6 +20,7 @@ public class NormBlock extends Block{
     public void render (Graphics2D g2D){
 
         super.render(g2D);
-
+        g2D.setColor(Color.GREEN);
+        g2D.drawRect((int) pos.getWorldXY().x,(int) pos.getWorldXY().y,w,h);
     }
 }
