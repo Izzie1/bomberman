@@ -1,8 +1,8 @@
 package com.izzist.game.ultility;
 
 public class Vector2D {
-    private float x;
-    private float y;
+    public float x;
+    public float y;
 
     public static float worldX;
     public static float worldY;
@@ -21,21 +21,6 @@ public class Vector2D {
         new Vector2D(pos.x, pos.y);
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
 
     public void addX(float a) {
         this.x += a;
@@ -46,8 +31,8 @@ public class Vector2D {
     }
 
     public void setVector(Vector2D vector2D) {
-        this.x = vector2D.getX();
-        this.y = vector2D.getY();
+        this.x = vector2D.x;
+        this.y = vector2D.y;
     }
 
     public void setVector(float x, float y) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Sprite {
     private BufferedImage spriteSheet = null;
     private BufferedImage[][] spriteArray;
-    private final int TILE_SIZE = 32;
+    private final int TILE_SIZE = 24;
     private int width;
     private int height;
 
@@ -66,17 +66,16 @@ public class Sprite {
             sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));
         } catch (Exception e) {
             System.out.println("could not load file" + path);
-
         }
         return sprite;
     }
 
     public void loadSpriteArray() {
-        spriteArray = new BufferedImage[spriteWidth][spriteHeight];
+        spriteArray = new BufferedImage[spriteHeight][spriteWidth];
 
-        for (int i = 0; i < spriteWidth; i++) {
-            for (int j = 0; j < spriteHeight; j++) {
-                spriteArray[i][j] = getSprite(i, j);
+        for (int i = 0; i < spriteHeight; i++) {
+            for (int j = 0; j < spriteWidth; j++) {
+                spriteArray[i][j] = getSprite(j, i);
             }
         }
     }
@@ -89,18 +88,26 @@ public class Sprite {
         return spriteSheet.getSubimage(x * width, y * height, width, height);
     }
 
-    public BufferedImage[] getSpriteArray(int i) {
-        return spriteArray[i];
+    public BufferedImage[] getSpriteArray(int position, int characterNumber) {
+        BufferedImage[] spriteArray2 = new BufferedImage[3];
+        for (int i = 0; i < 3; i++) {
+            spriteArray2[i] = spriteArray[position * 3 + i][characterNumber];
+        }
+        return spriteArray2;
     }
 
-    public BufferedImage[][] getSpriteArray2(int i) {
+    public BufferedImage[] getSpriteArray2(int position) {
+        return spriteArray[position];
+    }
+
+    public BufferedImage[][] getSpriteArray3(int i) {
         return spriteArray;
     }
 
     public static void drawArray(Graphics2D g2D, ArrayList<BufferedImage> image, Vector2D vector2D,
                                  int width, int height, int xOffset, int yOffset) {
-        float x = vector2D.getX();
-        float y = vector2D.getY();
+        float x = vector2D.x;
+        float y = vector2D.y;
 
         for (int i = 0; i < image.size(); i++) {
             if (image.get(i) != null) {
@@ -114,8 +121,8 @@ public class Sprite {
 
     public static void drawArray(Graphics2D g2D, Font f, String word, Vector2D vector2D,
                                  int width, int height, int xOffset, int yOffset) {
-        float x = vector2D.getX();
-        float y = vector2D.getY();
+        float x = vector2D.x;
+        float y = vector2D.y;
 
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) != 32) {
@@ -126,5 +133,6 @@ public class Sprite {
         x += xOffset;
         y += yOffset;
     }
+
 
 }

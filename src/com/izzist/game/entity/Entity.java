@@ -2,15 +2,14 @@ package com.izzist.game.entity;
 
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.ultility.AABB;
+import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Entity {
-    private final int UP = 0;
-    private final int DOWN = 1;
-    private final int RIGHT = 2;
-    private final int LEFT = 3;
+public abstract class Entity {
     protected int currentAnimation;
 
     protected Animation animation;
@@ -26,22 +25,84 @@ public class Entity {
 
     protected float dx;
     protected float dy;
-    protected float maxSpeed;
-    protected float acceleration;
-    protected float deAcceleration;
+    protected float maxSpeed = 2;
+    protected float acceleration = 0.1f ;
+    protected float deAcceleration = 0.5f;
 
-    public Entity (Sprite sprite, Vector2D vector2D){
+    protected AABB hitBounds;
+    protected AABB bounds;
+
+    public Entity(Sprite sprite, Vector2D vector2D, int size) {
         this.sprite = sprite;
         this.vector2D = vector2D;
         this.size = size;
 
-        animation = new Animation();
-        setAnimation(RIGHT,sprite.getSpriteArray(RIGHT),10);
     }
 
-    public void setAnimation(int i, BufferedImage[] frames,int delay){
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setAcceleration(float acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setDeAcceleration(float deAcceleration){
+        this.deAcceleration = deAcceleration;
+    }
+
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;
         animation.setFrames(frames);
         animation.setDelay(delay);
     }
+
+    public abstract void animate();
+
+    private void setHitBoxDirection() {
+        if (up) {
+            hitBounds.setyOffset(-size / 2);
+            hitBounds.setxOffset(-size / 2);
+        } else if (down) {
+            hitBounds.setyOffset(size / 2);
+            hitBounds.setxOffset(-size / 2);
+        } else if (left) {
+            hitBounds.setyOffset(size);
+            hitBounds.setxOffset(0);
+        } else if (right) {
+            hitBounds.setxOffset(0);
+            hitBounds.setyOffset(0);
+        }
+    }
+
+    public abstract void render(Graphics2D g2D);
+
+    public void input(KeyHandler key) {
+
+    }
+
+    public void update() {
+        animate();
+        setHitBoxDirection();
+        animation.update();
+    }
+
+
 }

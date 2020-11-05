@@ -26,6 +26,7 @@ public class Animation {
         count = 0;
         delay = 2;
         numFrames = frames.length;
+
     }
 
     public void setCurrentFrame(int currentFrame) {
@@ -44,6 +45,8 @@ public class Animation {
         if (delay == -1) {
             return;
         }
+
+        count++;
 
         if (count == delay) {
             currentFrame++;
