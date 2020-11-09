@@ -13,7 +13,7 @@ public class TileWall extends Tile{
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.setColor(Color.GREEN);
+        g2D.setColor(Color.RED);
         g2D.drawRect((int) (position.getWorldXY().x), (int) (position.getWorldXY().y ), 32, 32);
         g2D.drawImage(sprite.getSprite(1,0), (int) (position.x), (int) (position.y), size, size, null);
     }
