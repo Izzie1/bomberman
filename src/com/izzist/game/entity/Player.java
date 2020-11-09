@@ -2,9 +2,6 @@ package com.izzist.game.entity;
 
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.states.GameStateManager;
-import com.izzist.game.states.PlayState;
-import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
@@ -15,62 +12,65 @@ public class Player extends Entity {
     private final int DOWN = 0;
     private final int RIGHT = 1;
     private final int LEFT = 2;
+    private boolean up;
+    private boolean down;
+    private boolean right;
+    private boolean left;
+    private boolean attack;
+    int i;
+    protected float dx;
+    protected float dy;
+    protected float maxSpeed = 2;
+    protected float acceleration = 0.1f;
+    protected float deAcceleration = 0.5f;
 
-    public Player(Sprite sprite, Vector2D vector2D, int size) {
-        super(sprite, vector2D, size);
-        bounds = new AABB(vector2D, size, size);
-        hitBounds = new AABB(new Vector2D(vector2D.x + (size / 2), vector2D.y), size, size);
+
+    public Player(Vector2D vector2D, int size) {
+        super(vector2D, size);
+        this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
 
         animation = new Animation();
-        setAnimation(DOWN, sprite.getSpriteArray(DOWN,0), 5);
-        bounds.setWidth(24);
-        bounds.setHeight(24);
-        bounds.setxOffset(12);
-        bounds.setyOffset(10);
+        setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+
     }
 
-    @Override
-    public void animate() {
+    private void animate() {
         if (up) {
             if (currentAnimation != UP || animation.getDelay() == -1) {
-                setAnimation(UP, sprite.getSpriteArray(UP,0), 5);
+                setAnimation(UP, sprite.getSpriteArray(UP, 0), 5);
             }
         } else if (down) {
             if (currentAnimation != DOWN || animation.getDelay() == -1) {
-                setAnimation(DOWN, sprite.getSpriteArray(DOWN,0), 5);
+                setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
             }
         } else if (left) {
             if (currentAnimation != LEFT || animation.getDelay() == -1) {
-                setAnimation(LEFT, sprite.getSpriteArray(LEFT,0), 5);
+                setAnimation(LEFT, sprite.getSpriteArray(LEFT, 0), 5);
             }
         } else if (right) {
             if (currentAnimation != RIGHT || animation.getDelay() == -1) {
-                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT,0), 5);
+                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT, 0), 5);
             }
         } else {
-            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation,0),-1 );
+            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation, 0), -1);
         }
     }
 
     public void update() {
+        animate();
         super.update();
         move();
-        if(!bounds.collisionTile(dx,0)){
-            GameStateManager.map.x+=dx;
-            vector2D.x += dx;
-        }
-        if(!bounds.collisionTile(0,dy)){
-            GameStateManager.map.y+=dy;
-            vector2D.y += dy;
-        }
+        position.x += dx;
+        position.y += dy;
 
     }
 
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.BLUE);
-        g2D.drawRect((int)(vector2D.getWorldXY().x+bounds.getxOffset()),(int)(vector2D.getWorldXY().y+bounds.getyOffset()),(int)bounds.getWidth(),(int)bounds.getHeight());
-        g2D.drawImage(animation.getImage(),(int)(vector2D.x),(int)(vector2D.y),size,size,null);
+        g2D.drawRect((int) (position.getWorldXY().x), (int) (position.getWorldXY().y ), 32, 32);
+        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        System.out.println(position.x);
     }
 
     public void move() {
@@ -155,5 +155,29 @@ public class Player extends Entity {
         } else {
             attack = false;
         }
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setAcceleration(float acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setDeAcceleration(float deAcceleration) {
+        this.deAcceleration = deAcceleration;
     }
 }

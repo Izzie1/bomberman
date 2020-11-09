@@ -9,15 +9,8 @@ public class Animation {
 
     private int count;
     private int delay;
-    private int timesPlayed;
-
-    public Animation(BufferedImage[] frames) {
-        timesPlayed = 0;
-        setFrames(frames);
-    }
 
     public Animation() {
-        timesPlayed = 0;
     }
 
     public void setFrames(BufferedImage[] frames) {
@@ -26,7 +19,6 @@ public class Animation {
         count = 0;
         delay = 2;
         numFrames = frames.length;
-
     }
 
     public void setCurrentFrame(int currentFrame) {
@@ -54,7 +46,6 @@ public class Animation {
         }
         if (currentFrame == numFrames) {
             currentFrame = 0;
-            timesPlayed++;
         }
     }
 
@@ -74,11 +65,5 @@ public class Animation {
         return frames[currentFrame];
     }
 
-    public boolean hasPlayedOnce() {
-        return timesPlayed > 0;
-    }
 
-    public boolean hasPlayed(int i) {
-        return timesPlayed == i;
-    }
 }

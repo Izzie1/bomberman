@@ -121,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void update() {
         gameStateManager.update();
-        ;
+
     }
 
     public void input(KeyHandler key) {
