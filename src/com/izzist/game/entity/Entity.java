@@ -39,19 +39,9 @@ public abstract class Entity {
         animation.setDelay(delay);
     }
 
-    public void setAnimation2( BufferedImage[] frames, int delay) {
-
-        animation.setFrames(frames);
-        animation.setDelay(delay);
-
-    }
 
     public abstract void render(Graphics2D g2D);
 
-    public void update() {
-        animation.update();
-
-    }
-
+    public abstract void update();
 
 }

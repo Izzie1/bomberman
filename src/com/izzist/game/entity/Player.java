@@ -6,6 +6,7 @@ import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Player extends Entity {
     private final int UP = 3;
@@ -17,13 +18,15 @@ public class Player extends Entity {
     private boolean right;
     private boolean left;
     private boolean attack;
-    int i;
-    protected float dx;
-    protected float dy;
-    protected float maxSpeed = 2;
-    protected float acceleration = 0.1f;
-    protected float deAcceleration = 0.5f;
-
+    private ArrayList<Bomb> b;
+    private int numOfBomb;
+    private boolean temp;
+    private float dx;
+    private float dy;
+    private float maxSpeed = 2;
+    private float acceleration = 0.1f;
+    private float deAcceleration = 0.5f;
+    private boolean setBomb;
 
     public Player(Vector2D vector2D, int size) {
         super(vector2D, size);
@@ -32,9 +35,13 @@ public class Player extends Entity {
         animation = new Animation();
         setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
 
+        b = new ArrayList<Bomb>();
+        b.add(new Bomb(sprite, new Vector2D(position.x, position.y), 32));
+        numOfBomb = 3;
+
     }
 
-    private void animate() {
+    public void animate() {
         if (up) {
             if (currentAnimation != UP || animation.getDelay() == -1) {
                 setAnimation(UP, sprite.getSpriteArray(UP, 0), 5);
@@ -58,19 +65,33 @@ public class Player extends Entity {
 
     public void update() {
         animate();
-        super.update();
         move();
+        plantBomb();
+        animation.update();
         position.x += dx;
         position.y += dy;
+    }
 
+    private void plantBomb(){
+        if (attack && !setBomb) {
+            b.get(0).setPosition((int) (position.x / 32) * 32, (int) (position.y / 32) * 32);
+            setBomb = true;
+        }
+        b.get(0).update();
+        if (b.get(0).getIsExploded()) {
+            setBomb = false;
+        }
     }
 
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.BLUE);
-        g2D.drawRect((int) (position.getWorldXY().x), (int) (position.getWorldXY().y ), 32, 32);
+
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-        System.out.println(position.x);
+        if (setBomb && !b.get(0).getIsExploded()) {
+            b.get(0).render(g2D);
+            g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        }
     }
 
     public void move() {
@@ -156,6 +177,7 @@ public class Player extends Entity {
             attack = false;
         }
     }
+
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
