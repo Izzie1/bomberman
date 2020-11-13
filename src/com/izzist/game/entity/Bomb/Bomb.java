@@ -1,5 +1,6 @@
-package com.izzist.game.entity;
+package com.izzist.game.entity.Bomb;
 
+import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.Vector2D;
@@ -9,7 +10,7 @@ import java.awt.*;
 public class Bomb extends Entity {
     private int explodeTime = 150;
     private boolean isExploded = false;
-    private int delay = 15;
+    private int delay = 40;
     private int i = 0;
 
 
@@ -31,10 +32,10 @@ public class Bomb extends Entity {
     public void render(Graphics2D g2D) {
         if (!isExploded) {
             g2D.drawImage(sprite.getSprite(i, 0), (int) (position.x), (int) (position.y), size, size, null);
-            if (i < 6) {
+            if (i < 7) {
                 if (delay == 0) {
                     i++;
-                    delay = 15;
+                    delay = 40;
                 } else delay--;
             } else i = 0;
         }
@@ -42,7 +43,6 @@ public class Bomb extends Entity {
 
     @Override
     public void update() {
-
         if (explodeTime > 0) {
             isExploded = false;
             explodeTime--;

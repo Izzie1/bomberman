@@ -66,32 +66,33 @@ public class KeyHandler implements KeyListener {
 
 
     public void toggle(KeyEvent e, boolean pressed) {
-        if (e.getKeyCode() == KeyEvent.VK_W) {
-            up.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_S) {
-            down.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            left.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-            right.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            attack.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_E) {
-            menu.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            enter.toggle(pressed);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            escape.toggle(pressed);
-        }
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                up.toggle(pressed);
+                break;
+            case KeyEvent.VK_S:
+                down.toggle(pressed);
+                break;
 
+            case KeyEvent.VK_A:
+                left.toggle(pressed);
+                break;
 
+            case KeyEvent.VK_D:
+                right.toggle(pressed);
+                break;
+            case KeyEvent.VK_SPACE:
+                attack.toggle(pressed);
+                break;
+            case KeyEvent.VK_E:
+                menu.toggle(pressed);
+                break;
+            case KeyEvent.VK_ENTER:
+                enter.toggle(pressed);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                escape.toggle(pressed);
+        }
     }
 
     @Override
@@ -101,11 +102,11 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        toggle(e,true);
+        toggle(e, true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        toggle(e,false);
+        toggle(e, false);
     }
 }

@@ -1,5 +1,6 @@
 package com.izzist.game.map.tiles;
 
+import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class TileGrass extends Tile{
     }
 
     @Override
-    public void update() {
-
+    public boolean isSolid( ) {
+        return false;
     }
 }
