@@ -9,7 +9,6 @@ import com.izzist.game.ultility.Vector2D;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -48,14 +47,11 @@ public class MapLoader {
                     case '#': {
                         TileWall tileWall = new TileWall(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileWall;
-
                         break;
                     }
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-
                         TileManager.tileManager[x][y] = tileGrass;
-
                         break;
                     }
                 }
@@ -75,6 +71,5 @@ public class MapLoader {
     public void update(Graphics2D g2D) {
 
     }
-
 
 }

@@ -63,7 +63,6 @@ public class GamePanel extends JPanel implements Runnable {
         int lastSecondTime = (int) (lastUpdateTime / unit);
 
         while (running) {
-
             double time = System.nanoTime();
             int updateCount = 0;
             while (((time - lastUpdateTime) > timeBeforeUpdate) &&

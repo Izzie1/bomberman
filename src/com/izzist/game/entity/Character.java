@@ -2,9 +2,10 @@ package com.izzist.game.entity;
 
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.map.managers.TileManager;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
-public abstract class MovingEntity extends Entity {
+public abstract class Character extends Entity {
     protected boolean up;
     protected boolean down;
     protected boolean right;
@@ -18,11 +19,11 @@ public abstract class MovingEntity extends Entity {
 
     private boolean isAlive;
 
-    public MovingEntity(Vector2D position, int size) {
-        super(position, size);
+    public Character(Vector2D position, int size) {
+        super(position,size);
     }
 
-    public MovingEntity(Sprite sprite, Vector2D position, int size) {
+    public Character(Sprite sprite, Vector2D position, int size) {
         super(sprite, position, size);
     }
 

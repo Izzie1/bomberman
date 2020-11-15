@@ -1,25 +1,27 @@
 package com.izzist.game.entity;
 
+import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.map.MapLoader;
-import com.izzist.game.map.managers.TileManager;
-import com.izzist.game.map.tiles.Tile;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Player extends MovingEntity {
+public class Player extends Character {
     private final int UP = 3;
     private final int DOWN = 0;
     private final int RIGHT = 1;
     private final int LEFT = 2;
 
     private boolean attack;
-
+    private List<Bomb> bombs = new ArrayList<>();
+    private int bombQuantity = 3;
 
 
     public Player(Vector2D position, int size) {
@@ -60,17 +62,42 @@ public class Player extends MovingEntity {
         move();
         animation.update();
         movingWithCollision();
+        setBomb();
+
+        Iterator<Bomb> iterable = bombs.iterator();
+        Bomb temp;
+        while (iterable.hasNext()) {
+            temp = iterable.next();
+            temp.update();
+            if (temp.getIsExploded()) {
+                iterable.remove();
+            }
+        }
+
     }
 
+    public void setBomb() {
+        if (attack && bombs.size() < bombQuantity) {
+            float x = this.position.x;
+            float y = this.position.y;
+            bombs.add(new Bomb(new Vector2D(x, y), 32));
+        }
+    }
 
-
-
+    public List<Bomb> getBombs() {
+        return bombs;
+    }
 
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.BLUE);
         g2D.drawRect((int) bounds.position.x + bounds.getxOffset()
                 , (int) bounds.position.y + bounds.getyOffset(), 20, 24);
+        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        Iterator<Bomb> iterable = bombs.iterator();
+        while (iterable.hasNext()) {
+            iterable.next().render(g2D);
+        }
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
     }
 
@@ -151,7 +178,8 @@ public class Player extends MovingEntity {
         } else {
             right = false;
         }
-        if (key.attack.down) {
+        key.attack.tick();
+        if (key.attack.clicked) {
             attack = true;
         } else {
             attack = false;

@@ -77,7 +77,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_A:
                 left.toggle(pressed);
                 break;
-
             case KeyEvent.VK_D:
                 right.toggle(pressed);
                 break;

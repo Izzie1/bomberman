@@ -9,7 +9,7 @@ public class Window extends JFrame {
         setContentPane(new GamePanel(32*31,32*13));
         pack();
         setVisible(true);
+        setResizable(false);
         setLocationRelativeTo(null);
-
     }
 }

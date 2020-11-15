@@ -10,7 +10,6 @@ public abstract class Tile {
     public Vector2D position;
     public Sprite sprite;
     public int size;
-    private Rectangle bounds;
 
     public Tile(Vector2D position, int size) {
         this.position = position;

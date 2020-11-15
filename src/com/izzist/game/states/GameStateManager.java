@@ -19,9 +19,6 @@ public class GameStateManager {
     public static final int GAMEOVER = 3;
 
     public GameStateManager() {
-        map = new Vector2D(0,0 );
-        Vector2D.setWorldXY(map.x, map.y);
-
         states = new ArrayList<GameState>();
         states.add(new PlayState(this));
     }
@@ -53,7 +50,6 @@ public class GameStateManager {
     }
 
     public void update() {
-        Vector2D.setWorldXY(map.x, map.y);
         for (int i = 0; i < states.size(); i++) {
             states.get(i).update();
         }

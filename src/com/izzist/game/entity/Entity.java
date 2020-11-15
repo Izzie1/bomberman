@@ -3,6 +3,7 @@ package com.izzist.game.entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.map.managers.TileManager;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.Vector2D;
 
@@ -16,8 +17,9 @@ public abstract class Entity {
     protected Vector2D position;
     protected int size;
     protected AABB bounds;
+    protected PlayState playState;
 
-    public Entity(Vector2D position, int size){
+    public Entity(Vector2D position, int size ){
         this.position = position;
         this.size = size;
     }
@@ -31,6 +33,10 @@ public abstract class Entity {
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;
+        animation.setFrames(frames);
+        animation.setDelay(delay);
+    }
+    public void setAnimation2( BufferedImage[] frames, int delay) {
         animation.setFrames(frames);
         animation.setDelay(delay);
     }
