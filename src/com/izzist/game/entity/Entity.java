@@ -17,7 +17,6 @@ public abstract class Entity {
     protected Vector2D position;
     protected int size;
     protected AABB bounds;
-    protected PlayState playState;
 
     public Entity(Vector2D position, int size ){
         this.position = position;

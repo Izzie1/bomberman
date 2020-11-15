@@ -6,7 +6,7 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
-public class Enemy extends Character {
+public abstract class Enemy extends Character {
     public Enemy(Vector2D position, int size) {
         super(position, size);
     }
@@ -15,13 +15,4 @@ public class Enemy extends Character {
         super(sprite, position, size);
     }
 
-    @Override
-    public void render(Graphics2D g2D) {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
 }
