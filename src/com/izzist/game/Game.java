@@ -48,6 +48,7 @@ public class Game implements Runnable {
         window.getFrame().addKeyListener(keyHandler);
         Sprite.init();
 
+
         playState = new PlayState(this);
         menuState = new MenuState(this);
         GameState.setCurrentState(playState);
@@ -152,4 +153,11 @@ public class Game implements Runnable {
         }
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
 }

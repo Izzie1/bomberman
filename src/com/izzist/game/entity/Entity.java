@@ -1,6 +1,8 @@
 package com.izzist.game.Entity;
 
 
+import com.izzist.game.Game;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -12,10 +14,11 @@ public abstract class Entity {
     protected float y; //Toa do y
     protected int width;
     protected int height;
-
+    protected Game game;
     protected Rectangle bounds;
 
-    public Entity(float x, float y,int width,int height) {
+    public Entity(float x, float y,int width,int height,Game game) {
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -57,4 +60,9 @@ public abstract class Entity {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
 }
