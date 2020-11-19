@@ -1,12 +1,13 @@
 package com.izzist.game.states;
 
-import com.izzist.game.ultility.KeyHandler;
+
+import com.izzist.game.Game;
 
 import java.awt.*;
 
 public class MenuState extends GameState {
-    public MenuState(GameStateManager gameStateManager) {
-        super(gameStateManager);
+    public MenuState(Game game) {
+        super(game);
     }
 
     @Override
@@ -15,12 +16,7 @@ public class MenuState extends GameState {
     }
 
     @Override
-    public void input(KeyHandler key) {
-
-    }
-
-    @Override
-    public void render(Graphics2D g2D) {
+    public void render(Graphics g) {
 
     }
 }

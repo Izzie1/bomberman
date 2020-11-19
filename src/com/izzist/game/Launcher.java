@@ -1,17 +1,10 @@
 package com.izzist.game;
-
-import com.izzist.game.map.managers.TileManager;
-import com.izzist.game.map.tiles.TileWall;
-import com.izzist.game.ultility.Vector2D;
-
+/**
+ * Class dung de chay game.
+ */
 public class Launcher {
-
-    public Launcher(){
-        new Window();
-    }
-
     public static void main(String[] args) {
-        new Launcher();
-
+        Game game = new Game("bomberman",1024,800);
+        game.start();
     }
 }

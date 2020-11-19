@@ -1,20 +1,32 @@
 package com.izzist.game.states;
 
-import com.izzist.game.ultility.KeyHandler;
 
-import java.awt.Graphics2D;
+import com.izzist.game.Game;
 
+import java.awt.*;
+
+/**
+ * Lop abstract sinh ra de dinh nghia cac phuong thuc ma cac state deu co.
+ */
 public abstract class GameState {
-    protected GameStateManager gameStateManager;
+    private static GameState currentState = null;
 
-    public GameState(GameStateManager gameStateManager) {
-        this.gameStateManager = gameStateManager;
+    protected Game game;
+
+    public GameState(Game game){
+        this.game = game;
+    }
+
+    public static void setCurrentState(GameState state) {
+        currentState = state;
+    }
+
+    public static GameState getCurrentState() {
+        return currentState;
     }
 
     public abstract void update();
 
-    public abstract void input(KeyHandler key);
-
-    public abstract void render(Graphics2D g2D);
+    public abstract void render(Graphics g);
 
 }

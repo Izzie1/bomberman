@@ -1,7 +1,6 @@
-package com.izzist.game.ultility;
+package com.izzist.game.input;
 
-import com.izzist.game.GamePanel;
-
+import com.izzist.game.Game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyHandler implements KeyListener {
-
     public static List<Key> keys = new ArrayList<Key>();
 
     public class Key {
@@ -48,23 +46,6 @@ public class KeyHandler implements KeyListener {
     public Key enter = new Key();
     public Key escape = new Key();
 
-    public KeyHandler(GamePanel game) {
-        game.addKeyListener(this);
-    }
-
-    public void releaseAll() {
-        for (int i = 0; i < keys.size(); i++) {
-            keys.get(i).down = false;
-        }
-    }
-
-    public void tick() {
-        for (int i = 0; i < keys.size(); i++) {
-            keys.get(i).tick();
-        }
-    }
-
-
     public void toggle(KeyEvent e, boolean pressed) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
@@ -73,7 +54,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_S:
                 down.toggle(pressed);
                 break;
-
             case KeyEvent.VK_A:
                 left.toggle(pressed);
                 break;
@@ -102,6 +82,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         toggle(e, true);
+
     }
 
     @Override

@@ -1,60 +1,60 @@
-package com.izzist.game.entity;
+package com.izzist.game.Entity;
 
-import com.izzist.game.graphics.Animation;
-import com.izzist.game.graphics.Sprite;
-import com.izzist.game.map.managers.TileManager;
-import com.izzist.game.states.PlayState;
-import com.izzist.game.ultility.AABB;
-import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.geom.Rectangle2D;
 
+/**
+ * Class Entity.
+ */
 public abstract class Entity {
-    protected int currentAnimation;
-    protected Animation animation;
-    protected Sprite sprite;
-    protected Vector2D position;
-    protected int size;
-    protected AABB bounds;
+    protected float x; //Toa do x
+    protected float y; //Toa do y
+    protected int width;
+    protected int height;
 
-    public Entity(Vector2D position, int size ){
-        this.position = position;
-        this.size = size;
+    protected Rectangle bounds;
+
+    public Entity(float x, float y,int width,int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
-
-    public Entity(Sprite sprite, Vector2D position, int size) {
-        this.sprite = sprite;
-        this.position = position;
-        this.size = size;
-
-    }
-
-    public void setAnimation(int i, BufferedImage[] frames, int delay) {
-        currentAnimation = i;
-        animation.setFrames(frames);
-        animation.setDelay(delay);
-    }
-    public void setAnimation2( BufferedImage[] frames, int delay) {
-        animation.setFrames(frames);
-        animation.setDelay(delay);
-    }
-
-    public abstract void render(Graphics2D g2D);
 
     public abstract void update();
 
-    public int getSize() {
-        return size;
+    public abstract void render(Graphics g);
+
+    public float getX() {
+        return x;
     }
 
-    public Vector2D getPosition() {
-        return position;
+    public void setX(float x) {
+        this.x = x;
     }
 
-    public void setPosition(Vector2D position) {
-        this.position = position;
+    public float getY() {
+        return y;
     }
 
+    public void setY(float y) {
+        this.y = y;
+    }
 
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }
