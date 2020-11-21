@@ -1,62 +1,200 @@
-package com.izzist.game.Entity;
+package com.izzist.game.entity;
 
-import com.izzist.game.Game;
-import com.izzist.game.input.KeyHandler;
-import com.izzist.game.sprite.Animation;
-import com.izzist.game.sprite.Sprite;
+import com.izzist.game.entity.Bomb.Bomb;
+import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.graphics.Animation;
+import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.TileManager;
+import com.izzist.game.states.PlayState;
+import com.izzist.game.ultility.AABB;
+import com.izzist.game.ultility.KeyHandler;
+import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Player extends Character {
-    private int lives = 3;
+    private final int UP = 3;
+    private final int DOWN = 0;
+    private final int RIGHT = 1;
+    private final int LEFT = 2;
 
-    private Animation animationUP;
-    private Animation animationDown;
-    private Animation animationLeft;
-    private Animation animationRight;
-
-    private int UP = 0;
-    private int DOWN = 1;
-    private int LEFT = 0;
-    private int RIGHT = 0;
+    private boolean attack;
+    private ArrayList<Bomb> bombs = new ArrayList<>();
+    private ArrayList<Flame> flames = new ArrayList<>();
+    private int bombQuantity = 3;
 
 
-    public Player(float x, float y, int width, int height, Game game) {
-        super(x, y, width, height, game);
-
-        speed = 1.2f;
-        deAcceleration = 0.3f;
-        acceleration = 0.3f;
-
-        bounds = new Rectangle(7, 4, 18, 24);
-
-        animationUP = new Animation(100, Sprite.player_up);
-        animationDown = new Animation(100, Sprite.player_down);
-        animationRight = new Animation(100, Sprite.player_right);
-        animationLeft = new Animation(100, Sprite.player_left);
+    public Player(Vector2D position, int size) {
+        this.position = position;
+        this.size = size;
+        this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
+        animation = new Animation();
+        setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+        maxSpeed = 2;
+        acceleration = 0.1f;
+        deAcceleration = 0.5f;
+        bounds = new AABB(16, 20, position, 8, 4);
     }
 
-    @Override
+    public void animate() {
+        if (up) {
+            if (currentAnimation != UP || animation.getDelay() == -1) {
+                setAnimation(UP, sprite.getSpriteArray(UP, 0), 5);
+            }
+        } else if (down) {
+            if (currentAnimation != DOWN || animation.getDelay() == -1) {
+                setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+            }
+        } else if (left) {
+            if (currentAnimation != LEFT || animation.getDelay() == -1) {
+                setAnimation(LEFT, sprite.getSpriteArray(LEFT, 0), 5);
+            }
+        } else if (right) {
+            if (currentAnimation != RIGHT || animation.getDelay() == -1) {
+                setAnimation(RIGHT, sprite.getSpriteArray(RIGHT, 0), 5);
+            }
+        } else {
+            setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation, 0), 5);
+        }
+    }
+
     public void update() {
-        input(game.getKeyHandler());
-        animationDown.update();
-        animationLeft.update();
-        animationUP.update();
-        animationRight.update();
+        animate();
         move();
-        x += dx;
-        y += dy;
+        animation.update();
+
+        if (!bounds.collision(dx, 0)&&!bounds.collisionWitBrick(dx, 0)) {
+            position.x += dx;
+        }
+
+        if (!bounds.collision(0, dy)&&!bounds.collisionWitBrick(0, dy)) {
+            position.y += dy;
+        }
+        setBomb();
+        removeBomb();
+        removeFlame();
     }
+
+    public void removeBomb() {
+        Iterator<Bomb> iterator = bombs.iterator();
+        Bomb temp;
+        while (iterator.hasNext()) {
+            temp = iterator.next();
+            temp.update();
+            if (temp.getIsExploded()) {
+                Flame f = new Flame(temp.position, 32);
+                flames.add(f);
+                iterator.remove();
+            }
+        }
+    }
+
+    public void renderFlame(Graphics2D g2D) {
+        Iterator<Flame> iterator = flames.iterator();
+        while ((iterator.hasNext())) {
+            iterator.next().render(g2D);
+        }
+    }
+
+    public void setBomb() {
+        if (attack && bombs.size() < bombQuantity) {
+            float x = this.position.x;
+            float y = this.position.y;
+            bombs.add(new Bomb(new Vector2D(x, y), 32));
+        }
+    }
+
 
     @Override
-    public void render(Graphics g) {
-        g.drawImage(getCurrentAnimationFrame(), (int) x, (int) y, 32, 32, null);
-        g.setColor(Color.BLUE);
-        g.drawRect((int) x + bounds.x, (int) y + bounds.y, bounds.width, bounds.height);
+    public void render(Graphics2D g2D) {
+        g2D.setColor(Color.BLUE);
+        g2D.drawRect((int) bounds.position.x + bounds.getxOffset()
+                , (int) bounds.position.y + bounds.getyOffset(), 16, 20);
+        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        renderBomb(g2D);
+        renderFlame(g2D);
     }
 
-    private void input(KeyHandler key) {
+    public void renderBomb(Graphics2D g2D) {
+        Iterator<Bomb> iterable = bombs.iterator();
+        while (iterable.hasNext()) {
+            iterable.next().render(g2D);
+        }
+        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+    }
+
+    public void removeFlame() {
+        Iterator<Flame> iterator = flames.iterator();
+        Flame temp;
+        while (iterator.hasNext()) {
+            temp = iterator.next();
+            temp.update();
+            if (temp.getIsExploded()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    public void move() {
+        if (up) {
+            dy -= acceleration;
+            if (dy < -maxSpeed) {
+                dy = -maxSpeed;
+            }
+        } else {
+            if (dy < 0) {
+                dy += deAcceleration;
+                if (dy > 0) {
+                    dy = 0;
+                }
+            }
+        }
+        if (down) {
+            dy += acceleration;
+            if (dy > maxSpeed) {
+                dy = maxSpeed;
+            }
+        } else {
+            if (dy > 0) {
+                dy -= deAcceleration;
+                if (dy < 0) {
+                    dy = 0;
+                }
+            }
+        }
+        if (left) {
+            dx -= acceleration;
+            if (dx < -maxSpeed) {
+                dx = -maxSpeed;
+            }
+        } else {
+            if (dx < 0) {
+                dx += deAcceleration;
+                if (dx > 0) {
+                    dx = 0;
+                }
+            }
+        }
+        if (right) {
+            dx += acceleration;
+            if (dx > maxSpeed) {
+                dx = maxSpeed;
+            }
+        } else {
+            if (dx > 0) {
+                dx -= deAcceleration;
+                if (dx < 0) {
+                    dx = 0;
+                }
+            }
+        }
+
+    }
+
+    public void input(KeyHandler key) {
         if (key.up.down) {
             up = true;
         } else {
@@ -77,99 +215,40 @@ public class Player extends Character {
         } else {
             right = false;
         }
-    }
-
-    private void move() {
-        if (up) {
-            dy -= acceleration;
-            if (dy < -speed) {
-                dy = -speed;
-            }
+        key.attack.tick();
+        if (key.attack.clicked) {
+            attack = true;
         } else {
-            if (dy < 0) {
-                dy += deAcceleration;
-                if (dy > 0) {
-                    dy = 0;
-                }
-            }
-        }
-        if (down) {
-            dy += acceleration;
-            if (dy > speed) {
-                dy = speed;
-            }
-        } else {
-            if (dy > 0) {
-                dy -= deAcceleration;
-                if (dy < 0) {
-                    dy = 0;
-                }
-            }
-        }
-        if (left) {
-            dx -= acceleration;
-            if (dx < -speed) {
-                dx = -speed;
-            }
-        } else {
-            if (dx < 0) {
-                dx += deAcceleration;
-                if (dx > 0) {
-                    dx = 0;
-                }
-            }
-        }
-        if (right) {
-            dx += acceleration;
-            if (dx > speed) {
-                dx = speed;
-            }
-        } else {
-            if (dx > 0) {
-                dx -= deAcceleration;
-                if (dx < 0) {
-                    dx = 0;
-                }
-            }
+            attack = false;
         }
     }
 
 
-    private BufferedImage getCurrentAnimationFrame() {
-        if (up) {
-            UP = 1;
-            DOWN = 0;
-            LEFT = 0;
-            RIGHT = 0;
-            return animationUP.getCurrentFrame();
-
-        } else if (right) {
-            UP = 0;
-            DOWN = 0;
-            LEFT = 0;
-            RIGHT = 1;
-            return animationRight.getCurrentFrame();
-        } else if (left) {
-            UP = 0;
-            DOWN = 0;
-            LEFT = 1;
-            RIGHT = 0;
-            return animationLeft.getCurrentFrame();
-        } else if (down) {
-            UP = 0;
-            DOWN = 1;
-            LEFT = 0;
-            RIGHT = 0;
-            return animationDown.getCurrentFrame();
-        } else {
-            if (UP == 1) {
-                return Sprite.player_up[0];
-            } else if (RIGHT == 1){
-                return Sprite.player_right[0];
-            } else if(LEFT==1){
-                return Sprite.player_left[0];
-            } else return Sprite.player_down[0];
-        }
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
     }
 
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setAcceleration(float acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setDeAcceleration(float deAcceleration) {
+        this.deAcceleration = deAcceleration;
+    }
+
+    public ArrayList<Bomb> getBombs() {
+        return bombs;
+    }
 }

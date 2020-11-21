@@ -4,8 +4,8 @@ import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
 
-public class MenuState extends GameState {
-    public MenuState(GameStateManager gameStateManager) {
+public class GameoverState extends GameState {
+    public GameoverState(GameStateManager gameStateManager) {
         super(gameStateManager);
     }
 

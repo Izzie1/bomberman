@@ -1,13 +1,8 @@
-package com.izzist.game.Entity;
+package com.izzist.game.entity;
 
-import com.izzist.game.Game;
+import com.izzist.game.managers.TileManager;
 
-/**
- * Class danh cho cac doi tuong nhu enemy hay bomber.
- */
 public abstract class Character extends Entity {
-    protected boolean isAlive;
-
     protected boolean up;
     protected boolean down;
     protected boolean right;
@@ -15,13 +10,25 @@ public abstract class Character extends Entity {
 
     protected float dx;
     protected float dy;
-    protected float speed;
+    protected float maxSpeed;
     protected float acceleration;
     protected float deAcceleration;
 
+    private boolean isAlive;
 
-    public Character(float x, float y, int width, int height, Game game) {
-        super(x, y, width, height, game);
-        isAlive = true;
+    public float getDx() {
+        return dx;
+    }
+
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
+
+    public float getDy() {
+        return dy;
+    }
+
+    public void setDy(float dy) {
+        this.dy = dy;
     }
 }

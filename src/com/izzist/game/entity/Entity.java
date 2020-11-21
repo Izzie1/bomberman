@@ -1,68 +1,47 @@
-package com.izzist.game.Entity;
+package com.izzist.game.entity;
 
-
-import com.izzist.game.Game;
+import com.izzist.game.graphics.Animation;
+import com.izzist.game.graphics.Sprite;
+import com.izzist.game.ultility.AABB;
+import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
-/**
- * Class Entity.
- */
 public abstract class Entity {
-    protected float x; //Toa do x
-    protected float y; //Toa do y
-    protected int width;
-    protected int height;
-    protected Game game;
-    protected Rectangle bounds;
+    protected int currentAnimation;
+    protected Animation animation;
+    protected Sprite sprite;
+    protected Vector2D position;
+    protected int size;
+    protected AABB bounds;
 
-    public Entity(float x, float y,int width,int height,Game game) {
-        this.game = game;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+
+    public void setAnimation(int i, BufferedImage[] frames, int delay) {
+        currentAnimation = i;
+        animation.setFrames(frames);
+        animation.setDelay(delay);
     }
+    public void setAnimation2( BufferedImage[] frames, int delay) {
+        animation.setFrames(frames);
+        animation.setDelay(delay);
+    }
+
+    public abstract void render(Graphics2D g2D);
 
     public abstract void update();
 
-    public abstract void render(Graphics g);
-
-    public float getX() {
-        return x;
+    public int getSize() {
+        return size;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public Vector2D getPosition() {
+        return position;
     }
 
-    public float getY() {
-        return y;
+    public void setPosition(Vector2D position) {
+        this.position = position;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
-    }
 
 }

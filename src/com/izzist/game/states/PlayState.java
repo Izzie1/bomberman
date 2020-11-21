@@ -1,32 +1,48 @@
 package com.izzist.game.states;
 
+import com.izzist.game.entity.Bomb.Bomb;
+import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.entity.Enemy.Balloom;
+import com.izzist.game.entity.Player;
+import com.izzist.game.managers.BombManager;
+import com.izzist.game.managers.MapManager;
+import com.izzist.game.managers.PlayerManager;
+import com.izzist.game.map.MapLoader;
+import com.izzist.game.ultility.KeyHandler;
+import com.izzist.game.ultility.Vector2D;
 
 
-import com.izzist.game.Entity.Player;
-import com.izzist.game.Game;
-import com.izzist.game.map.World;
-
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class PlayState extends GameState {
-    private Player player;
-    private World world;
+    private MapManager mapManager;
+    private PlayerManager playerManager;
+    private BombManager bombManager;
+    private ArrayList<Flame> flames = new ArrayList<>();
 
-    public PlayState(Game game) {
-        super(game);
-        player=new Player(32,32,32,32,this.game);
-        world = new World("res/Level1.txt",this.game);
 
+    public PlayState(GameStateManager gameStateManager) {
+        super((gameStateManager));
+        playerManager = new PlayerManager();
+        mapManager = new MapManager();
+        bombManager = new BombManager();
     }
 
     @Override
     public void update() {
-        player.update();
+        playerManager.getPLayer(0).update();
+        mapManager.getMap(0).update();
     }
 
     @Override
-    public void render(Graphics g) {
-        world.render(g);
-        player.render(g);
+    public void input(KeyHandler key) {
+        playerManager.getPLayer(0).input(key);
+    }
+
+    @Override
+    public void render(Graphics2D g2D) {
+        mapManager.getMap(0).render(g2D);
+        playerManager.getPLayer(0).render(g2D);
     }
 }
