@@ -1,6 +1,9 @@
 package com.izzist.game.map;
 
+import com.izzist.game.entity.Item.Item;
+import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.entity.Player;
+import com.izzist.game.managers.ItemManager;
 import com.izzist.game.managers.PlayerManager;
 import com.izzist.game.managers.TileManager;
 import com.izzist.game.map.tiles.Tile;
@@ -40,7 +43,6 @@ public class MapLoader {
             width = Integer.parseInt(tokens.nextToken());
             lineTiles = new String[height];
             TileManager.tileManager = new Tile[width][height];
-            TileManager.tileBrickManager = new TileBrick[width][height];
             for (int i = 0; i < height; ++i) {
                 lineTiles[i] = myReader.nextLine().substring(0, width);
 
@@ -59,14 +61,27 @@ public class MapLoader {
                     }
                     case '*': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileBrickManager[x][y] = tileBrick;
+                        TileManager.tileBrickManager.add(tileBrick);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager[x][y] = tileGrass;
+
+                        break;
+                    }
+                    case 'p': {
+                        Player player = new Player(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        PlayerManager.players.add(player);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileGrass;
                         break;
                     }
-                    case  'p':{
-                        Player player = new Player(new Vector2D(x*TILE_SIZE,y*TILE_SIZE),32);
-                        PlayerManager.players.add(player);
+                    case 's':{
+                        TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileBrickManager.add(tileBrick);
+                        ItemSpeed itemSpeed = new ItemSpeed(new Vector2D(x * TILE_SIZE+4, y * TILE_SIZE+4));
+                        ItemManager.items.add(itemSpeed);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager[x][y] = tileGrass;
+                        break;
                     }
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
@@ -81,32 +96,44 @@ public class MapLoader {
 
     public void render(Graphics2D g2D) {
 
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    if (TileManager.tileManager[x][y] != null)
-                    TileManager.tileManager[x][y].render(g2D);
-                }
-            }
-
-
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (TileManager.tileBrickManager[x][y] != null) {
-                    TileManager.tileBrickManager[x][y].render(g2D);
-                }
+                if (TileManager.tileManager[x][y] != null)
+                    TileManager.tileManager[x][y].render(g2D);
             }
         }
 
+        if (ItemManager.items != null) {
+            for (Item item : ItemManager.items) {
+                item.render(g2D);
+            }
+        }
+
+        if (TileManager.tileBrickManager != null) {
+            for (TileBrick brick : TileManager.tileBrickManager) {
+                brick.render(g2D);
+            }
+        }
 
     }
 
     public void update() {
+        if (TileManager.tileBrickManager != null) {
+            for (TileBrick brick : TileManager.tileBrickManager) {
+                brick.update();
+            }
+        }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (TileManager.tileBrickManager[x][y] != null) {
-                    TileManager.tileBrickManager[x][y].update();
-                }
+        if (ItemManager.items != null) {
+            for (Item item : ItemManager.items) {
+                item.update();
+            }
+        }
+
+        for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
+            if (TileManager.tileBrickManager.get(i).isBreak()
+                    &&TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {
+                TileManager.tileBrickManager.remove(i);
             }
         }
     }

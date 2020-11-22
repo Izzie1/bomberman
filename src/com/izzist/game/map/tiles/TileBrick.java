@@ -1,5 +1,6 @@
 package com.izzist.game.map.tiles;
 
+import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.AABB;
@@ -11,6 +12,7 @@ public class TileBrick extends Tile {
     private Animation animation;
     private boolean isBreak = false;
     private Animation animation1;
+
 
     public TileBrick(Vector2D position, int size) {
         super(position, size);
@@ -44,7 +46,7 @@ public class TileBrick extends Tile {
     }
 
     @Override
-    public boolean isCollide(AABB a) {
+    public boolean isCollide(Entity entity) {
         return true;
     }
 
@@ -52,7 +54,11 @@ public class TileBrick extends Tile {
         return isBreak;
     }
 
-    public void setBreak(boolean aBreak) {
-        isBreak = aBreak;
+    public void setBreak(boolean a) {
+        isBreak = a;
+    }
+
+    public Animation getAnimation1() {
+        return animation1;
     }
 }

@@ -1,6 +1,7 @@
 package com.izzist.game.entity.Bomb;
 
 import com.izzist.game.entity.Entity;
+import com.izzist.game.entity.Player;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.states.PlayState;
@@ -12,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Bomb extends Entity {
-    private int explodeTime = 100;
+    private int explodeTime = 160;
     private boolean isExploded = false;
-    private int timeAfterSet = 20;
-
+    private int timeAfterSet = 80;
 
 
     public Bomb(Vector2D position, int size) {
@@ -48,17 +48,18 @@ public class Bomb extends Entity {
         animation.update();
         if (explodeTime > 0) {
             isExploded = false;
+            timeAfterSet--;
+            if (timeAfterSet < 0) {
+                timeAfterSet = 0;
+            }
             explodeTime--;
         } else if (explodeTime == 0) {
             isExploded = true;
-            explodeTime = 100;
+            explodeTime = 160;
+            timeAfterSet = 80;
         }
     }
 
-    public void setPosition(int x, int y) {
-        position.x = x;
-        position.y = y;
-    }
 
     public int getExplodeTime() {
         return explodeTime;
@@ -67,5 +68,6 @@ public class Bomb extends Entity {
     public void setExplodeTime(int explodeTime) {
         this.explodeTime = explodeTime;
     }
+
 
 }

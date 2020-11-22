@@ -23,7 +23,6 @@ public class Player extends Character {
 
     private boolean attack;
     private ArrayList<Bomb> bombs = new ArrayList<>();
-    private ArrayList<Flame> flames = new ArrayList<>();
     private int bombQuantity = 3;
 
 
@@ -65,38 +64,24 @@ public class Player extends Character {
         animate();
         move();
         animation.update();
-
-        if (!bounds.collision(dx, 0)&&!bounds.collisionWitBrick(dx, 0)) {
+        if (!collision(dx, 0)) {
             position.x += dx;
         }
 
-        if (!bounds.collision(0, dy)&&!bounds.collisionWitBrick(0, dy)) {
+        if (!collision(0, dy)) {
             position.y += dy;
         }
         setBomb();
+        updateBomb();
         removeBomb();
-        removeFlame();
     }
 
-    public void removeBomb() {
-        Iterator<Bomb> iterator = bombs.iterator();
-        Bomb temp;
-        while (iterator.hasNext()) {
-            temp = iterator.next();
-            temp.update();
-            if (temp.getIsExploded()) {
-                Flame f = new Flame(temp.position, 32);
-                flames.add(f);
-                iterator.remove();
-            }
-        }
-    }
-
-    public void renderFlame(Graphics2D g2D) {
-        Iterator<Flame> iterator = flames.iterator();
-        while ((iterator.hasNext())) {
-            iterator.next().render(g2D);
-        }
+    @Override
+    public void render(Graphics2D g2D) {
+        g2D.setColor(Color.BLUE);
+        g2D.drawRect((int) bounds.position.x + bounds.getxOffset()
+                , (int) bounds.position.y + bounds.getyOffset(), 16, 20);
+        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
     }
 
     public void setBomb() {
@@ -107,34 +92,19 @@ public class Player extends Character {
         }
     }
 
-
-    @Override
-    public void render(Graphics2D g2D) {
-        g2D.setColor(Color.BLUE);
-        g2D.drawRect((int) bounds.position.x + bounds.getxOffset()
-                , (int) bounds.position.y + bounds.getyOffset(), 16, 20);
-        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-        renderBomb(g2D);
-        renderFlame(g2D);
-    }
-
-    public void renderBomb(Graphics2D g2D) {
-        Iterator<Bomb> iterable = bombs.iterator();
-        while (iterable.hasNext()) {
-            iterable.next().render(g2D);
-        }
-        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-    }
-
-    public void removeFlame() {
-        Iterator<Flame> iterator = flames.iterator();
-        Flame temp;
-        while (iterator.hasNext()) {
-            temp = iterator.next();
-            temp.update();
-            if (temp.getIsExploded()) {
-                iterator.remove();
+    public void removeBomb() {
+        for(int i = bombs.size()-1;i>=0;i--){
+            if(bombs.get(i).getIsExploded()){
+                Flame f = new Flame(bombs.get(i).getPosition(), 32);
+                PlayState.flames.add(f);
+                bombs.remove(i);
             }
+        }
+    }
+
+    public void updateBomb() {
+        for (Bomb bomb : bombs) {
+            bomb.update();
         }
     }
 
@@ -251,4 +221,6 @@ public class Player extends Character {
     public ArrayList<Bomb> getBombs() {
         return bombs;
     }
+
+
 }

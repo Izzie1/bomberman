@@ -1,5 +1,6 @@
 package com.izzist.game.map.tiles;
 
+import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.Vector2D;
@@ -22,7 +23,7 @@ public class TileWall extends Tile{
     }
 
     @Override
-    public boolean isCollide(AABB a) {
+    public boolean isCollide(Entity entity) {
         return true;
     }
 }

@@ -17,29 +17,7 @@ public class AABB {
         this.yOffset = yOffset;
     }
 
-    public boolean collision(float ax, float ay) {
-        for (int c = 0; c < 4; c++) {
-            System.out.println(c);
-            int xt = ((int) (position.x + ax + xOffset) + (c % 2) * width) / 32;
-            int yt = (int) ((position.y + ay + yOffset) + (c / 2) * height + yOffset) / 32;
-            if (TileManager.tileManager[xt][yt] != null && TileManager.tileManager[xt][yt].isCollide(this)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean collisionWitBrick(float ax, float ay) {
-        for (int c = 0; c < 4; c++) {
-            System.out.println(c);
-            int xt = ((int) (position.x + ax + xOffset) + (c % 2) * width) / 32;
-            int yt = (int) ((position.y + ay + yOffset) + (c / 2) * height + yOffset) / 32;
-            if (TileManager.tileBrickManager[xt][yt] != null && TileManager.tileBrickManager[xt][yt].isCollide(this)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
     public int getxOffset() {

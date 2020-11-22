@@ -12,7 +12,7 @@ import java.awt.*;
 public class Flame extends Entity {
 
     private int explodeTime = 40;
-    private int radius = 4;
+    private int radius = 1;
     private boolean isExploded = false;
 
 
@@ -29,25 +29,25 @@ public class Flame extends Entity {
         this.sprite = new Sprite("font/Flame_Green_16_16.png", 16, 16);
         animation = new Animation();
         animation.setFrames(sprite.getSpriteArray2(0));
-        animation.setDelay(10);
+        animation.setDelay(15);
         animation_up = new Animation();
         animation_up.setFrames(sprite.getSpriteArray2(1));
-        animation_up.setDelay(10);
+        animation_up.setDelay(15);
         animation_down = new Animation();
         animation_down.setFrames(sprite.getSpriteArray2(4));
-        animation_down.setDelay(10);
+        animation_down.setDelay(15);
         animation_right = new Animation();
         animation_right.setFrames(sprite.getSpriteArray2(3));
-        animation_right.setDelay(10);
+        animation_right.setDelay(15);
         animation_left = new Animation();
         animation_left.setFrames(sprite.getSpriteArray2(2));
-        animation_left.setDelay(10);
+        animation_left.setDelay(15);
         animation_horizontal = new Animation();
         animation_horizontal.setFrames(sprite.getSpriteArray2(6));
-        animation_horizontal.setDelay(10);
+        animation_horizontal.setDelay(15);
         animation_vertical = new Animation();
         animation_vertical.setFrames(sprite.getSpriteArray2(5));
-        animation_vertical.setDelay(10);
+        animation_vertical.setDelay(15);
     }
 
     public void setIsExploded(boolean exploded) {
@@ -65,7 +65,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) - i) * 32;
             int y = (int) ((position.y));
-            if (isWallCollision(x, y) || isBrickCollision(x, y)) {
+            if (isWallCollision(x, y) ) {
+                break;
+            } else if(isBrickCollision(x, y)){
+                TileManager.getBrick(x/32,y/32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -74,11 +77,13 @@ public class Flame extends Entity {
                 g2D.drawImage(animation_horizontal.getImage(), x, y, size, size, null);
             }
         }
-        //phai
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) + i) * 32;
             int y = (int) ((position.y));
-            if (isWallCollision(x, y) || isBrickCollision(x, y)) {
+            if (isWallCollision(x, y) ) {
+                break;
+            } else if(isBrickCollision(x, y)){
+                TileManager.getBrick(x/32,y/32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -91,7 +96,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) - i) * 32;
-            if (isWallCollision(x, y) || isBrickCollision(x, y)) {
+            if (isWallCollision(x, y) ) {
+                break;
+            } else if(isBrickCollision(x, y)){
+                TileManager.getBrick(x/32,y/32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -104,7 +112,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) + i) * 32;
-            if (isWallCollision(x, y) || isBrickCollision(x, y)) {
+            if (isWallCollision(x, y) ) {
+                break;
+            } else if(isBrickCollision(x, y)){
+                TileManager.getBrick(x/32,y/32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -117,16 +128,6 @@ public class Flame extends Entity {
 
     @Override
     public void update() {
-
-        animation.update();
-        animation_left.update();
-        animation_right.update();
-        animation_up.update();
-        animation_down.update();
-        animation_horizontal.update();
-        animation_vertical.update();
-
-
         if (explodeTime > 0) {
             isExploded = false;
             explodeTime--;
@@ -134,6 +135,17 @@ public class Flame extends Entity {
             isExploded = true;
             explodeTime = 40;
         }
+        updateFlame();
+    }
+
+    public void updateFlame(){
+        animation.update();
+        animation_left.update();
+        animation_right.update();
+        animation_up.update();
+        animation_down.update();
+        animation_horizontal.update();
+        animation_vertical.update();
     }
 
     private boolean isWallCollision(int xt, int yt) {
@@ -144,7 +156,7 @@ public class Flame extends Entity {
     }
 
     private boolean isBrickCollision(int xt, int yt) {
-        return TileManager.tileBrickManager[xt / 32][yt / 32] != null;
+        return TileManager.getBrick(xt / 32,yt/32) != null;
     }
 
     public void setPosition(int x, int y) {
