@@ -23,7 +23,8 @@ public class Flame extends Entity {
     private Animation animation_horizontal;//ngang
     private Animation animation_vertical;//doc
 
-    public Flame(Vector2D position, int size) {
+    public Flame(Vector2D position, int size, int radius) {
+        this.radius = radius;
         this.position = position;
         this.size = size;
         this.sprite = new Sprite("font/Flame_Green_16_16.png", 16, 16);
@@ -65,10 +66,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) - i) * 32;
             int y = (int) ((position.y));
-            if (isWallCollision(x, y) ) {
+            if (isWallCollision(x, y)) {
                 break;
-            } else if(isBrickCollision(x, y)){
-                TileManager.getBrick(x/32,y/32).setBreak(true);
+            } else if (isBrickCollision(x, y)) {
+                TileManager.getBrick(x / 32, y / 32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -80,10 +81,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) + i) * 32;
             int y = (int) ((position.y));
-            if (isWallCollision(x, y) ) {
+            if (isWallCollision(x, y)) {
                 break;
-            } else if(isBrickCollision(x, y)){
-                TileManager.getBrick(x/32,y/32).setBreak(true);
+            } else if (isBrickCollision(x, y)) {
+                TileManager.getBrick(x / 32, y / 32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -96,10 +97,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) - i) * 32;
-            if (isWallCollision(x, y) ) {
+            if (isWallCollision(x, y)) {
                 break;
-            } else if(isBrickCollision(x, y)){
-                TileManager.getBrick(x/32,y/32).setBreak(true);
+            } else if (isBrickCollision(x, y)) {
+                TileManager.getBrick(x / 32, y / 32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -112,10 +113,10 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) + i) * 32;
-            if (isWallCollision(x, y) ) {
+            if (isWallCollision(x, y)) {
                 break;
-            } else if(isBrickCollision(x, y)){
-                TileManager.getBrick(x/32,y/32).setBreak(true);
+            } else if (isBrickCollision(x, y)) {
+                TileManager.getBrick(x / 32, y / 32).setBreak(true);
                 break;
             }
             if (i == radius) {
@@ -138,7 +139,7 @@ public class Flame extends Entity {
         updateFlame();
     }
 
-    public void updateFlame(){
+    public void updateFlame() {
         animation.update();
         animation_left.update();
         animation_right.update();
@@ -156,7 +157,7 @@ public class Flame extends Entity {
     }
 
     private boolean isBrickCollision(int xt, int yt) {
-        return TileManager.getBrick(xt / 32,yt/32) != null;
+        return TileManager.getBrick(xt / 32, yt / 32) != null;
     }
 
     public void setPosition(int x, int y) {

@@ -1,8 +1,6 @@
 package com.izzist.game.entity;
 
-import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.TileManager;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public abstract class Character extends Entity {
     protected boolean up;
@@ -12,7 +10,7 @@ public abstract class Character extends Entity {
 
     protected float dx;
     protected float dy;
-    protected float maxSpeed;
+    protected float speed;
     protected float acceleration;
     protected float deAcceleration;
 

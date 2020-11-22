@@ -1,6 +1,8 @@
 package com.izzist.game.map;
 
 import com.izzist.game.entity.Item.Item;
+import com.izzist.game.entity.Item.ItemBomb;
+import com.izzist.game.entity.Item.ItemFlame;
 import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.entity.Player;
 import com.izzist.game.managers.ItemManager;
@@ -74,15 +76,34 @@ public class MapLoader {
                         TileManager.tileManager[x][y] = tileGrass;
                         break;
                     }
-                    case 's':{
+                    case 'b': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileBrickManager.add(tileBrick);
-                        ItemSpeed itemSpeed = new ItemSpeed(new Vector2D(x * TILE_SIZE+4, y * TILE_SIZE+4));
+                        ItemBomb itemBomb = new ItemBomb(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
+                        ItemManager.items.add(itemBomb);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager[x][y] = tileGrass;
+                        break;
+                    }
+                    case 'f': {
+                        TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileBrickManager.add(tileBrick);
+                        ItemFlame itemFlame = new ItemFlame(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
+                        ItemManager.items.add(itemFlame);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager[x][y] = tileGrass;
+                        break;
+                    }
+                    case 's': {
+                        TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileBrickManager.add(tileBrick);
+                        ItemSpeed itemSpeed = new ItemSpeed(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
                         ItemManager.items.add(itemSpeed);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileGrass;
                         break;
                     }
+
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileGrass;
@@ -132,7 +153,7 @@ public class MapLoader {
 
         for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
             if (TileManager.tileBrickManager.get(i).isBreak()
-                    &&TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {
+                    && TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {
                 TileManager.tileBrickManager.remove(i);
             }
         }

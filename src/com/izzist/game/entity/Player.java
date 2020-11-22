@@ -2,9 +2,12 @@ package com.izzist.game.entity;
 
 import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.entity.Item.ItemBomb;
+import com.izzist.game.entity.Item.ItemFlame;
+import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.managers.TileManager;
+import com.izzist.game.managers.ItemManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.KeyHandler;
@@ -12,8 +15,6 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class Player extends Character {
     private final int UP = 3;
@@ -23,7 +24,13 @@ public class Player extends Character {
 
     private boolean attack;
     private ArrayList<Bomb> bombs = new ArrayList<>();
-    private int bombQuantity = 3;
+
+    private int maxSpeed = 4;
+    private int maxBomb = 3;
+    private int maxFlameRange = 4;
+
+    private int bombQuantity = 1;
+    private int flameRange = 1;
 
 
     public Player(Vector2D position, int size) {
@@ -32,7 +39,7 @@ public class Player extends Character {
         this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
         animation = new Animation();
         setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
-        maxSpeed = 2;
+        speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
         bounds = new AABB(16, 20, position, 8, 4);
@@ -74,6 +81,8 @@ public class Player extends Character {
         setBomb();
         updateBomb();
         removeBomb();
+        takeItem();
+        System.out.println(speed);
     }
 
     @Override
@@ -93,9 +102,9 @@ public class Player extends Character {
     }
 
     public void removeBomb() {
-        for(int i = bombs.size()-1;i>=0;i--){
-            if(bombs.get(i).getIsExploded()){
-                Flame f = new Flame(bombs.get(i).getPosition(), 32);
+        for (int i = bombs.size() - 1; i >= 0; i--) {
+            if (bombs.get(i).getIsExploded()) {
+                Flame f = new Flame(bombs.get(i).getPosition(), 32, flameRange);
                 PlayState.flames.add(f);
                 bombs.remove(i);
             }
@@ -111,8 +120,8 @@ public class Player extends Character {
     public void move() {
         if (up) {
             dy -= acceleration;
-            if (dy < -maxSpeed) {
-                dy = -maxSpeed;
+            if (dy < -speed) {
+                dy = -speed;
             }
         } else {
             if (dy < 0) {
@@ -124,8 +133,8 @@ public class Player extends Character {
         }
         if (down) {
             dy += acceleration;
-            if (dy > maxSpeed) {
-                dy = maxSpeed;
+            if (dy > speed) {
+                dy = speed;
             }
         } else {
             if (dy > 0) {
@@ -137,8 +146,8 @@ public class Player extends Character {
         }
         if (left) {
             dx -= acceleration;
-            if (dx < -maxSpeed) {
-                dx = -maxSpeed;
+            if (dx < -speed) {
+                dx = -speed;
             }
         } else {
             if (dx < 0) {
@@ -150,8 +159,8 @@ public class Player extends Character {
         }
         if (right) {
             dx += acceleration;
-            if (dx > maxSpeed) {
-                dx = maxSpeed;
+            if (dx > speed) {
+                dx = speed;
             }
         } else {
             if (dx > 0) {
@@ -193,6 +202,31 @@ public class Player extends Character {
         }
     }
 
+    public void takeItem() {
+        int xt = (int) (position.x + 16) / 32;
+        int yt = (int) (position.y + 16) / 32;
+        if (ItemManager.getItem(xt, yt) instanceof ItemSpeed) {
+            if (speed < maxSpeed) {
+                speed += 1;
+                acceleration += 0.1f;
+                deAcceleration += 0.5f;
+            }
+            ItemManager.items.remove(ItemManager.getItem(xt, yt));
+        }
+        if (ItemManager.getItem(xt, yt) instanceof ItemBomb) {
+            if (bombQuantity < maxBomb) {
+                bombQuantity += 1;
+            }
+            ItemManager.items.remove(ItemManager.getItem(xt, yt));
+        }
+        if (ItemManager.getItem(xt, yt) instanceof ItemFlame) {
+            if (flameRange < maxFlameRange) {
+                flameRange+=1;
+            }
+            ItemManager.items.remove(ItemManager.getItem(xt, yt));
+        }
+    }
+
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
@@ -207,7 +241,7 @@ public class Player extends Character {
     }
 
     public void setMaxSpeed(float maxSpeed) {
-        this.maxSpeed = maxSpeed;
+        this.speed = maxSpeed;
     }
 
     public void setAcceleration(float acceleration) {
