@@ -3,7 +3,6 @@ package com.izzist.game.map.tiles;
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;

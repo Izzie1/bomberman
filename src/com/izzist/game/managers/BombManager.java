@@ -28,9 +28,7 @@ public class BombManager {
     }
 
     public void addBomb() {
-        for (Player p : PlayerManager.players) {
-            bombs.addAll(p.getBombs());
-        }
+        bombs.addAll(PlayState.player.getBombs());
     }
 
 

@@ -9,7 +9,6 @@ import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.ItemManager;
 import com.izzist.game.states.PlayState;
-import com.izzist.game.ultility.AABB;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
@@ -23,7 +22,8 @@ public class Player extends Character {
     private final int LEFT = 2;
 
     private boolean attack;
-    private boolean isAlive = true;
+
+    private int dieTime = 40;
     private int lives = 3;
     private ArrayList<Bomb> bombs = new ArrayList<>();
 
@@ -34,7 +34,6 @@ public class Player extends Character {
 
     private int bombQuantity = 1;
     private int flameRange = 3;
-    private Rectangle rectangle;
 
     public Player(Vector2D position, int size) {
         this.position = position;
@@ -42,29 +41,30 @@ public class Player extends Character {
         this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
         animation = new Animation();
         setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+        this.xOffSet = 8;
+        this.yOffSet = 4;
         speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
-        bounds = new AABB(16, 24, this.position, 8, 4);
-        rectangle = new Rectangle((int) bounds.position.x + bounds.getxOffset(),
-                (int) bounds.position.y + bounds.getyOffset(), bounds.getWidth(), bounds.getHeight());
+        rectangle = new Rectangle((int) position.x + xOffSet,
+                (int) position.y + yOffSet, 16, 24);
     }
 
     public void animate() {
         if (up) {
-            if (currentAnimation != UP || animation.getDelay() == -1) {
+            if (currentAnimation != UP) {
                 setAnimation(UP, sprite.getSpriteArray(UP, 0), 5);
             }
         } else if (down) {
-            if (currentAnimation != DOWN || animation.getDelay() == -1) {
+            if (currentAnimation != DOWN) {
                 setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
             }
         } else if (left) {
-            if (currentAnimation != LEFT || animation.getDelay() == -1) {
+            if (currentAnimation != LEFT) {
                 setAnimation(LEFT, sprite.getSpriteArray(LEFT, 0), 5);
             }
         } else if (right) {
-            if (currentAnimation != RIGHT || animation.getDelay() == -1) {
+            if (currentAnimation != RIGHT) {
                 setAnimation(RIGHT, sprite.getSpriteArray(RIGHT, 0), 5);
             }
         } else {
@@ -76,10 +76,10 @@ public class Player extends Character {
         animate();
         move();
         animation.update();
+
         if (!collision(dx, 0)) {
             position.x += dx;
         }
-
         if (!collision(0, dy)) {
             position.y += dy;
         }
@@ -88,20 +88,17 @@ public class Player extends Character {
         removeBomb();
         takeItem();
         updateRect();
-        if (flameCollision()) {
-            position.x = 32;
-            position.y = 32;
-            setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+        if(flameCollision()){
+            position.x=32;
+            position.y=32;
         }
-
-
     }
 
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.BLUE);
-        g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        g2D.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
 
     public boolean flameCollision() {
@@ -119,6 +116,7 @@ public class Player extends Character {
         return false;
     }
 
+
     public void setBomb() {
         if (attack && bombs.size() < bombQuantity) {
             float x = this.position.x;
@@ -128,7 +126,8 @@ public class Player extends Character {
     }
 
     public void updateRect() {
-        rectangle.setBounds((int) bounds.position.x + 8, (int) bounds.position.y + 4, bounds.getWidth(), bounds.getHeight());
+        rectangle.setBounds((int) position.x + xOffSet, (int) position.y + yOffSet,
+                rectangle.width, rectangle.height);
     }
 
     public void removeBomb() {
@@ -148,7 +147,9 @@ public class Player extends Character {
     }
 
     public void move() {
+        boolean check = false;
         if (up) {
+            check = true;
             dy -= acceleration;
             if (dy < -speed) {
                 dy = -speed;
@@ -162,6 +163,7 @@ public class Player extends Character {
             }
         }
         if (down) {
+            check = true;
             dy += acceleration;
             if (dy > speed) {
                 dy = speed;
@@ -175,6 +177,7 @@ public class Player extends Character {
             }
         }
         if (left) {
+            check = true;
             dx -= acceleration;
             if (dx < -speed) {
                 dx = -speed;
@@ -188,6 +191,7 @@ public class Player extends Character {
             }
         }
         if (right) {
+            check = true;
             dx += acceleration;
             if (dx > speed) {
                 dx = speed;
@@ -200,7 +204,11 @@ public class Player extends Character {
                 }
             }
         }
-
+        if (!check) {
+            dx = 0;
+            dy = 0;
+        }
+        System.out.println(dx + " " + dy);
     }
 
     public void input(KeyHandler key) {
@@ -286,5 +294,19 @@ public class Player extends Character {
         return bombs;
     }
 
+    public boolean getIsAlive() {
+        return isAlive;
+    }
 
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
 }

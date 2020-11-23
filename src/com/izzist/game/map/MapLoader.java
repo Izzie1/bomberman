@@ -1,17 +1,20 @@
 package com.izzist.game.map;
 
+import com.izzist.game.entity.Enemy.Balloom;
+import com.izzist.game.entity.Enemy.Enemy;
 import com.izzist.game.entity.Item.Item;
 import com.izzist.game.entity.Item.ItemBomb;
 import com.izzist.game.entity.Item.ItemFlame;
 import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.entity.Player;
+import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
-import com.izzist.game.managers.PlayerManager;
 import com.izzist.game.managers.TileManager;
 import com.izzist.game.map.tiles.Tile;
 import com.izzist.game.map.tiles.TileBrick;
 import com.izzist.game.map.tiles.TileGrass;
 import com.izzist.game.map.tiles.TileWall;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -70,8 +73,7 @@ public class MapLoader {
                         break;
                     }
                     case 'p': {
-                        Player player = new Player(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        PlayerManager.players.add(player);
+                        PlayState.player = new Player(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileGrass;
                         break;
@@ -103,7 +105,12 @@ public class MapLoader {
                         TileManager.tileManager[x][y] = tileGrass;
                         break;
                     }
-
+                    case '1':{
+                        EnemyManager.enemies.add(new Balloom(new Vector2D(x*TILE_SIZE,y*TILE_SIZE),32));
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager[x][y] = tileGrass;
+                        break;
+                    }
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager[x][y] = tileGrass;
