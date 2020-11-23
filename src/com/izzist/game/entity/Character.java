@@ -21,6 +21,7 @@ public abstract class Character extends Entity {
 
     protected boolean isAlive = true;
 
+
     public boolean collision(float ax, float ay) {
         for (int c = 0; c < 4; c++) {
             int xt = (int) (((rectangle.x + ax) + (c % 2) * rectangle.width) / 32);
@@ -33,6 +34,7 @@ public abstract class Character extends Entity {
 
         return false;
     }
+<<<<<<< HEAD
 
     public boolean flameCollision() {
         if (PlayState.flames != null) {
@@ -48,6 +50,10 @@ public abstract class Character extends Entity {
         }
         return false;
     }
+=======
+    
+    private boolean isAlive;
+>>>>>>> f9409e11d4f5567f4da3e2df02d12bd971d00def
 
     public float getDx() {
         return dx;
