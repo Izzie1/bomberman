@@ -9,7 +9,7 @@ public class MapManager {
 
     public MapManager() {
         mapLoaders = new ArrayList<>();
-        mapLoaders.add(new MapLoader("bomberman/data/map/Level1/Level1.txt"));
+        mapLoaders.add(new MapLoader("data/map/Level1/Level1.txt"));
     }
 
     public MapLoader getMap(int level) {
