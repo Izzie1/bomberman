@@ -43,5 +43,11 @@ public abstract class Entity {
         this.position = position;
     }
 
+    public Animation getAnimation() {
+        return animation;
+    }
 
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+    }
 }

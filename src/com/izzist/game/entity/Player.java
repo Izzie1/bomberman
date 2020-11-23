@@ -270,10 +270,6 @@ public class Player extends Character {
         this.sprite = sprite;
     }
 
-    public Animation getAnimation() {
-        return animation;
-    }
-
     public void setSize(int size) {
         this.size = size;
     }
@@ -292,14 +288,6 @@ public class Player extends Character {
 
     public ArrayList<Bomb> getBombs() {
         return bombs;
-    }
-
-    public boolean getIsAlive() {
-        return isAlive;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
     }
 
     public int getLives() {

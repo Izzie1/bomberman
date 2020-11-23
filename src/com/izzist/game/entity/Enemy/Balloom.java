@@ -14,6 +14,9 @@ public class Balloom extends Enemy {
         this.xOffSet = 2;
         this.yOffSet = 2;
         this.sprite = new Sprite("font/Balloom2.png", 16, 16);
+        dead_animation = new Animation();
+        dead_animation.setFrames(sprite.getSpriteArray2(2));
+        dead_animation.setDelay(10);
         animation = new Animation();
         setAnimation(0, sprite.getSpriteArray2(0), 5);
         rectangle = new Rectangle((int) position.x + xOffSet,
@@ -58,28 +61,42 @@ public class Balloom extends Enemy {
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        if(isAlive) {
+            g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        } else {
+            g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        }
     }
 
     @Override
     public void update() {
-        animation.update();
-        move();
-        animate();
-        randomDirection();
-        if (!collision(dx, 0)) {
-            position.x += dx;
+        if (isAlive) {
+            animation.update();
+            move();
+            animate();
+            randomDirection();
+            if (!collision(dx, 0)) {
+                position.x += dx;
+            }
+            if (!collision(0, dy)) {
+                position.y += dy;
+            }
+            updateRect();
+        } else {
+            dead_animation.update();
         }
-        if (!collision(0, dy)) {
-            position.y += dy;
+
+
+        if (flameCollision()) {
+            isAlive = false;
         }
-        updateRect();
     }
 
     public void updateRect() {
-        rectangle= new Rectangle((int) position.x + xOffSet,
+        rectangle = new Rectangle((int) position.x + xOffSet,
                 (int) position.y + yOffSet, 28, 28);
     }
+
 
 }

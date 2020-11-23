@@ -1,6 +1,7 @@
 package com.izzist.game.entity;
 
 import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.graphics.Animation;
 import com.izzist.game.managers.TileManager;
 import com.izzist.game.states.PlayState;
 
@@ -18,8 +19,8 @@ public abstract class Character extends Entity {
     protected float acceleration;
     protected float deAcceleration;
     protected Rectangle rectangle;
-
     protected boolean isAlive = true;
+    protected Animation dead_animation;
 
     public boolean collision(float ax, float ay) {
         for (int c = 0; c < 4; c++) {
@@ -71,5 +72,21 @@ public abstract class Character extends Entity {
 
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    public Animation getDead_animation() {
+        return dead_animation;
+    }
+
+    public void setDead_animation(Animation dead_animation) {
+        this.dead_animation = dead_animation;
     }
 }

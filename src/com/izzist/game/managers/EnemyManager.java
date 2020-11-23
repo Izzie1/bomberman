@@ -34,5 +34,14 @@ public class EnemyManager {
         for (Enemy e : enemies) {
             e.update();
         }
+        removeEnemies();
+    }
+
+    public void removeEnemies() {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            if (!enemies.get(i).getIsAlive() && enemies.get(i).getDead_animation().playOnce()) {
+                enemies.remove(i);
+            }
+        }
     }
 }
