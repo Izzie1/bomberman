@@ -61,7 +61,7 @@ public class Balloom extends Enemy {
 
     @Override
     public void render(Graphics2D g2D) {
-        if(isAlive) {
+        if (isAlive) {
             g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         } else {
@@ -76,12 +76,7 @@ public class Balloom extends Enemy {
             move();
             animate();
             randomDirection();
-            if (!collision(dx, 0)) {
-                position.x += dx;
-            }
-            if (!collision(0, dy)) {
-                position.y += dy;
-            }
+            moveCondition();
             updateRect();
         } else {
             dead_animation.update();

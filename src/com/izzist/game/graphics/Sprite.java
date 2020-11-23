@@ -2,7 +2,7 @@ package com.izzist.game.graphics;
 
 import java.awt.image.BufferedImage;
 
-public class Sprite extends SpriteSheet{
+public class Sprite extends SpriteSheet {
 
     private BufferedImage[][] spriteArray;
 
@@ -12,7 +12,7 @@ public class Sprite extends SpriteSheet{
 
     public Sprite(String path, int tileSizeWidth, int tileSizeHeight) {
 
-        super(path,tileSizeWidth,tileSizeHeight);
+        super(path, tileSizeWidth, tileSizeHeight);
         spriteSheet = loadSprite(path);
         spritePerWidth = spriteSheet.getWidth() / tileSizeWidth;
         spriteHeight = spriteSheet.getHeight() / tileSizeWidth;
@@ -30,7 +30,11 @@ public class Sprite extends SpriteSheet{
     }
 
     public BufferedImage getSprite(int x, int y) {
-        return spriteSheet.getSubimage(x*tileSizeWidth, y*tileSizeHeight, tileSizeWidth, tileSizeHeight);
+        return spriteSheet.getSubimage(x * tileSizeWidth, y * tileSizeHeight, tileSizeWidth, tileSizeHeight);
+    }
+
+    public BufferedImage getSprite2(int x, int y, int tileSizeWidth, int tileSizeHeight) {
+        return spriteSheet.getSubimage(x * tileSizeWidth, y * tileSizeHeight, tileSizeWidth, tileSizeHeight);
     }
 
     public BufferedImage[] getSpriteArray(int position, int characterNumber) {

@@ -47,7 +47,6 @@ public class MapLoader {
             height = Integer.parseInt(tokens.nextToken());
             width = Integer.parseInt(tokens.nextToken());
             lineTiles = new String[height];
-            TileManager.tileManager = new Tile[width][height];
             for (int i = 0; i < height; ++i) {
                 lineTiles[i] = myReader.nextLine().substring(0, width);
 
@@ -61,21 +60,21 @@ public class MapLoader {
                 switch (lineTiles[y].charAt(x)) {
                     case '#': {
                         TileWall tileWall = new TileWall(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileWall;
+                        TileManager.tileManager.add(tileWall);
                         break;
                     }
                     case '*': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileBrickManager.add(tileBrick);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
 
                         break;
                     }
                     case 'p': {
                         PlayState.player = new Player(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
                     case 'b': {
@@ -84,7 +83,7 @@ public class MapLoader {
                         ItemBomb itemBomb = new ItemBomb(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
                         ItemManager.items.add(itemBomb);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
                     case 'f': {
@@ -93,7 +92,7 @@ public class MapLoader {
                         ItemFlame itemFlame = new ItemFlame(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
                         ItemManager.items.add(itemFlame);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
                     case 's': {
@@ -102,18 +101,18 @@ public class MapLoader {
                         ItemSpeed itemSpeed = new ItemSpeed(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
                         ItemManager.items.add(itemSpeed);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
-                    case '1':{
-                        EnemyManager.enemies.add(new Balloom(new Vector2D(x*TILE_SIZE,y*TILE_SIZE),32));
+                    case '1': {
+                        EnemyManager.enemies.add(new Balloom(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
-                        TileManager.tileManager[x][y] = tileGrass;
+                        TileManager.tileManager.add(tileGrass);
                         break;
                     }
                 }
@@ -124,10 +123,9 @@ public class MapLoader {
 
     public void render(Graphics2D g2D) {
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (TileManager.tileManager[x][y] != null)
-                    TileManager.tileManager[x][y].render(g2D);
+        if (TileManager.tileManager != null) {
+            for (Tile tile : TileManager.tileManager) {
+                tile.render(g2D);
             }
         }
 

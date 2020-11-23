@@ -10,21 +10,25 @@ public abstract class Tile {
     protected Vector2D position;
     protected Sprite sprite;
     protected int size;
+    protected Rectangle rectangle;
 
     public Tile(Vector2D position, int size) {
         this.position = position;
         this.size = size;
-
+        rectangle = new Rectangle((int) position.x, (int) position.y, size, size);
     }
 
     public abstract void render(Graphics2D g2D);
-
-    public abstract boolean isCollide(Entity entity);
 
     public Vector2D getPosition() {
         return position;
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 
-
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
 }

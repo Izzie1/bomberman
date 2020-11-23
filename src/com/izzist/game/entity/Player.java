@@ -2,17 +2,22 @@ package com.izzist.game.entity;
 
 import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.entity.Enemy.Enemy;
 import com.izzist.game.entity.Item.ItemBomb;
 import com.izzist.game.entity.Item.ItemFlame;
 import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.BombManager;
+import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
+import com.sun.javaws.security.AppPolicy;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends Character {
@@ -32,13 +37,33 @@ public class Player extends Character {
     private int maxBomb = 3;
     private int maxFlameRange = 4;
 
-    private int bombQuantity = 1;
-    private int flameRange = 3;
+    private int bombQuantity = 4;
+    private int flameRange = 1;
+
+    private int spawnX;
+    private int spawnY;
+
+    private BufferedImage[] playerDead;
 
     public Player(Vector2D position, int size) {
-        this.position = position;
-        this.size = size;
         this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
+        playerDead = new BufferedImage[8];
+        playerDead[0] = sprite.getSprite2(0, 12, 24, 24);
+        playerDead[1] = sprite.getSprite2(0, 13, 24, 24);
+        playerDead[2] = sprite.getSprite2(0, 14, 24, 24);
+        playerDead[3] = sprite.getSprite2(0, 15, 24, 24);
+        playerDead[4] = sprite.getSprite2(0, 16, 24, 24);
+        playerDead[5] = sprite.getSprite2(0, 17, 24, 24);
+        playerDead[6] = sprite.getSprite2(0, 18, 24, 24);
+        playerDead[7] = sprite.getSprite2(0, 19, 24, 24);
+        dead_animation = new Animation();
+        dead_animation.setFrames(playerDead);
+        dead_animation.setDelay(10);
+        this.position = position;
+        spawnX = (int) position.x;
+        spawnY = (int) position.y;
+        this.size = size;
+
         animation = new Animation();
         setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
         this.xOffSet = 8;
@@ -73,32 +98,64 @@ public class Player extends Character {
     }
 
     public void update() {
-        animate();
-        move();
-        animation.update();
-
-        if (!collision(dx, 0)) {
-            position.x += dx;
+        if (flameCollision()) {
+            isAlive = false;
         }
-        if (!collision(0, dy)) {
-            position.y += dy;
-        }
-        setBomb();
-        updateBomb();
-        removeBomb();
-        takeItem();
-        updateRect();
-        if(flameCollision()){
-            position.x=32;
-            position.y=32;
+        kill();
+        if (isAlive) {
+            animate();
+            move();
+            animation.update();
+            if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) && !collisionBombPlayer(dx, 0)) {
+                position.x += dx;
+            }
+            if (!collisionWall(0, dy) && !collisionBrick(0, dy) && !collisionBombPlayer(0, dy)) {
+                position.y += dy;
+            }
+            setBomb();
+            updateBomb();
+            removeBomb();
+            takeItem();
+            updateRect();
+        } else {
+            dead_animation.update();
+            if (dead_animation.playOnce()) {
+                position.x = spawnX;
+                position.y = spawnY;
+                isAlive = true;
+            }
         }
     }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.setColor(Color.BLUE);
-        g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-        g2D.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        if (isAlive) {
+            g2D.setColor(Color.BLUE);
+            g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        } else {
+            g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        }
+    }
+
+    public boolean collisionBombPlayer(float ax, float ay) {
+        if (BombManager.bombs != null) {
+            for (Bomb b : BombManager.bombs) {
+                if (collisionRect(ax, ay).intersects(b.getRectangle()) && !b.isAllowToPass()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void kill() {
+        if (EnemyManager.enemies != null) {
+            for (Enemy e : EnemyManager.enemies) {
+                if (rectangle.intersects(e.getRectangle())) {
+                    isAlive=false;
+                }
+            }
+        }
     }
 
     public boolean flameCollision() {
@@ -147,9 +204,7 @@ public class Player extends Character {
     }
 
     public void move() {
-        boolean check = false;
         if (up) {
-            check = true;
             dy -= acceleration;
             if (dy < -speed) {
                 dy = -speed;
@@ -163,7 +218,6 @@ public class Player extends Character {
             }
         }
         if (down) {
-            check = true;
             dy += acceleration;
             if (dy > speed) {
                 dy = speed;
@@ -177,7 +231,6 @@ public class Player extends Character {
             }
         }
         if (left) {
-            check = true;
             dx -= acceleration;
             if (dx < -speed) {
                 dx = -speed;
@@ -191,7 +244,6 @@ public class Player extends Character {
             }
         }
         if (right) {
-            check = true;
             dx += acceleration;
             if (dx > speed) {
                 dx = speed;
@@ -204,11 +256,6 @@ public class Player extends Character {
                 }
             }
         }
-        if (!check) {
-            dx = 0;
-            dy = 0;
-        }
-        System.out.println(dx + " " + dy);
     }
 
     public void input(KeyHandler key) {

@@ -1,8 +1,13 @@
 package com.izzist.game.entity;
 
+import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.graphics.Animation;
+import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.TileManager;
+import com.izzist.game.map.tiles.Tile;
+import com.izzist.game.map.tiles.TileBrick;
+import com.izzist.game.map.tiles.TileWall;
 import com.izzist.game.states.PlayState;
 
 import java.awt.*;
@@ -18,20 +23,40 @@ public abstract class Character extends Entity {
     protected float speed;
     protected float acceleration;
     protected float deAcceleration;
-    protected Rectangle rectangle;
+
     protected boolean isAlive = true;
     protected Animation dead_animation;
 
-    public boolean collision(float ax, float ay) {
-        for (int c = 0; c < 4; c++) {
-            int xt = (int) (((rectangle.x + ax) + (c % 2) * rectangle.width) / 32);
-            int yt = (int) (((rectangle.y + ay) + (c / 2) * rectangle.height) / 32);
-            if ((TileManager.tileManager[xt][yt] != null && TileManager.tileManager[xt][yt].isCollide(this)) ||
-                    (TileManager.getBrick(xt, yt) != null && TileManager.getBrick(xt, yt).isCollide(this))) {
-                return true;
+    public boolean collisionWall(float ax, float ay) {
+        if (TileManager.tileManager != null) {
+            for (Tile t : TileManager.tileManager) {
+                if (t instanceof TileWall && collisionRect(ax, ay).intersects(t.getRectangle())) {
+                    return true;
+                }
             }
         }
+        return false;
+    }
 
+    public boolean collisionBrick(float ax, float ay) {
+        if (TileManager.tileBrickManager != null) {
+            for (Tile t : TileManager.tileBrickManager) {
+                if (t instanceof TileBrick && collisionRect(ax, ay).intersects(t.getRectangle())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean collisionBomb(float ax, float ay) {
+        if (BombManager.bombs != null) {
+            for (Bomb b : BombManager.bombs) {
+                if (collisionRect(ax, ay).intersects(b.getRectangle())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -66,14 +91,6 @@ public abstract class Character extends Entity {
         this.dy = dy;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
-
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-
     public boolean getIsAlive() {
         return isAlive;
     }
@@ -88,5 +105,9 @@ public abstract class Character extends Entity {
 
     public void setDead_animation(Animation dead_animation) {
         this.dead_animation = dead_animation;
+    }
+
+    public Rectangle collisionRect(float ax, float ay) {
+        return new Rectangle((int) (rectangle.x + ax), (int) (rectangle.y + ay), rectangle.width, rectangle.height);
     }
 }

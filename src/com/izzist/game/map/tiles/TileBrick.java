@@ -44,11 +44,6 @@ public class TileBrick extends Tile {
         }
     }
 
-    @Override
-    public boolean isCollide(Entity entity) {
-        return true;
-    }
-
     public boolean isBreak() {
         return isBreak;
     }

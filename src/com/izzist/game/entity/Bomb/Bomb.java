@@ -15,8 +15,7 @@ import java.util.Iterator;
 public class Bomb extends Entity {
     private int explodeTime = 160;
     private boolean isExploded = false;
-    private Rectangle rectangle;
-
+    private boolean allowToPass = true;
 
     public Bomb(Vector2D position, int size) {
         this.position = position;
@@ -39,6 +38,7 @@ public class Bomb extends Entity {
 
     @Override
     public void update() {
+        checkStandingOnBomb();
         animation.update();
         if (explodeTime > 0) {
             isExploded = false;
@@ -68,6 +68,11 @@ public class Bomb extends Entity {
         return false;
     }
 
+    public void checkStandingOnBomb(){
+        if(!rectangle.intersects(PlayState.player.getRectangle())){
+            allowToPass = false;
+        }
+    }
 
     public int getExplodeTime() {
         return explodeTime;
@@ -83,5 +88,13 @@ public class Bomb extends Entity {
 
     public boolean getIsExploded() {
         return isExploded;
+    }
+
+    public boolean isAllowToPass() {
+        return allowToPass;
+    }
+
+    public void setAllowToPass(boolean allowToPass) {
+        this.allowToPass = allowToPass;
     }
 }

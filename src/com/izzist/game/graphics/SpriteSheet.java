@@ -17,6 +17,10 @@ public class SpriteSheet {
         loadSprite(path);
     }
 
+    public SpriteSheet() {
+
+    }
+
     public BufferedImage loadSprite(String path) {
         BufferedImage sprite = null;
         try {

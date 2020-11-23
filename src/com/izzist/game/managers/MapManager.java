@@ -15,4 +15,5 @@ public class MapManager {
     public MapLoader getMap(int level) {
         return mapLoaders.get(level);
     }
+
 }

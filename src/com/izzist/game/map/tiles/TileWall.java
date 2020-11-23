@@ -21,8 +21,4 @@ public class TileWall extends Tile{
         g2D.drawImage(sprite.getSprite(1,1), (int) (position.x), (int) (position.y), size, size, null);
     }
 
-    @Override
-    public boolean isCollide(Entity entity) {
-        return true;
-    }
 }

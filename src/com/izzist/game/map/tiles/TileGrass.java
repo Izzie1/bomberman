@@ -19,9 +19,4 @@ public class TileGrass extends Tile{
         g2D.drawImage(sprite.getSprite(3,0), (int) (position.x), (int) (position.y), size, size, null);
     }
 
-    @Override
-    public boolean isCollide(Entity entity) {
-        return false;
-    }
-
 }
