@@ -8,6 +8,7 @@ import com.izzist.game.map.tiles.TileWall;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Flame extends Entity {
 
@@ -22,8 +23,10 @@ public class Flame extends Entity {
     private Animation animation_right;
     private Animation animation_horizontal;//ngang
     private Animation animation_vertical;//doc
+    private ArrayList<Rectangle> rectangles;
 
     public Flame(Vector2D position, int size, int radius) {
+        rectangles = new ArrayList<>();
         this.radius = radius;
         this.position = position;
         this.size = size;
@@ -62,10 +65,16 @@ public class Flame extends Entity {
     @Override
     public void render(Graphics2D g2D) {
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+        Rectangle center = new Rectangle((int) (position.x),(int) (position.y),32,32);
+        g2D.fillRect(center.x,center.y,center.width,center.height);
+        rectangles.add(center);
         //Trai
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) - i) * 32;
             int y = (int) ((position.y));
+            Rectangle temp = new Rectangle(x,y,32,32);
+            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
+            rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
             } else if (isBrickCollision(x, y)) {
@@ -78,9 +87,13 @@ public class Flame extends Entity {
                 g2D.drawImage(animation_horizontal.getImage(), x, y, size, size, null);
             }
         }
+        //phai
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) + i) * 32;
             int y = (int) ((position.y));
+            Rectangle temp = new Rectangle(x,y,32,32);
+            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
+            rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
             } else if (isBrickCollision(x, y)) {
@@ -97,6 +110,9 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) - i) * 32;
+            Rectangle temp = new Rectangle(x,y,32,32);
+            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
+            rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
             } else if (isBrickCollision(x, y)) {
@@ -113,6 +129,9 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) + i) * 32;
+            Rectangle temp = new Rectangle(x,y,32,32);
+            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
+            rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
             } else if (isBrickCollision(x, y)) {
@@ -160,6 +179,7 @@ public class Flame extends Entity {
         return TileManager.getBrick(xt / 32, yt / 32) != null;
     }
 
+
     public void setPosition(int x, int y) {
         position.x = x;
         position.y = y;
@@ -173,5 +193,7 @@ public class Flame extends Entity {
         this.explodeTime = explodeTime;
     }
 
-
+    public ArrayList<Rectangle> getRectangles() {
+        return rectangles;
+    }
 }

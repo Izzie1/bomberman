@@ -23,15 +23,18 @@ public class Player extends Character {
     private final int LEFT = 2;
 
     private boolean attack;
+    private boolean isAlive = true;
+    private int lives = 3;
     private ArrayList<Bomb> bombs = new ArrayList<>();
+
 
     private int maxSpeed = 4;
     private int maxBomb = 3;
     private int maxFlameRange = 4;
 
     private int bombQuantity = 1;
-    private int flameRange = 1;
-
+    private int flameRange = 3;
+    private Rectangle rectangle;
 
     public Player(Vector2D position, int size) {
         this.position = position;
@@ -42,7 +45,9 @@ public class Player extends Character {
         speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
-        bounds = new AABB(16, 20, position, 8, 4);
+        bounds = new AABB(16, 24, this.position, 8, 4);
+        rectangle = new Rectangle((int) bounds.position.x + bounds.getxOffset(),
+                (int) bounds.position.y + bounds.getyOffset(), bounds.getWidth(), bounds.getHeight());
     }
 
     public void animate() {
@@ -82,15 +87,36 @@ public class Player extends Character {
         updateBomb();
         removeBomb();
         takeItem();
-        System.out.println(speed);
+        updateRect();
+        if (flameCollision()) {
+            position.x = 32;
+            position.y = 32;
+            setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+        }
+
+
     }
 
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.BLUE);
-        g2D.drawRect((int) bounds.position.x + bounds.getxOffset()
-                , (int) bounds.position.y + bounds.getyOffset(), 16, 20);
+        g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+    }
+
+    public boolean flameCollision() {
+        if (PlayState.flames != null) {
+            for (Flame f : PlayState.flames) {
+                if (f.getRectangles() != null) {
+                    for (Rectangle rect : f.getRectangles()) {
+                        if (rectangle.intersects(rect)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public void setBomb() {
@@ -99,6 +125,10 @@ public class Player extends Character {
             float y = this.position.y;
             bombs.add(new Bomb(new Vector2D(x, y), 32));
         }
+    }
+
+    public void updateRect() {
+        rectangle.setBounds((int) bounds.position.x + 8, (int) bounds.position.y + 4, bounds.getWidth(), bounds.getHeight());
     }
 
     public void removeBomb() {
@@ -221,7 +251,7 @@ public class Player extends Character {
         }
         if (ItemManager.getItem(xt, yt) instanceof ItemFlame) {
             if (flameRange < maxFlameRange) {
-                flameRange+=1;
+                flameRange += 1;
             }
             ItemManager.items.remove(ItemManager.getItem(xt, yt));
         }

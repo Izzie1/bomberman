@@ -15,7 +15,7 @@ import java.util.Iterator;
 public class Bomb extends Entity {
     private int explodeTime = 160;
     private boolean isExploded = false;
-    private int timeAfterSet = 80;
+    private Rectangle rectangle;
 
 
     public Bomb(Vector2D position, int size) {
@@ -28,14 +28,8 @@ public class Bomb extends Entity {
         int yt = (int) (position.y + 16) / 32;
         this.position.x = xt * 32;
         this.position.y = yt * 32;
-    }
-
-    public void setIsExploded(boolean exploded) {
-        this.isExploded = exploded;
-    }
-
-    public boolean getIsExploded() {
-        return isExploded;
+        rectangle = new Rectangle((int) this.position.x,
+                (int) this.position.y, size, size);
     }
 
     @Override
@@ -48,16 +42,30 @@ public class Bomb extends Entity {
         animation.update();
         if (explodeTime > 0) {
             isExploded = false;
-            timeAfterSet--;
-            if (timeAfterSet < 0) {
-                timeAfterSet = 0;
-            }
             explodeTime--;
-        } else if (explodeTime == 0) {
+            if(flameCollision()){
+                isExploded = true;
+                explodeTime = 160;
+            }
+        } else if (explodeTime == 0  ) {
             isExploded = true;
             explodeTime = 160;
-            timeAfterSet = 80;
         }
+    }
+
+    public boolean flameCollision() {
+        if (PlayState.flames != null) {
+            for (Flame f : PlayState.flames) {
+                if (f.getRectangles() != null) {
+                    for (Rectangle rect : f.getRectangles()) {
+                        if (rectangle.intersects(rect)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -69,5 +77,11 @@ public class Bomb extends Entity {
         this.explodeTime = explodeTime;
     }
 
+    public void setIsExploded(boolean exploded) {
+        this.isExploded = exploded;
+    }
 
+    public boolean getIsExploded() {
+        return isExploded;
+    }
 }
