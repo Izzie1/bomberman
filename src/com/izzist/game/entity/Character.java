@@ -1,6 +1,10 @@
 package com.izzist.game.entity;
 
+import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.managers.TileManager;
+import com.izzist.game.states.PlayState;
+
+import java.awt.*;
 
 public abstract class Character extends Entity {
     protected boolean up;
@@ -14,6 +18,7 @@ public abstract class Character extends Entity {
     protected float acceleration;
     protected float deAcceleration;
 
+
     public boolean collision(float ax, float ay) {
         for (int c = 0; c < 4; c++) {
             int xt = ((int) (bounds.position.x + ax + bounds.getxOffset()) + (c % 2) * bounds.getWidth()) / 32;
@@ -25,8 +30,7 @@ public abstract class Character extends Entity {
         }
         return false;
     }
-
-
+    
     private boolean isAlive;
 
     public float getDx() {

@@ -119,6 +119,7 @@ public class Player extends Character {
         return false;
     }
 
+
     public void setBomb() {
         if (attack && bombs.size() < bombQuantity) {
             float x = this.position.x;
