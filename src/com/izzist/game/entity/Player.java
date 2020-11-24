@@ -14,7 +14,6 @@ import com.izzist.game.managers.ItemManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
-import com.sun.javaws.security.AppPolicy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,7 +27,6 @@ public class Player extends Character {
 
     private boolean attack;
 
-    private int dieTime = 40;
     private int lives = 3;
     private ArrayList<Bomb> bombs = new ArrayList<>();
 
@@ -98,10 +96,8 @@ public class Player extends Character {
     }
 
     public void update() {
-        if (flameCollision()) {
-            isAlive = false;
-        }
-        kill();
+
+        deadCondition();
         if (isAlive) {
             animate();
             move();
@@ -123,6 +119,7 @@ public class Player extends Character {
                 position.x = spawnX;
                 position.y = spawnY;
                 isAlive = true;
+                setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
             }
         }
     }
@@ -148,13 +145,16 @@ public class Player extends Character {
         return false;
     }
 
-    public void kill() {
+    public void deadCondition() {
         if (EnemyManager.enemies != null) {
             for (Enemy e : EnemyManager.enemies) {
                 if (rectangle.intersects(e.getRectangle())) {
                     isAlive=false;
                 }
             }
+        }
+        if (flameCollision()) {
+            isAlive = false;
         }
     }
 

@@ -7,6 +7,7 @@ import com.izzist.game.entity.Player;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.MapManager;
+import com.izzist.game.map.tiles.TilePortal;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
@@ -21,6 +22,7 @@ public class PlayState extends GameState {
     private BombManager bombManager;
     public static List<Flame> flames = new ArrayList<>();
     private EnemyManager enemyManager;
+    public static TilePortal portal;
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));

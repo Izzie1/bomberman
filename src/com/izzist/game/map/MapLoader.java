@@ -10,10 +10,7 @@ import com.izzist.game.entity.Player;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
 import com.izzist.game.managers.TileManager;
-import com.izzist.game.map.tiles.Tile;
-import com.izzist.game.map.tiles.TileBrick;
-import com.izzist.game.map.tiles.TileGrass;
-import com.izzist.game.map.tiles.TileWall;
+import com.izzist.game.map.tiles.*;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
@@ -110,6 +107,16 @@ public class MapLoader {
                         TileManager.tileManager.add(tileGrass);
                         break;
                     }
+
+                    case 'x': {
+                        TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileBrickManager.add(tileBrick);
+                        PlayState.portal = new TilePortal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
+
                     default: {
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
@@ -135,6 +142,8 @@ public class MapLoader {
             }
         }
 
+        PlayState.portal.render(g2D);
+
         if (TileManager.tileBrickManager != null) {
             for (TileBrick brick : TileManager.tileBrickManager) {
                 brick.render(g2D);
@@ -156,6 +165,8 @@ public class MapLoader {
             }
         }
 
+        PlayState.portal.update();
+
         for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
             if (TileManager.tileBrickManager.get(i).isBreak()
                     && TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {
@@ -163,5 +174,4 @@ public class MapLoader {
             }
         }
     }
-
 }
