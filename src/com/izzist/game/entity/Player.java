@@ -35,11 +35,14 @@ public class Player extends Character {
     private int maxBomb = 3;
     private int maxFlameRange = 4;
 
-    private int bombQuantity = 4;
+    private int bombQuantity = 1;
     private int flameRange = 1;
 
     private int spawnX;
     private int spawnY;
+
+    private int respawnTime = 100;
+    private boolean isInvincible = true;
 
     private BufferedImage[] playerDead;
 
@@ -96,8 +99,10 @@ public class Player extends Character {
     }
 
     public void update() {
-
-        deadCondition();
+        if ((flameCollision() || isKilled()) && !isInvincible) {
+            isAlive = false;
+        }
+        updateRect();
         if (isAlive) {
             animate();
             move();
@@ -112,15 +117,25 @@ public class Player extends Character {
             updateBomb();
             removeBomb();
             takeItem();
-            updateRect();
         } else {
             dead_animation.update();
             if (dead_animation.playOnce()) {
+                resetProperties();
+                lives--;
                 position.x = spawnX;
                 position.y = spawnY;
                 isAlive = true;
+                isInvincible = true;
                 setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+                dead_animation.setTimePlay(0);
             }
+        }
+        if (isInvincible) {
+            respawnTime--;
+        }
+        if (respawnTime == 0) {
+            respawnTime = 100;
+            isInvincible = false;
         }
     }
 
@@ -134,6 +149,14 @@ public class Player extends Character {
         }
     }
 
+    public void resetProperties(){
+        speed = 2;
+        acceleration = 0.1f;
+        deAcceleration = 0.5f;
+        bombQuantity = 1;
+        flameRange = 1;
+    }
+
     public boolean collisionBombPlayer(float ax, float ay) {
         if (BombManager.bombs != null) {
             for (Bomb b : BombManager.bombs) {
@@ -145,17 +168,15 @@ public class Player extends Character {
         return false;
     }
 
-    public void deadCondition() {
+    public boolean isKilled() {
         if (EnemyManager.enemies != null) {
             for (Enemy e : EnemyManager.enemies) {
                 if (rectangle.intersects(e.getRectangle())) {
-                    isAlive=false;
+                    return true;
                 }
             }
         }
-        if (flameCollision()) {
-            isAlive = false;
-        }
+        return false;
     }
 
     public boolean flameCollision() {

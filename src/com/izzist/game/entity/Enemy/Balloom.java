@@ -11,16 +11,16 @@ public class Balloom extends Enemy {
     public Balloom(Vector2D position, int size) {
         this.position = position;
         this.size = size;
-        this.xOffSet = 2;
-        this.yOffSet = 2;
+        this.xOffSet = 4;
+        this.yOffSet = 4;
         this.sprite = new Sprite("font/Balloom2.png", 16, 16);
         dead_animation = new Animation();
         dead_animation.setFrames(sprite.getSpriteArray2(2));
         dead_animation.setDelay(10);
         animation = new Animation();
-        setAnimation(0, sprite.getSpriteArray2(0), 5);
+        setAnimation(0, sprite.getSpriteArray2(0), 10);
         rectangle = new Rectangle((int) position.x + xOffSet,
-                (int) position.y + yOffSet, 28, 28);
+                (int) position.y + yOffSet, 24, 24);
         speed = 0.5f;
     }
 
@@ -62,7 +62,6 @@ public class Balloom extends Enemy {
     @Override
     public void render(Graphics2D g2D) {
         if (isAlive) {
-            g2D.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);

@@ -1,14 +1,12 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.entity.Character;
-import com.izzist.game.states.PlayState;
 
-import java.awt.*;
 import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int random;
-    protected int randomSpeed = 200;
+    protected int randomSpeed = 150;
 
     public void moveCondition() {
         if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) && !collisionBomb(dx, 0)) {
@@ -24,9 +22,8 @@ public abstract class Enemy extends Character {
             randomSpeed--;
         } else {
             random = new Random().nextInt(4);
-            randomSpeed = 200;
+            randomSpeed = 150;
         }
     }
-
 
 }

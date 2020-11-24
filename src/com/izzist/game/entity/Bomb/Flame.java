@@ -66,14 +66,12 @@ public class Flame extends Entity {
     public void render(Graphics2D g2D) {
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         Rectangle center = new Rectangle((int) (position.x),(int) (position.y),32,32);
-        g2D.fillRect(center.x,center.y,center.width,center.height);
         rectangles.add(center);
         //Trai
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) - i) * 32;
             int y = (int) ((position.y));
             Rectangle temp = new Rectangle(x,y,32,32);
-            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -92,7 +90,6 @@ public class Flame extends Entity {
             int x = (int) ((position.x / 32) + i) * 32;
             int y = (int) ((position.y));
             Rectangle temp = new Rectangle(x,y,32,32);
-            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -111,7 +108,6 @@ public class Flame extends Entity {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) - i) * 32;
             Rectangle temp = new Rectangle(x,y,32,32);
-            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -130,7 +126,6 @@ public class Flame extends Entity {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) + i) * 32;
             Rectangle temp = new Rectangle(x,y,32,32);
-            g2D.drawRect(temp.x,temp.y,temp.width,temp.height);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;

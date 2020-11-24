@@ -70,4 +70,12 @@ public class Animation {
     public boolean playOnce(){
         return timePlay > 0;
     }
+
+    public int getTimePlay() {
+        return timePlay;
+    }
+
+    public void setTimePlay(int timePlay) {
+        this.timePlay = timePlay;
+    }
 }
