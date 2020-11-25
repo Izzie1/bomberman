@@ -365,4 +365,20 @@ public class Player extends Character {
     public void setLives(int lives) {
         this.lives = lives;
     }
+
+    public int getSpawnX() {
+        return spawnX;
+    }
+
+    public void setSpawnX(int spawnX) {
+        this.spawnX = spawnX;
+    }
+
+    public int getSpawnY() {
+        return spawnY;
+    }
+
+    public void setSpawnY(int spawnY) {
+        this.spawnY = spawnY;
+    }
 }

@@ -26,10 +26,12 @@ public class MapLoader {
     private int height;
     private String[] lineTiles;
     private final int TILE_SIZE = 32;
+    private String path;
 
 
     public MapLoader(String path) {
-        readMap(path);
+        this.path = path;
+        readMap(this.path);
     }
 
     public void readMap(String source) {
@@ -65,13 +67,14 @@ public class MapLoader {
                         TileManager.tileBrickManager.add(tileBrick);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
-
                         break;
                     }
                     case 'p': {
-                        PlayState.player = new Player(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        PlayState.player.setPosition(new Vector2D(x * TILE_SIZE, y * TILE_SIZE));
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
+                        PlayState.player.setSpawnX(x * TILE_SIZE);
+                        PlayState.player.setSpawnY(y * TILE_SIZE);
                         break;
                     }
                     case 'b': {
@@ -173,5 +176,19 @@ public class MapLoader {
                 TileManager.tileBrickManager.remove(i);
             }
         }
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void clear(){
+        TileManager.tileBrickManager.clear();
+        TileManager.tileManager.clear();
+        ItemManager.items.clear();
     }
 }

@@ -1,32 +1,32 @@
 package com.izzist.game.states;
 
 import com.izzist.game.entity.Bomb.Flame;
-import com.izzist.game.entity.Enemy.Balloom;
-import com.izzist.game.entity.Enemy.Enemy;
 import com.izzist.game.entity.Player;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
-import com.izzist.game.managers.MapManager;
+import com.izzist.game.map.MapLoader;
 import com.izzist.game.map.tiles.TilePortal;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
-
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayState extends GameState {
-    private MapManager mapManager;
+    private MapLoader map;
     public static Player player;
     private BombManager bombManager;
     public static List<Flame> flames = new ArrayList<>();
     private EnemyManager enemyManager;
     public static TilePortal portal;
+    private int level =0;
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
-        mapManager = new MapManager();
+        player = new Player(new Vector2D(0, 0), 32);
+
+        map = new MapLoader("data/map/Level1/Level1.txt");
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
     }
@@ -37,8 +37,9 @@ public class PlayState extends GameState {
         bombManager.update();
         updateFlame();
         removeFlame();
-        mapManager.getMap(0).update();
+        map.update();
         enemyManager.update();
+        switchLevel();
     }
 
     @Override
@@ -48,20 +49,20 @@ public class PlayState extends GameState {
 
     @Override
     public void render(Graphics2D g2D) {
-        mapManager.getMap(0).render(g2D);
+        map.render(g2D);
         bombManager.renderBomb(g2D);
         renderFlame(g2D);
         player.render(g2D);
         enemyManager.render(g2D);
     }
 
-    public void renderFlame(Graphics2D g2D){
+    public void renderFlame(Graphics2D g2D) {
         for (Flame flame : flames) {
             flame.render(g2D);
         }
     }
 
-    public void updateFlame(){
+    public void updateFlame() {
         for (Flame flame : flames) {
             flame.update();
         }
@@ -72,6 +73,15 @@ public class PlayState extends GameState {
             if (flames.get(i).getIsExploded()) {
                 flames.remove(i);
             }
+        }
+    }
+
+    public void switchLevel() {
+        if (portal.isActive() && player.getRectangle().intersects(portal.getRectangle())) {
+            map.clear();
+            level++;
+            System.out.println(level);
+            map=new MapLoader("data/map/Level1/Level2.txt");
         }
     }
 
