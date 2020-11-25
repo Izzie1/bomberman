@@ -25,7 +25,7 @@ public class PlayState extends GameState {
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
         player = new Player(new Vector2D(0, 0), 32);
-
+        portal= new TilePortal(new Vector2D(0, 0), 32);
         map = new MapLoader("data/map/Level1/Level1.txt");
         bombManager = new BombManager();
         enemyManager = new EnemyManager();

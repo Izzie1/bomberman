@@ -5,6 +5,7 @@ import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Balloom extends Enemy {
 
@@ -19,8 +20,8 @@ public class Balloom extends Enemy {
         dead_animation.setDelay(10);
         animation = new Animation();
         setAnimation(0, sprite.getSpriteArray2(0), 10);
-        rectangle = new Rectangle((int) position.x + xOffSet,
-                (int) position.y + yOffSet, 24, 24);
+        rectangle = new Rectangle2D.Float( position.x + xOffSet,
+                 position.y + yOffSet, 24, 24);
         speed = 0.5f;
     }
 
@@ -86,11 +87,5 @@ public class Balloom extends Enemy {
             isAlive = false;
         }
     }
-
-    public void updateRect() {
-        rectangle = new Rectangle((int) position.x + xOffSet,
-                (int) position.y + yOffSet, 28, 28);
-    }
-
 
 }

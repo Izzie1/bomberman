@@ -16,6 +16,7 @@ import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -72,8 +73,9 @@ public class Player extends Character {
         speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
-        rectangle = new Rectangle((int) position.x + xOffSet,
-                (int) position.y + yOffSet, 16, 24);
+        rectangle = new Rectangle2D.Float(position.x + xOffSet,
+                position.y + yOffSet, 16, 24) {
+        };
     }
 
     public void animate() {
@@ -203,10 +205,7 @@ public class Player extends Character {
         }
     }
 
-    public void updateRect() {
-        rectangle.setBounds((int) position.x + xOffSet, (int) position.y + yOffSet,
-                rectangle.width, rectangle.height);
-    }
+
 
     public void removeBomb() {
         for (int i = bombs.size() - 1; i >= 0; i--) {

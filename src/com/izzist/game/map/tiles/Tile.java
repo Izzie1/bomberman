@@ -31,4 +31,8 @@ public abstract class Tile {
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
     }
+
+    public void setPosition(Vector2D position) {
+        this.position = position;
+    }
 }

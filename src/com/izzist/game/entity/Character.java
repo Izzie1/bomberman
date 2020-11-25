@@ -11,6 +11,7 @@ import com.izzist.game.map.tiles.TileWall;
 import com.izzist.game.states.PlayState;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public abstract class Character extends Entity {
     protected boolean up;
@@ -75,6 +76,11 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    public void updateRect() {
+        rectangle.setRect( position.x + xOffSet,position.y + yOffSet,
+                rectangle.getWidth(), rectangle.getHeight());
+    }
+
     public float getDx() {
         return dx;
     }
@@ -107,7 +113,8 @@ public abstract class Character extends Entity {
         this.dead_animation = dead_animation;
     }
 
-    public Rectangle collisionRect(float ax, float ay) {
-        return new Rectangle((int) (rectangle.x + ax), (int) (rectangle.y + ay), rectangle.width, rectangle.height);
+    public Rectangle2D collisionRect(float ax, float ay) {
+        return new Rectangle2D.Float((float) (rectangle.getX() + ax), (float) (rectangle.getY() + ay),
+                (float) rectangle.getWidth(), (float) rectangle.getHeight());
     }
 }

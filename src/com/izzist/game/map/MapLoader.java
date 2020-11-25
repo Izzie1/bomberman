@@ -114,7 +114,8 @@ public class MapLoader {
                     case 'x': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileBrickManager.add(tileBrick);
-                        PlayState.portal = new TilePortal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        PlayState.portal.setPosition(new Vector2D(x * TILE_SIZE, y * TILE_SIZE));
+                        PlayState.portal.getRectangle().setLocation(x * TILE_SIZE,y * TILE_SIZE);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
                         break;

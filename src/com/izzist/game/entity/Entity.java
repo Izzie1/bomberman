@@ -5,6 +5,7 @@ import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
@@ -15,7 +16,7 @@ public abstract class Entity {
     protected int size;
     protected int xOffSet;
     protected int yOffSet;
-    protected Rectangle rectangle;
+    protected Rectangle2D rectangle;
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;
@@ -52,7 +53,7 @@ public abstract class Entity {
         this.animation = animation;
     }
 
-    public Rectangle getRectangle() {
+    public Rectangle2D getRectangle() {
         return rectangle;
     }
 
