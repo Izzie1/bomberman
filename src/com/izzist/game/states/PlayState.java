@@ -5,6 +5,7 @@ import com.izzist.game.entity.Player;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
+import com.izzist.game.managers.Sound;
 import com.izzist.game.map.MapLoader;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
@@ -23,6 +24,7 @@ public class PlayState extends GameState {
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
+        Sound.playBackGround();
         player = new Player(new Vector2D(0, 0), 32);
         map = new MapLoader("data/map/Level1/Level1.txt");
         bombManager = new BombManager();
@@ -50,8 +52,8 @@ public class PlayState extends GameState {
         map.render(g2D);
         bombManager.renderBomb(g2D);
         renderFlame(g2D);
-        player.render(g2D);
         enemyManager.render(g2D);
+        player.render(g2D);
     }
 
     public void renderFlame(Graphics2D g2D) {

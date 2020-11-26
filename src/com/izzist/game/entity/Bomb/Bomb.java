@@ -4,6 +4,7 @@ import com.izzist.game.entity.Entity;
 import com.izzist.game.entity.Player;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.Sound;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
@@ -50,6 +51,9 @@ public class Bomb extends Entity {
         } else if (explodeTime == 0  ) {
             isExploded = true;
             explodeTime = 160;
+        }
+        if(isExploded){
+            Sound.playBombExplose();
         }
     }
 
