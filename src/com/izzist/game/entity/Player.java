@@ -45,37 +45,26 @@ public class Player extends Character {
     private int respawnTime = 100;
     private boolean isInvincible = true;
 
-    private BufferedImage[] playerDead;
 
     public Player(Vector2D position, int size) {
-        this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
-        playerDead = new BufferedImage[8];
-        playerDead[0] = sprite.getSprite2(0, 12, 24, 24);
-        playerDead[1] = sprite.getSprite2(0, 13, 24, 24);
-        playerDead[2] = sprite.getSprite2(0, 14, 24, 24);
-        playerDead[3] = sprite.getSprite2(0, 15, 24, 24);
-        playerDead[4] = sprite.getSprite2(0, 16, 24, 24);
-        playerDead[5] = sprite.getSprite2(0, 17, 24, 24);
-        playerDead[6] = sprite.getSprite2(0, 18, 24, 24);
-        playerDead[7] = sprite.getSprite2(0, 19, 24, 24);
-        dead_animation = new Animation();
-        dead_animation.setFrames(playerDead);
-        dead_animation.setDelay(10);
-        this.position = position;
-        spawnX = (int) position.x;
-        spawnY = (int) position.y;
-        this.size = size;
 
-        animation = new Animation();
-        setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
+        this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
         this.xOffSet = 8;
         this.yOffSet = 4;
+        this.position = position;
+        this.size = size;
+        dead_animation = new Animation();
+        dead_animation.setFrames(Sprite.playerDead);
+        dead_animation.setDelay(10);
+        spawnX = (int) position.x;
+        spawnY = (int) position.y;
+        animation = new Animation();
+        setAnimation(DOWN, sprite.getSpriteArray(DOWN, 0), 5);
         speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
         rectangle = new Rectangle2D.Float(position.x + xOffSet,
-                position.y + yOffSet, 16, 24) {
-        };
+                position.y + yOffSet, 16, 24);
     }
 
     public void animate() {
@@ -101,6 +90,7 @@ public class Player extends Character {
     }
 
     public void update() {
+
         if ((flameCollision() || isKilled()) && !isInvincible) {
             isAlive = false;
         }

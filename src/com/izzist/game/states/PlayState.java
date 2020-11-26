@@ -2,10 +2,10 @@ package com.izzist.game.states;
 
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Player;
+import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.map.MapLoader;
-import com.izzist.game.map.tiles.TilePortal;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
@@ -19,13 +19,11 @@ public class PlayState extends GameState {
     private BombManager bombManager;
     public static List<Flame> flames = new ArrayList<>();
     private EnemyManager enemyManager;
-    public static TilePortal portal;
-    private int level =0;
+    private int level = 1;
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
         player = new Player(new Vector2D(0, 0), 32);
-        portal= new TilePortal(new Vector2D(0, 0), 32);
         map = new MapLoader("data/map/Level1/Level1.txt");
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
@@ -77,11 +75,17 @@ public class PlayState extends GameState {
     }
 
     public void switchLevel() {
-        if (portal.isActive() && player.getRectangle().intersects(portal.getRectangle())) {
+        if (map.portal.isActive() && player.getRectangle().intersects(map.portal.getRectangle())) {
             map.clear();
             level++;
-            System.out.println(level);
-            map=new MapLoader("data/map/Level1/Level2.txt");
+            switch (level) {
+                case 2:
+                    map=new MapLoader("data/map/Level1/Level2.txt");
+                    break;
+                default:
+                    map=new MapLoader("data/map/Level1/Level1.txt");
+                    break;
+            }
         }
     }
 

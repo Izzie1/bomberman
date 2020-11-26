@@ -1,5 +1,7 @@
 package com.izzist.game;
 
+import com.izzist.game.graphics.Sprite;
+
 import javax.swing.JFrame;
 
 public class Window extends JFrame {

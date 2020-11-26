@@ -10,6 +10,7 @@ public class SpriteSheet {
     protected int tileSizeHeight;
     protected BufferedImage spriteSheet;
 
+
     public SpriteSheet(String path,int tileSizeWidth,int tileSizeHeight){
         this.path=path;
         this.tileSizeWidth = tileSizeWidth;
@@ -21,10 +22,10 @@ public class SpriteSheet {
 
     }
 
-    public BufferedImage loadSprite(String path) {
+    public static BufferedImage loadSprite(String path) {
         BufferedImage sprite = null;
         try {
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));
+            sprite = ImageIO.read(SpriteSheet.class.getClassLoader().getResourceAsStream(path));
         } catch (Exception e) {
             System.out.println("could not load file" + path);
         }

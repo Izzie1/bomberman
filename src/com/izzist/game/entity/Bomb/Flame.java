@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Flame extends Entity {
 
     private int explodeTime = 40;
-    private int radius = 1;
+    private int radius;
     private boolean isExploded = false;
 
 

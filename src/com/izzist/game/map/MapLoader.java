@@ -1,12 +1,10 @@
 package com.izzist.game.map;
 
 import com.izzist.game.entity.Enemy.Balloom;
-import com.izzist.game.entity.Enemy.Enemy;
 import com.izzist.game.entity.Item.Item;
 import com.izzist.game.entity.Item.ItemBomb;
 import com.izzist.game.entity.Item.ItemFlame;
 import com.izzist.game.entity.Item.ItemSpeed;
-import com.izzist.game.entity.Player;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
 import com.izzist.game.managers.TileManager;
@@ -27,6 +25,7 @@ public class MapLoader {
     private String[] lineTiles;
     private final int TILE_SIZE = 32;
     private String path;
+    public TilePortal portal;
 
 
     public MapLoader(String path) {
@@ -114,8 +113,7 @@ public class MapLoader {
                     case 'x': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileBrickManager.add(tileBrick);
-                        PlayState.portal.setPosition(new Vector2D(x * TILE_SIZE, y * TILE_SIZE));
-                        PlayState.portal.getRectangle().setLocation(x * TILE_SIZE,y * TILE_SIZE);
+                        portal= new TilePortal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
                         break;
@@ -146,7 +144,7 @@ public class MapLoader {
             }
         }
 
-        PlayState.portal.render(g2D);
+        portal.render(g2D);
 
         if (TileManager.tileBrickManager != null) {
             for (TileBrick brick : TileManager.tileBrickManager) {
@@ -169,7 +167,7 @@ public class MapLoader {
             }
         }
 
-        PlayState.portal.update();
+        portal.update();
 
         for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
             if (TileManager.tileBrickManager.get(i).isBreak()
@@ -188,6 +186,7 @@ public class MapLoader {
     }
 
     public void clear(){
+        portal = null;
         TileManager.tileBrickManager.clear();
         TileManager.tileManager.clear();
         ItemManager.items.clear();

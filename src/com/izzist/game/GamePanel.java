@@ -1,5 +1,6 @@
 package com.izzist.game;
 
+import com.izzist.game.graphics.Sprite;
 import com.izzist.game.states.GameStateManager;
 import com.izzist.game.ultility.KeyHandler;
 

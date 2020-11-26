@@ -4,10 +4,15 @@ import java.awt.image.BufferedImage;
 
 public class Sprite extends SpriteSheet {
 
+    private static BufferedImage player;
     private BufferedImage[][] spriteArray;
 
     private int spritePerWidth;
     private int spriteHeight;
+
+    public static BufferedImage balloom_dead;
+    public static BufferedImage []playerDead;
+
 
 
     public Sprite(String path, int tileSizeWidth, int tileSizeHeight) {
@@ -17,7 +22,27 @@ public class Sprite extends SpriteSheet {
         spritePerWidth = spriteSheet.getWidth() / tileSizeWidth;
         spriteHeight = spriteSheet.getHeight() / tileSizeWidth;
         loadSpriteArray();
+        init();
     }
+
+    public Sprite() {
+        init();
+    }
+
+    private void init(){
+        playerDead = new BufferedImage[8];
+        balloom_dead = loadSprite("font/balloom_dead.png");
+        player = loadSprite("font/bomberman 24x24 - Copy.png");
+        playerDead[0] = player.getSubimage(0, 12*24, 24, 24);
+        playerDead[1] = player.getSubimage(0, 13*24, 24, 24);
+        playerDead[2] = player.getSubimage(0, 14*24, 24, 24);
+        playerDead[3] = player.getSubimage(0, 15*24, 24, 24);
+        playerDead[4] = player.getSubimage(0, 16*24, 24, 24);
+        playerDead[5] = player.getSubimage(0, 17*24, 24, 24);
+        playerDead[6] = player.getSubimage(0, 18*24, 24, 24);
+        playerDead[7] = player.getSubimage(0, 19*24, 24, 24);
+    }
+
 
     public void loadSpriteArray() {
         spriteArray = new BufferedImage[spriteHeight][spritePerWidth];

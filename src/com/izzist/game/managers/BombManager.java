@@ -31,7 +31,6 @@ public class BombManager {
         bombs.addAll(PlayState.player.getBombs());
     }
 
-
     public void renderBomb(Graphics2D g2D) {
         for (Bomb bomb : bombs) {
             bomb.render(g2D);
@@ -46,13 +45,4 @@ public class BombManager {
         }
     }
 
-    public static Bomb getBomb(int x, int y) {
-        Bomb temp = null;
-        for (Bomb b : bombs) {
-            if ((int)b.getPosition().x/32 == x && (int)b.getPosition().y/32 == y) {
-                temp = b;
-            }
-        }
-        return temp;
-    }
 }
