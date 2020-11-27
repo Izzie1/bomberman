@@ -1,13 +1,11 @@
 package com.izzist.game.managers;
 
 import com.izzist.game.entity.Bomb.Bomb;
-import com.izzist.game.entity.Bomb.Flame;
-import com.izzist.game.entity.Player;
 import com.izzist.game.states.PlayState;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 public class BombManager {
 

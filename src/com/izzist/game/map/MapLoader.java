@@ -1,6 +1,7 @@
 package com.izzist.game.map;
 
 import com.izzist.game.entity.Enemy.Balloom;
+import com.izzist.game.entity.Enemy.Oneal;
 import com.izzist.game.entity.Item.Item;
 import com.izzist.game.entity.Item.ItemBomb;
 import com.izzist.game.entity.Item.ItemFlame;
@@ -19,13 +20,18 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class MapLoader {
-    private int level;
+    public static int level;
     private int width;
     private int height;
     private String[] lineTiles;
     private final int TILE_SIZE = 32;
     private String path;
     public TilePortal portal;
+    public static String mapSprite[]={ "map/map1/breakable.png","map/map1/Wall.png",
+            "map/map2/breakable.png","map/map2/Wall.png",
+            "map/map3/breakable.png","map/map3/Wall.png",
+            "map/ma4/breakable.png","map/map4/Wall.png"
+    };
 
 
     public MapLoader(String path) {
@@ -105,6 +111,12 @@ public class MapLoader {
                     }
                     case '1': {
                         EnemyManager.enemies.add(new Balloom(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
+                    case '2': {
+                        EnemyManager.enemies.add(new Oneal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
                         break;

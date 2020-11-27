@@ -1,8 +1,6 @@
 package com.izzist.game.managers;
 
-import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.entity.Enemy.Enemy;
-import com.izzist.game.map.tiles.TileBrick;
 
 import java.awt.*;
 import java.util.ArrayList;

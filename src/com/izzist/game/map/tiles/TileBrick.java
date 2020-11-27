@@ -1,8 +1,8 @@
 package com.izzist.game.map.tiles;
 
-import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.map.MapLoader;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -18,8 +18,15 @@ public class TileBrick extends Tile {
 
         animation = new Animation();
         animation1 = new Animation();
+        switch (MapLoader.level){
+            case 1:
+                this.sprite = new Sprite(MapLoader.mapSprite[0], 16, 16);
+                break;
+            case 2:
+                this.sprite = new Sprite(MapLoader.mapSprite[2], 16, 16);
+                break;
+        }
 
-        this.sprite = new Sprite("tile/breakable.png", 16, 16);
 
         animation.setFrames(sprite.getSpriteArray2(0));
         animation.setDelay(8);
@@ -40,6 +47,7 @@ public class TileBrick extends Tile {
         if (!isBreak) {
             animation.update();
         } else {
+            rectangle=new Rectangle();
             animation1.update();
         }
     }

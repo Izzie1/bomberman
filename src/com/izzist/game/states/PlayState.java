@@ -26,7 +26,7 @@ public class PlayState extends GameState {
         super((gameStateManager));
         Sound.playBackGround();
         player = new Player(new Vector2D(0, 0), 32);
-        map = new MapLoader("data/map/Level1/Level1.txt");
+        map = new MapLoader("data/map/Level1.txt");
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
     }
@@ -81,14 +81,14 @@ public class PlayState extends GameState {
             map.clear();
             level++;
             switch (level) {
-                case 2:
-                    map=new MapLoader("data/map/Level1/Level2.txt");
-                    break;
                 default:
-                    map=new MapLoader("data/map/Level1/Level1.txt");
+                    map = new MapLoader("data/map/Level1.txt");
+                    break;
+                case 2:
+                    map = new MapLoader("data/map/Level2.txt");
                     break;
             }
         }
+        System.out.println(level);
     }
-
 }

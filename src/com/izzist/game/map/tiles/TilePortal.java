@@ -1,6 +1,5 @@
 package com.izzist.game.map.tiles;
 
-import com.izzist.game.entity.Enemy.Enemy;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.EnemyManager;
@@ -14,7 +13,7 @@ public class TilePortal extends Tile {
 
     public TilePortal(Vector2D position, int size) {
         super(position, size);
-        this.sprite = new Sprite("font/Portal_99_114.png", 99, 114);
+        this.sprite = new Sprite("assets/Portal_99_114.png", 99, 114);
         animation = new Animation();
         animation.setFrames(sprite.getSpriteArray2(0));
         animation.setDelay(10);

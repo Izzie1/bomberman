@@ -19,6 +19,11 @@ public abstract class Character extends Entity {
     protected boolean right;
     protected boolean left;
 
+    protected final int UP = 3;
+    protected final int DOWN = 0;
+    protected final int RIGHT = 1;
+    protected final int LEFT = 2;
+
     protected float dx;
     protected float dy;
     protected float speed;

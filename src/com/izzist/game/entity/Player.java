@@ -21,16 +21,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends Character {
-    private final int UP = 3;
-    private final int DOWN = 0;
-    private final int RIGHT = 1;
-    private final int LEFT = 2;
 
     private boolean attack;
-
     private int lives = 3;
     private ArrayList<Bomb> bombs = new ArrayList<>();
-
 
     private int maxSpeed = 4;
     private int maxBomb = 3;
@@ -44,11 +38,9 @@ public class Player extends Character {
 
     private int respawnTime = 100;
     private boolean isInvincible = true;
-
-
     public Player(Vector2D position, int size) {
 
-        this.sprite = new Sprite("font/bomberman 24x24 - Copy.png", 24, 24);
+        this.sprite = new Sprite("assets/bomberman 24x24.png", 24, 24);
         this.xOffSet = 8;
         this.yOffSet = 4;
         this.position = position;

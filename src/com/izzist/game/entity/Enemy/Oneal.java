@@ -7,45 +7,42 @@ import com.izzist.game.ultility.Vector2D;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Balloom extends Enemy {
-
-    public Balloom(Vector2D position, int size) {
+public class Oneal extends Enemy{
+    public Oneal(Vector2D position, int size) {
         this.position = position;
         this.size = size;
         this.xOffSet = 4;
         this.yOffSet = 0;
         this.sprite = new Sprite();
         dead_animation = new Animation();
-        dead_animation.setFrames(Sprite.balloom_dead);
+        dead_animation.setFrames(Sprite.oneal_dead);
         dead_animation.setDelay(20);
         animation = new Animation();
-        setAnimation(RIGHT, Sprite.balloom_right, 10);
+        setAnimation(RIGHT, Sprite.oneal_right, 10);
         rectangle = new Rectangle2D.Float( position.x + xOffSet,
-                 position.y + yOffSet, 24, 32);
+                position.y + yOffSet, 24, 32);
         speed = 0.5f;
     }
 
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {
-                setAnimation(UP, Sprite.balloom_right, 10);
+                setAnimation(UP, Sprite.oneal_right, 10);
             }
         } else if (random == 1) {
             if (currentAnimation != DOWN) {
-                setAnimation(DOWN, Sprite.balloom_left, 10);
+                setAnimation(DOWN, Sprite.oneal_left, 10);
             }
         } else if (random == 2) {
             if (currentAnimation != LEFT) {
-                setAnimation(LEFT, Sprite.balloom_left, 10);
+                setAnimation(LEFT, Sprite.oneal_left, 10);
             }
         } else if (random == 3) {
             if (currentAnimation != RIGHT) {
-                setAnimation(RIGHT, Sprite.balloom_right, 10);
+                setAnimation(RIGHT, Sprite.oneal_right, 10);
             }
         }
     }
-
-
 
     @Override
     public void render(Graphics2D g2D) {
@@ -61,7 +58,7 @@ public class Balloom extends Enemy {
     public void update() {
         if (isAlive) {
             animation.update();
-            move();
+            move2();
             animate();
             randomDirection();
             moveCondition();

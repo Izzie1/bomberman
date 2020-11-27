@@ -2,6 +2,7 @@ package com.izzist.game.map.tiles;
 
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.map.MapLoader;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -11,7 +12,14 @@ public class TileWall extends Tile{
 
     public TileWall(Vector2D position,int size) {
         super(position,size);
-        this.sprite = new Sprite("tile/Wall.png", 16, 16);
+        switch (MapLoader.level){
+            case 1:
+                this.sprite = new Sprite(MapLoader.mapSprite[1], 16, 16);
+                break;
+            case 2:
+                this.sprite = new Sprite(MapLoader.mapSprite[3], 16, 16);
+                break;
+        }
     }
 
     @Override

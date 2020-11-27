@@ -21,7 +21,7 @@ public class Bomb extends Entity {
     public Bomb(Vector2D position, int size) {
         this.position = position;
         this.size = size;
-        this.sprite = new Sprite("font/BombGreen_16_16.png", 16, 16);
+        this.sprite = new Sprite("assets/BombGreen_16_16.png", 16, 16);
         animation = new Animation();
         setAnimation2(sprite.getSpriteArray2(0), 25);
         int xt = (int) (position.x + 16) / 32;

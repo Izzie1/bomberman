@@ -49,7 +49,7 @@ public class Sound {
     }
 
     public static  void playBombExplose(){
-        Sound.play(bombExplose);
+        play(bombExplose);
     }
     public static void playStartStage(){
         Sound.play(startStage);

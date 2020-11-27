@@ -30,28 +30,28 @@ public class Flame extends Entity {
         this.radius = radius;
         this.position = position;
         this.size = size;
-        this.sprite = new Sprite("font/Flame_Green_16_16.png", 16, 16);
+        this.sprite = new Sprite("assets/Flame_Green_16_16.png", 16, 16);
         animation = new Animation();
         animation.setFrames(sprite.getSpriteArray2(0));
-        animation.setDelay(15);
+        animation.setDelay(10);
         animation_up = new Animation();
         animation_up.setFrames(sprite.getSpriteArray2(1));
-        animation_up.setDelay(15);
+        animation_up.setDelay(10);
         animation_down = new Animation();
         animation_down.setFrames(sprite.getSpriteArray2(4));
-        animation_down.setDelay(15);
+        animation_down.setDelay(10);
         animation_right = new Animation();
         animation_right.setFrames(sprite.getSpriteArray2(3));
-        animation_right.setDelay(15);
+        animation_right.setDelay(10);
         animation_left = new Animation();
         animation_left.setFrames(sprite.getSpriteArray2(2));
-        animation_left.setDelay(15);
+        animation_left.setDelay(10);
         animation_horizontal = new Animation();
         animation_horizontal.setFrames(sprite.getSpriteArray2(6));
-        animation_horizontal.setDelay(15);
+        animation_horizontal.setDelay(10);
         animation_vertical = new Animation();
         animation_vertical.setFrames(sprite.getSpriteArray2(5));
-        animation_vertical.setDelay(15);
+        animation_vertical.setDelay(10);
     }
 
     public void setIsExploded(boolean exploded) {
