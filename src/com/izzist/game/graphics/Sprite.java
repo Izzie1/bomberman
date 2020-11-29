@@ -44,8 +44,8 @@ public class Sprite extends SpriteSheet {
         balloom_right = new BufferedImage[3];
         balloom_left = new BufferedImage[3];
         balloom_dead = new BufferedImage[5];
-        oneal_right = new BufferedImage[3];
-        oneal_left = new BufferedImage[3];
+        oneal_right = new BufferedImage[4];
+        oneal_left = new BufferedImage[4];
         oneal_dead = new BufferedImage[5];
 
         playerDead[0] = player.getSubimage(0, 12 * 24, 24, 24);
@@ -56,6 +56,7 @@ public class Sprite extends SpriteSheet {
         playerDead[5] = player.getSubimage(0, 17 * 24, 24, 24);
         playerDead[6] = player.getSubimage(0, 18 * 24, 24, 24);
         playerDead[7] = player.getSubimage(0, 19 * 24, 24, 24);
+
         balloom_left[0] = balloom.getSubimage(0, 0, 16, 16);
         balloom_left[1] = balloom.getSubimage(16, 0, 16, 16);
         balloom_left[2] = balloom.getSubimage(2 * 16, 0, 16, 16);
@@ -71,14 +72,18 @@ public class Sprite extends SpriteSheet {
         oneal_left[0] = oneal.getSubimage(0, 0, 16, 16);
         oneal_left[1] = oneal.getSubimage(16, 0, 16, 16);
         oneal_left[2] = oneal.getSubimage(2 * 16, 0, 16, 16);
-        oneal_right[0] = oneal.getSubimage(3 * 16, 0, 16, 16);
-        oneal_right[1] = oneal.getSubimage(4 * 16, 0, 16, 16);
-        oneal_right[2] = oneal.getSubimage(5 * 16, 0, 16, 16);
-        oneal_dead[0] = oneal.getSubimage(6 * 16, 0, 16, 16);
-        oneal_dead[1] = oneal.getSubimage(7 * 16, 0, 16, 16);
-        oneal_dead[2] = oneal.getSubimage(8 * 16, 0, 16, 16);
-        oneal_dead[3] = oneal.getSubimage(9 * 16, 0, 16, 16);
-        oneal_dead[4] = oneal.getSubimage(10 * 16, 0, 16, 16);
+        oneal_left[3] = oneal.getSubimage(3 * 16, 0, 16, 16);
+
+        oneal_right[0] = oneal.getSubimage(4 * 16, 0, 16, 16);
+        oneal_right[1] = oneal.getSubimage(5 * 16, 0, 16, 16);
+        oneal_right[2] = oneal.getSubimage(6 * 16, 0, 16, 16);
+        oneal_right[3] = oneal.getSubimage(7 * 16, 0, 16, 16);
+
+        oneal_dead[0] = oneal.getSubimage(8 * 16, 0, 16, 16);
+        oneal_dead[1] = oneal.getSubimage(9 * 16, 0, 16, 16);
+        oneal_dead[2] = oneal.getSubimage(10 * 16, 0, 16, 16);
+        oneal_dead[3] = oneal.getSubimage(11 * 16, 0, 16, 16);
+        oneal_dead[4] = oneal.getSubimage(12 * 16, 0, 16, 16);
     }
 
 

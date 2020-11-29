@@ -1,7 +1,7 @@
 package com.izzist.game.entity.Enemy;
 
-import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.Sound;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -18,6 +18,8 @@ public class Oneal extends Enemy{
         rectangle = new Rectangle2D.Float( position.x + xOffSet,
                 position.y + yOffSet, 24, 32);
         speed = 0.5f;
+        chase = new Rectangle((int)rectangle.getX()-60,(int)rectangle.getY()-60,
+                60*2+(int)rectangle.getWidth(), 60*2+(int)rectangle.getHeight());
     }
 
     public void animate() {
@@ -40,11 +42,17 @@ public class Oneal extends Enemy{
         }
     }
 
+    public void updateSpeed() {
+        speed = random2;
+        System.out.println(speed);
+    }
+
     @Override
     public void render(Graphics2D g2D) {
         g2D.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
+            g2D.drawRect(chase.x,chase.y,chase.width,chase.height);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         }
@@ -53,12 +61,14 @@ public class Oneal extends Enemy{
     @Override
     public void update() {
         if (isAlive) {
-            animation.update();
-            move2();
             animate();
+            animation.update();
+            updateChase();
+            move2();
             randomDirection();
             moveCondition();
             updateRect();
+            updateSpeed();
         } else {
             rectangle = new Rectangle();
             dead_animation.update();
@@ -68,5 +78,4 @@ public class Oneal extends Enemy{
             isAlive = false;
         }
     }
-
 }

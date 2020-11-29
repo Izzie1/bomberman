@@ -3,6 +3,7 @@ package com.izzist.game.entity.Enemy;
 import com.izzist.game.entity.Character;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int random;
+    protected int random2;
     protected int randomSpeed = 150;
     protected Rectangle chase;
 
@@ -35,6 +37,7 @@ public abstract class Enemy extends Character {
             randomSpeed--;
         } else {
             random = new Random().nextInt(4);
+            random2 = new Random().nextInt(3)+1;
             randomSpeed = 150;
         }
     }
@@ -55,8 +58,27 @@ public abstract class Enemy extends Character {
     }
 
     public void move2() {
+        if (!chase.intersects(PlayState.player.getRectangle())) {
+            move();
+        } else {
+            if (position.y > PlayState.player.getPosition().y + 1) {
+                dy = -speed;
+            }
+            if (position.y < PlayState.player.getPosition().y - 1) {
+                dy = speed;
+            }
 
+            if (position.x > PlayState.player.getPosition().x + 1) {
+                dx = -speed;
+            }
+            if (position.x < PlayState.player.getPosition().x - 1) {
+                dx = speed;
+            }
+        }
     }
 
+    public void updateChase(){
+        chase.setLocation((int)rectangle.getX()-60,(int)rectangle.getY()-60);
+    }
 
 }
