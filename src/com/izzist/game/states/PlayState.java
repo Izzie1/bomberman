@@ -2,7 +2,6 @@ package com.izzist.game.states;
 
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Player;
-import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.Sound;
@@ -89,6 +88,5 @@ public class PlayState extends GameState {
                     break;
             }
         }
-        System.out.println(level);
     }
 }

@@ -1,6 +1,9 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.entity.Character;
+import com.izzist.game.graphics.Animation;
+import com.izzist.game.graphics.Sprite;
+import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.util.Random;
@@ -9,6 +12,14 @@ public abstract class Enemy extends Character {
     protected int random;
     protected int randomSpeed = 150;
     protected Rectangle chase;
+
+    public Enemy(Vector2D position, int size) {
+        this.position = position;
+        this.size = size;
+        this.sprite = new Sprite();
+        dead_animation = new Animation();
+        animation = new Animation();
+    }
 
     public void moveCondition() {
         if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) && !collisionBomb(dx, 0)) {
@@ -43,7 +54,7 @@ public abstract class Enemy extends Character {
         }
     }
 
-    public void move2(){
+    public void move2() {
 
     }
 

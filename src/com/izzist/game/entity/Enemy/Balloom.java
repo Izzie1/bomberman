@@ -10,15 +10,11 @@ import java.awt.geom.Rectangle2D;
 public class Balloom extends Enemy {
 
     public Balloom(Vector2D position, int size) {
-        this.position = position;
-        this.size = size;
+        super(position,size);
         this.xOffSet = 4;
         this.yOffSet = 0;
-        this.sprite = new Sprite();
-        dead_animation = new Animation();
         dead_animation.setFrames(Sprite.balloom_dead);
         dead_animation.setDelay(20);
-        animation = new Animation();
         setAnimation(RIGHT, Sprite.balloom_right, 10);
         rectangle = new Rectangle2D.Float( position.x + xOffSet,
                  position.y + yOffSet, 24, 32);
