@@ -11,7 +11,7 @@ import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int random;
-    protected int random2;
+    protected float random2;
     protected int randomSpeed = 150;
     protected Rectangle chase;
 
@@ -32,12 +32,21 @@ public abstract class Enemy extends Character {
         }
     }
 
+    public void moveCondition2() {
+        if (!collisionWall(dx, 0) && !collisionBomb(dx, 0)) {
+            position.x += dx;
+        }
+        if (!collisionWall(0, dy) && !collisionBomb(0, dy)) {
+            position.y += dy;
+        }
+    }
+
     public void randomDirection() {
         if (randomSpeed > 0) {
             randomSpeed--;
         } else {
             random = new Random().nextInt(4);
-            random2 = new Random().nextInt(3)+1;
+            random2 = new Random().nextFloat() + 0.5f;
             randomSpeed = 150;
         }
     }

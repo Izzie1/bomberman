@@ -19,6 +19,12 @@ public class Sprite extends SpriteSheet {
     public static BufferedImage[] oneal_right;
     public static BufferedImage[] oneal_left;
     public static BufferedImage[] oneal_dead;
+    public static BufferedImage[] kondoria_dead;
+    public static BufferedImage[] kondoria_left;
+    public static BufferedImage[] kondoria_right;
+    public static BufferedImage[] doll_left;
+    public static BufferedImage[] doll_right;
+    public static BufferedImage[] doll_dead;
 
 
     public Sprite(String path, int tileSizeWidth, int tileSizeHeight) {
@@ -47,6 +53,12 @@ public class Sprite extends SpriteSheet {
         oneal_right = new BufferedImage[4];
         oneal_left = new BufferedImage[4];
         oneal_dead = new BufferedImage[5];
+        kondoria_left = new BufferedImage[3];
+        kondoria_right = new BufferedImage[3];
+        kondoria_dead = new BufferedImage[4];
+        doll_left = new BufferedImage[3];
+        doll_right = new BufferedImage[3];
+        doll_dead = new BufferedImage[4];
 
         playerDead[0] = player.getSubimage(0, 12 * 24, 24, 24);
         playerDead[1] = player.getSubimage(0, 13 * 24, 24, 24);
@@ -73,17 +85,38 @@ public class Sprite extends SpriteSheet {
         oneal_left[1] = oneal.getSubimage(16, 0, 16, 16);
         oneal_left[2] = oneal.getSubimage(2 * 16, 0, 16, 16);
         oneal_left[3] = oneal.getSubimage(3 * 16, 0, 16, 16);
-
         oneal_right[0] = oneal.getSubimage(4 * 16, 0, 16, 16);
         oneal_right[1] = oneal.getSubimage(5 * 16, 0, 16, 16);
         oneal_right[2] = oneal.getSubimage(6 * 16, 0, 16, 16);
         oneal_right[3] = oneal.getSubimage(7 * 16, 0, 16, 16);
-
         oneal_dead[0] = oneal.getSubimage(8 * 16, 0, 16, 16);
         oneal_dead[1] = oneal.getSubimage(9 * 16, 0, 16, 16);
         oneal_dead[2] = oneal.getSubimage(10 * 16, 0, 16, 16);
         oneal_dead[3] = oneal.getSubimage(11 * 16, 0, 16, 16);
         oneal_dead[4] = oneal.getSubimage(12 * 16, 0, 16, 16);
+
+        kondoria_dead[0] = loadSprite("assets/kondoria_dead.png");
+        kondoria_dead[1] = loadSprite("assets/mob_dead1.png");
+        kondoria_dead[2] = loadSprite("assets/mob_dead2.png");
+        kondoria_dead[3] = loadSprite("assets/mob_dead3.png");
+        kondoria_left[0] = loadSprite("assets/kondoria_left1.png");
+        kondoria_left[1] = loadSprite("assets/kondoria_left2.png");
+        kondoria_left[2] = loadSprite("assets/kondoria_left3.png");
+        kondoria_right[0] = loadSprite("assets/kondoria_right1.png");
+        kondoria_right[1] = loadSprite("assets/kondoria_right2.png");
+        kondoria_right[2] = loadSprite("assets/kondoria_right3.png");
+
+        doll_dead[0] = loadSprite("assets/doll_dead.png");
+        doll_dead[1] = loadSprite("assets/mob_dead1.png");
+        doll_dead[2] = loadSprite("assets/mob_dead2.png");
+        doll_dead[3] = loadSprite("assets/mob_dead3.png");
+        doll_left[0] = loadSprite("assets/doll_left1.png");
+        doll_left[1] = loadSprite("assets/doll_left2.png");
+        doll_left[2] = loadSprite("assets/doll_left3.png");
+        doll_right[0] = loadSprite("assets/doll_right1.png");
+        doll_right[1] = loadSprite("assets/doll_right2.png");
+        doll_right[2] = loadSprite("assets/doll_right3.png");
+
     }
 
 
