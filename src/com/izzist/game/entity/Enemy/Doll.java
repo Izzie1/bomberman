@@ -1,7 +1,9 @@
 package com.izzist.game.entity.Enemy;
 
+import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.EnemyManager;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;

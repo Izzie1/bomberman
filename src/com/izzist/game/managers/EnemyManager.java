@@ -1,6 +1,11 @@
 package com.izzist.game.managers;
 
+import com.izzist.game.entity.Bomb.Flame;
+import com.izzist.game.entity.Enemy.Balloom;
+import com.izzist.game.entity.Enemy.Doll;
 import com.izzist.game.entity.Enemy.Enemy;
+import com.izzist.game.states.PlayState;
+import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,6 +43,9 @@ public class EnemyManager {
     public void removeEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (!enemies.get(i).getIsAlive() && enemies.get(i).getDead_animation().playOnce()) {
+                if(enemies.get(i)instanceof Doll){
+                    enemies.add(new Balloom(enemies.get(i).getPosition(),32));
+                }
                 enemies.remove(i);
             }
         }

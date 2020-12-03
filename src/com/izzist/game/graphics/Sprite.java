@@ -10,8 +10,13 @@ public class Sprite extends SpriteSheet {
     private int spritePerWidth;
     private int spriteHeight;
 
+    public static BufferedImage menu;
+    public static BufferedImage gameOver;
     public static BufferedImage balloom;
+    public static BufferedImage beginningImg;
     public static BufferedImage oneal;
+
+    public static BufferedImage[] beginning;
     public static BufferedImage[] playerDead;
     public static BufferedImage[] balloom_right;
     public static BufferedImage[] balloom_left;
@@ -45,7 +50,9 @@ public class Sprite extends SpriteSheet {
         balloom = loadSprite("assets/Balloom.png");
         player = loadSprite("assets/bomberman 24x24.png");
         oneal = loadSprite("assets/Oneal.png");
-
+        gameOver = loadSprite("states/gameover.png");
+        menu = loadSprite("states/background.png");
+        beginningImg = loadSprite("states/beginning.png");
         playerDead = new BufferedImage[8];
         balloom_right = new BufferedImage[3];
         balloom_left = new BufferedImage[3];
@@ -59,6 +66,14 @@ public class Sprite extends SpriteSheet {
         doll_left = new BufferedImage[3];
         doll_right = new BufferedImage[3];
         doll_dead = new BufferedImage[4];
+        beginning = new BufferedImage[5];
+
+        beginning[0] = beginningImg.getSubimage(0, 0, 97, 97);
+        beginning[1] = beginningImg.getSubimage(97, 0, 97, 97);
+        beginning[2] = beginningImg.getSubimage(97 * 2, 0, 97, 97);
+        beginning[3] = beginningImg.getSubimage(97 * 3, 0, 97, 97);
+        beginning[4] = beginningImg.getSubimage(97 * 4, 0, 97, 97);
+
 
         playerDead[0] = player.getSubimage(0, 12 * 24, 24, 24);
         playerDead[1] = player.getSubimage(0, 13 * 24, 24, 24);
@@ -116,6 +131,7 @@ public class Sprite extends SpriteSheet {
         doll_right[0] = loadSprite("assets/doll_right1.png");
         doll_right[1] = loadSprite("assets/doll_right2.png");
         doll_right[2] = loadSprite("assets/doll_right3.png");
+
 
     }
 

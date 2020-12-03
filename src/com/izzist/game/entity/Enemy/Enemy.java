@@ -86,8 +86,8 @@ public abstract class Enemy extends Character {
         }
     }
 
-    public void updateChase(){
-        chase.setLocation((int)rectangle.getX()-60,(int)rectangle.getY()-60);
+    public void updateChase() {
+        chase.setLocation((int) rectangle.getX() - 60, (int) rectangle.getY() - 60);
     }
 
 }

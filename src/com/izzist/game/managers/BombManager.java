@@ -13,7 +13,6 @@ public class BombManager {
 
     public BombManager() {
         bombs = new ArrayList<>();
-
     }
 
     public void update() {

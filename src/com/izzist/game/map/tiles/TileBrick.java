@@ -47,7 +47,6 @@ public class TileBrick extends Tile {
         if (!isBreak) {
             animation.update();
         } else {
-            rectangle=new Rectangle();
             animation1.update();
         }
     }

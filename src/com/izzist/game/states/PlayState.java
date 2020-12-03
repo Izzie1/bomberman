@@ -2,6 +2,7 @@ package com.izzist.game.states;
 
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Player;
+import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.Sound;
@@ -39,11 +40,14 @@ public class PlayState extends GameState {
         map.update();
         enemyManager.update();
         switchLevel();
+
+
     }
 
     @Override
     public void input(KeyHandler key) {
         player.input(key);
+
     }
 
     @Override
@@ -53,6 +57,12 @@ public class PlayState extends GameState {
         renderFlame(g2D);
         enemyManager.render(g2D);
         player.render(g2D);
+        if(player.getLives()==0){
+            gameStateManager.add(GameStateManager.GAMEOVER);
+            gameStateManager.pop(GameStateManager.PLAY);
+            map.clear();
+            EnemyManager.enemies.clear();
+        }
     }
 
     public void renderFlame(Graphics2D g2D) {
