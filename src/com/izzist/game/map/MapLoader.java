@@ -1,6 +1,8 @@
 package com.izzist.game.map;
 
 import com.izzist.game.entity.Enemy.Balloom;
+import com.izzist.game.entity.Enemy.Doll;
+import com.izzist.game.entity.Enemy.Kondoria;
 import com.izzist.game.entity.Enemy.Oneal;
 import com.izzist.game.entity.Item.Item;
 import com.izzist.game.entity.Item.ItemBomb;
@@ -117,6 +119,18 @@ public class MapLoader {
                     }
                     case '2': {
                         EnemyManager.enemies.add(new Oneal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
+                    case '3': {
+                        EnemyManager.enemies.add(new Kondoria(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
+                    case '4': {
+                        EnemyManager.enemies.add(new Doll(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
                         break;

@@ -76,7 +76,7 @@ public class Sound {
     }
 
     public static void playBackGround(){
-        Sound.play(backgroundGame);
+       // Sound.play(backgroundGame);
     }
 
 

@@ -1,14 +1,15 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.managers.Sound;
+import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Oneal extends Enemy{
-    public Oneal(Vector2D position, int size) {
+public class Doll extends Enemy{
+
+    public Doll(Vector2D position, int size) {
         super(position,size);
         this.xOffSet = 4;
         this.yOffSet = 2;
@@ -18,32 +19,35 @@ public class Oneal extends Enemy{
         rectangle = new Rectangle2D.Float( position.x + xOffSet,
                 position.y + yOffSet, 24, 30);
         speed = 0.5f;
-        chase = new Rectangle((int)rectangle.getX()-60,(int)rectangle.getY()-60,
-                60*2+(int)rectangle.getWidth(), 60*2+(int)rectangle.getHeight());
+    }
+
+    public void dollMoveLogic() {
+        if (collisionWall(dx, 0) && collisionBrick(dx, 0) && collisionBomb(dx, 0)) {
+            position.x -= dx * 2;
+        }
+        if (collisionWall(0, dy) && collisionBrick(0, dy) && collisionBomb(0, dy)) {
+            position.y -= dy * 2;
+        }
     }
 
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {
-                setAnimation(UP, Sprite.oneal_right, 10);
+                setAnimation(UP, Sprite.doll_right, 10);
             }
         } else if (random == 1) {
             if (currentAnimation != DOWN) {
-                setAnimation(DOWN, Sprite.oneal_left, 10);
+                setAnimation(DOWN, Sprite.doll_left, 10);
             }
         } else if (random == 2) {
             if (currentAnimation != LEFT) {
-                setAnimation(LEFT, Sprite.oneal_left, 10);
+                setAnimation(LEFT, Sprite.doll_left, 10);
             }
         } else if (random == 3) {
             if (currentAnimation != RIGHT) {
-                setAnimation(RIGHT, Sprite.oneal_right, 10);
+                setAnimation(RIGHT, Sprite.doll_right, 10);
             }
         }
-    }
-
-    public void updateSpeed() {
-        speed = random2;
     }
 
     @Override
@@ -51,7 +55,6 @@ public class Oneal extends Enemy{
         g2D.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-            g2D.drawRect(chase.x,chase.y,chase.width,chase.height);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         }
@@ -62,12 +65,11 @@ public class Oneal extends Enemy{
         if (isAlive) {
             animate();
             animation.update();
-            updateChase();
-            move2();
             randomDirection();
-            moveCondition();
             updateRect();
-            updateSpeed();
+            move();
+            moveCondition();
+            dollMoveLogic();
         } else {
             rectangle = new Rectangle();
             dead_animation.update();
