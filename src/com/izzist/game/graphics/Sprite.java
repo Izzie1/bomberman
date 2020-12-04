@@ -12,10 +12,15 @@ public class Sprite extends SpriteSheet {
 
     public static BufferedImage menu;
     public static BufferedImage gameOver;
+    public static BufferedImage victory;
+
     public static BufferedImage balloom;
     public static BufferedImage beginningImg;
     public static BufferedImage oneal;
 
+    public static BufferedImage hud;
+    public static BufferedImage live;
+    public static BufferedImage[] level;
     public static BufferedImage[] beginning;
     public static BufferedImage[] playerDead;
     public static BufferedImage[] balloom_right;
@@ -53,6 +58,11 @@ public class Sprite extends SpriteSheet {
         gameOver = loadSprite("states/gameover.png");
         menu = loadSprite("states/background.png");
         beginningImg = loadSprite("states/beginning.png");
+        victory = loadSprite("states/end.png");
+        hud = loadSprite("hudsprite/1.png");
+        live = loadSprite("hudsprite/live.png");
+
+        level = new BufferedImage[4];
         playerDead = new BufferedImage[8];
         balloom_right = new BufferedImage[3];
         balloom_left = new BufferedImage[3];
@@ -67,6 +77,13 @@ public class Sprite extends SpriteSheet {
         doll_right = new BufferedImage[3];
         doll_dead = new BufferedImage[4];
         beginning = new BufferedImage[5];
+
+        level[0] = loadSprite("hudsprite/level1.png");
+        level[1] = loadSprite("hudsprite/level2.png");
+        level[2] = loadSprite("hudsprite/level3.png");
+        level[3] = loadSprite("hudsprite/level4.png");
+
+
 
         beginning[0] = beginningImg.getSubimage(0, 0, 97, 97);
         beginning[1] = beginningImg.getSubimage(97, 0, 97, 97);

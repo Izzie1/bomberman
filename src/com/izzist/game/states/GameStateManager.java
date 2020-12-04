@@ -10,7 +10,7 @@ public class GameStateManager {
 
     public static final int MENU = 0;
     public static final int PLAY = 1;
-    public static final int PAUSE = 2;
+    public static final int VICTORY = 2;
     public static final int GAMEOVER = 3;
 
     public GameStateManager() {
@@ -29,8 +29,8 @@ public class GameStateManager {
             case PLAY:
                 states[PLAY] = new PlayState(this);
                 break;
-            case PAUSE:
-                states[PAUSE] = new PauseState(this);
+            case VICTORY:
+                states[VICTORY] = new VictoryState(this);
                 break;
             case GAMEOVER:
                 states[GAMEOVER] = new GameoverState(this);

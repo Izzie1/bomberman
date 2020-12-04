@@ -15,9 +15,9 @@ public class Doll extends Enemy{
         super(position,size);
         this.xOffSet = 4;
         this.yOffSet = 2;
-        dead_animation.setFrames(Sprite.oneal_dead);
+        dead_animation.setFrames(Sprite.doll_dead);
         dead_animation.setDelay(20);
-        setAnimation(RIGHT, Sprite.oneal_right, 10);
+        setAnimation(RIGHT, Sprite.doll_right, 10);
         rectangle = new Rectangle2D.Float( position.x + xOffSet,
                 position.y + yOffSet, 24, 30);
         speed = 0.5f;

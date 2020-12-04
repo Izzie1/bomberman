@@ -32,7 +32,7 @@ public class MapLoader {
     public static String mapSprite[]={ "map/map1/breakable.png","map/map1/Wall.png",
             "map/map2/breakable.png","map/map2/Wall.png",
             "map/map3/breakable.png","map/map3/Wall.png",
-            "map/ma4/breakable.png","map/map4/Wall.png"
+            "map/map4/breakable.png","map/map4/Wall.png"
     };
 
 

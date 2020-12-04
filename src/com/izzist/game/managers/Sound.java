@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
 public class Sound {
     //
@@ -31,12 +29,9 @@ public class Sound {
     public static void play( String filePath){
         InputStream music;
         try{
-
             music = new FileInputStream ( new File ( filePath) );
             AudioStream  audio = new AudioStream (music);
             AudioPlayer.player.start(audio);
-
-
         }catch(IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +71,7 @@ public class Sound {
     }
 
     public static void playBackGround(){
-       // Sound.play(backgroundGame);
+        Sound.play(backgroundGame);
     }
 
 

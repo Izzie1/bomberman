@@ -44,9 +44,9 @@ public class KeyHandler implements KeyListener {
     public Key left = new Key();
     public Key right = new Key();
     public Key attack = new Key();
-    public Key menu = new Key();
     public Key enter = new Key();
-    public Key escape = new Key();
+    public Key clear = new Key();
+
 
     public KeyHandler(GamePanel game) {
         game.addKeyListener(this);
@@ -73,7 +73,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_S:
                 down.toggle(pressed);
                 break;
-
             case KeyEvent.VK_A:
                 left.toggle(pressed);
                 break;
@@ -83,14 +82,12 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_SPACE:
                 attack.toggle(pressed);
                 break;
-            case KeyEvent.VK_E:
-                menu.toggle(pressed);
-                break;
             case KeyEvent.VK_ENTER:
                 enter.toggle(pressed);
                 break;
-            case KeyEvent.VK_ESCAPE:
-                escape.toggle(pressed);
+            case KeyEvent.VK_7:
+                clear.toggle(pressed);
+                break;
         }
     }
 

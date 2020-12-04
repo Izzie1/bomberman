@@ -6,8 +6,8 @@ import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
 
-public class GameoverState extends GameState {
-    public GameoverState(GameStateManager gameStateManager) {
+public class VictoryState extends GameState {
+    public VictoryState(GameStateManager gameStateManager) {
         super(gameStateManager);
     }
 
@@ -20,13 +20,13 @@ public class GameoverState extends GameState {
     public void input(KeyHandler key) {
         key.enter.tick();
         if(key.enter.clicked){
-            gameStateManager.pop(GameStateManager.GAMEOVER);
+            gameStateManager.pop(GameStateManager.VICTORY);
             gameStateManager.add(GameStateManager.MENU);
         }
     }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawImage(Sprite.gameOver,0,0, GamePanel.width,GamePanel.height,null);
+        g2D.drawImage(Sprite.victory,0,0, GamePanel.width,GamePanel.height,null);
     }
 }

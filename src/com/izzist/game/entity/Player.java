@@ -11,6 +11,7 @@ import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
+import com.izzist.game.managers.Sound;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
@@ -102,6 +103,7 @@ public class Player extends Character {
             removeBomb();
             takeItem();
         } else {
+            Sound.playBomberDie();
             dead_animation.update();
             if (dead_animation.playOnce()) {
                 resetProperties();

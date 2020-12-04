@@ -15,7 +15,6 @@ public class TileBrick extends Tile {
 
     public TileBrick(Vector2D position, int size) {
         super(position, size);
-
         animation = new Animation();
         animation1 = new Animation();
         switch (MapLoader.level){
@@ -24,6 +23,12 @@ public class TileBrick extends Tile {
                 break;
             case 2:
                 this.sprite = new Sprite(MapLoader.mapSprite[2], 16, 16);
+                break;
+            case 3:
+                this.sprite = new Sprite(MapLoader.mapSprite[4], 16, 16);
+                break;
+            case 4:
+                this.sprite = new Sprite(MapLoader.mapSprite[6], 16, 16);
                 break;
         }
 

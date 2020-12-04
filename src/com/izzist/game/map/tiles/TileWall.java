@@ -19,6 +19,12 @@ public class TileWall extends Tile{
             case 2:
                 this.sprite = new Sprite(MapLoader.mapSprite[3], 16, 16);
                 break;
+            case 3:
+                this.sprite = new Sprite(MapLoader.mapSprite[5], 16, 16);
+                break;
+            case 4:
+                this.sprite = new Sprite(MapLoader.mapSprite[7], 16, 16);
+                break;
         }
     }
 
