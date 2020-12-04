@@ -34,7 +34,6 @@ public class Player extends Character {
 
     private int bombQuantity = 1;
     private int flameRange = 1;
-
     private int spawnX;
     private int spawnY;
 

@@ -60,6 +60,7 @@ public class Balloom extends Enemy {
             randomDirection();
             moveCondition();
             updateRect();
+
         } else {
             rectangle = new Rectangle();
             dead_animation.update();

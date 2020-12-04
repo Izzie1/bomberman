@@ -35,6 +35,9 @@ public class Sprite extends SpriteSheet {
     public static BufferedImage[] doll_left;
     public static BufferedImage[] doll_right;
     public static BufferedImage[] doll_dead;
+    public static BufferedImage[] minvo_left;
+    public static BufferedImage[] minvo_right ;
+    public static BufferedImage[] minvo_dead ;
 
 
     public Sprite(String path, int tileSizeWidth, int tileSizeHeight) {
@@ -76,13 +79,15 @@ public class Sprite extends SpriteSheet {
         doll_left = new BufferedImage[3];
         doll_right = new BufferedImage[3];
         doll_dead = new BufferedImage[4];
+        minvo_left = new BufferedImage[3];
+        minvo_right = new BufferedImage[3];
+        minvo_dead = new BufferedImage[4];
         beginning = new BufferedImage[5];
 
         level[0] = loadSprite("hudsprite/level1.png");
         level[1] = loadSprite("hudsprite/level2.png");
         level[2] = loadSprite("hudsprite/level3.png");
         level[3] = loadSprite("hudsprite/level4.png");
-
 
 
         beginning[0] = beginningImg.getSubimage(0, 0, 97, 97);
@@ -149,6 +154,16 @@ public class Sprite extends SpriteSheet {
         doll_right[1] = loadSprite("assets/doll_right2.png");
         doll_right[2] = loadSprite("assets/doll_right3.png");
 
+        minvo_dead[0] = loadSprite("assets/minvo_dead.png");
+        minvo_dead[1] = loadSprite("assets/mob_dead1.png");
+        minvo_dead[2] = loadSprite("assets/mob_dead2.png");
+        minvo_dead[3] = loadSprite("assets/mob_dead3.png");
+        minvo_left[0] = loadSprite("assets/minvo_left1.png");
+        minvo_left[1] = loadSprite("assets/minvo_left2.png");
+        minvo_left[2] = loadSprite("assets/minvo_left3.png");
+        minvo_right[0] = loadSprite("assets/minvo_right1.png");
+        minvo_right[1] = loadSprite("assets/minvo_right2.png");
+        minvo_right[2] = loadSprite("assets/minvo_right3.png");
 
     }
 

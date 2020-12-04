@@ -1,9 +1,6 @@
 package com.izzist.game.map;
 
-import com.izzist.game.entity.Enemy.Balloom;
-import com.izzist.game.entity.Enemy.Doll;
-import com.izzist.game.entity.Enemy.Kondoria;
-import com.izzist.game.entity.Enemy.Oneal;
+import com.izzist.game.entity.Enemy.*;
 import com.izzist.game.entity.Item.Item;
 import com.izzist.game.entity.Item.ItemBomb;
 import com.izzist.game.entity.Item.ItemFlame;
@@ -29,10 +26,10 @@ public class MapLoader {
     private final int TILE_SIZE = 32;
     private String path;
     public TilePortal portal;
-    public static String mapSprite[]={ "map/map1/breakable.png","map/map1/Wall.png",
-            "map/map2/breakable.png","map/map2/Wall.png",
-            "map/map3/breakable.png","map/map3/Wall.png",
-            "map/map4/breakable.png","map/map4/Wall.png"
+    public static String mapSprite[] = {"map/map1/breakable.png", "map/map1/Wall.png",
+            "map/map2/breakable.png", "map/map2/Wall.png",
+            "map/map3/breakable.png", "map/map3/Wall.png",
+            "map/map4/breakable.png", "map/map4/Wall.png"
     };
 
 
@@ -135,11 +132,16 @@ public class MapLoader {
                         TileManager.tileManager.add(tileGrass);
                         break;
                     }
-
+                    case '5': {
+                        EnemyManager.enemies.add(new Minvo(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
                     case 'x': {
                         TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileBrickManager.add(tileBrick);
-                        portal= new TilePortal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        portal = new TilePortal(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
                         TileManager.tileManager.add(tileGrass);
                         break;
@@ -211,7 +213,7 @@ public class MapLoader {
         this.path = path;
     }
 
-    public void clear(){
+    public void clear() {
         portal = null;
         TileManager.tileBrickManager.clear();
         TileManager.tileManager.clear();

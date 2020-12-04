@@ -90,6 +90,7 @@ public class PlayState extends GameState {
 
     public void endGame(){
         if(player.getLives()==0){
+            bgMusic.stop();
             gameStateManager.add(GameStateManager.GAMEOVER);
             gameStateManager.pop(GameStateManager.PLAY);
             map.clear();

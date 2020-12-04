@@ -23,14 +23,6 @@ public class Doll extends Enemy{
         speed = 0.5f;
     }
 
-    public void dollMoveLogic() {
-        if (collisionWall(dx, 0) && collisionBrick(dx, 0) && collisionBomb(dx, 0)) {
-            position.x -= dx * 2;
-        }
-        if (collisionWall(0, dy) && collisionBrick(0, dy) && collisionBomb(0, dy)) {
-            position.y -= dy * 2;
-        }
-    }
 
     public void animate() {
         if (random == 0) {
@@ -71,7 +63,7 @@ public class Doll extends Enemy{
             updateRect();
             move();
             moveCondition();
-            dollMoveLogic();
+
         } else {
             rectangle = new Rectangle();
             dead_animation.update();

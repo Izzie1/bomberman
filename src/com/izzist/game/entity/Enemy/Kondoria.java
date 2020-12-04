@@ -56,7 +56,7 @@ public class Kondoria extends Enemy{
             animation.update();
             move();
             animate();
-            randomDirection();
+            randomDirection2();
             moveCondition2();
             updateRect();
         } else {

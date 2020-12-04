@@ -1,8 +1,11 @@
 package com.izzist.game.entity.Bomb;
 
+import com.izzist.game.entity.Enemy.Enemy;
+import com.izzist.game.entity.Enemy.Minvo;
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
@@ -39,11 +42,11 @@ public class Bomb extends Entity {
         if (explodeTime > 0) {
             isExploded = false;
             explodeTime--;
-            if(flameCollision()){
+            if (flameCollision() || minvoCollision()) {
                 isExploded = true;
                 explodeTime = 160;
             }
-        } else if (explodeTime == 0  ) {
+        } else if (explodeTime == 0) {
             isExploded = true;
             explodeTime = 160;
         }
@@ -65,8 +68,19 @@ public class Bomb extends Entity {
         return false;
     }
 
-    public void checkStandingOnBomb(){
-        if(!rectangle.intersects(PlayState.player.getRectangle())){
+    public boolean minvoCollision() {
+        if (EnemyManager.enemies != null) {
+            for (Enemy m : EnemyManager.enemies) {
+                if (m instanceof Minvo && m.getRectangle().intersects(rectangle)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void checkStandingOnBomb() {
+        if (!rectangle.intersects(PlayState.player.getRectangle())) {
             allowToPass = false;
         }
     }
