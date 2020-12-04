@@ -1,17 +1,12 @@
 package com.izzist.game.entity.Bomb;
 
 import com.izzist.game.entity.Entity;
-import com.izzist.game.entity.Player;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.managers.Sound;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
-import java.awt.datatransfer.FlavorEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Bomb extends Entity {
     private int explodeTime = 160;
@@ -52,9 +47,7 @@ public class Bomb extends Entity {
             isExploded = true;
             explodeTime = 160;
         }
-        if(isExploded){
-            Sound.playBombExplose();
-        }
+
     }
 
     public boolean flameCollision() {

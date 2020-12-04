@@ -3,9 +3,9 @@ package com.izzist.game.states;
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Player;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
-import com.izzist.game.managers.Sound;
 import com.izzist.game.managers.TileManager;
 import com.izzist.game.map.MapLoader;
 import com.izzist.game.ultility.KeyHandler;
@@ -22,6 +22,7 @@ public class PlayState extends GameState {
     public static List<Flame> flames = new ArrayList<>();
     private EnemyManager enemyManager;
     private int level = 1;
+    private AudioPlayer bgMusic;
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
@@ -29,6 +30,8 @@ public class PlayState extends GameState {
         map = new MapLoader("data/map/Level1.txt");
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
+        bgMusic = new AudioPlayer("/sound/KDA.mp3");
+        bgMusic.play();
     }
 
     @Override
@@ -97,19 +100,23 @@ public class PlayState extends GameState {
     public void switchLevel() {
         if (map.portal.isActive() && player.getRectangle().intersects(map.portal.getRectangle())) {
             map.clear();
+            bgMusic.stop();
             level++;
             switch (level) {
-                case 1:
-                    map = new MapLoader("data/map/Level1.txt");
-                    break;
                 case 2:
                     map = new MapLoader("data/map/Level2.txt");
+                    bgMusic = new AudioPlayer("/sound/WARRIORS.mp3");
+                    bgMusic.play();
                     break;
                 case 3:
                     map = new MapLoader("data/map/Level3.txt");
+                    bgMusic = new AudioPlayer("/sound/WTF.mp3");
+                    bgMusic.play();
                     break;
                 case 4:
                     map = new MapLoader("data/map/Level4.txt");
+                    bgMusic = new AudioPlayer("/sound/BAAM.mp3");
+                    bgMusic.play();
                     break;
                 case 5:
                     gameStateManager.pop(GameStateManager.PLAY);

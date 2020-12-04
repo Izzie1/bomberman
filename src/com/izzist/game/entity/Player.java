@@ -8,20 +8,21 @@ import com.izzist.game.entity.Item.ItemFlame;
 import com.izzist.game.entity.Item.ItemSpeed;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
-import com.izzist.game.managers.Sound;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.KeyHandler;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends Character {
+
+    private AudioPlayer setBomb;
 
     private boolean attack;
     private int lives = 3;
@@ -58,6 +59,7 @@ public class Player extends Character {
         deAcceleration = 0.5f;
         rectangle = new Rectangle2D.Float(position.x + xOffSet,
                 position.y + yOffSet, 16, 24);
+        setBomb = new AudioPlayer("/sound/newbomb.wav");
     }
 
     public void animate() {
@@ -103,7 +105,6 @@ public class Player extends Character {
             removeBomb();
             takeItem();
         } else {
-            Sound.playBomberDie();
             dead_animation.update();
             if (dead_animation.playOnce()) {
                 resetProperties();
@@ -185,6 +186,7 @@ public class Player extends Character {
         if (attack && bombs.size() < bombQuantity) {
             float x = this.position.x;
             float y = this.position.y;
+            setBomb.play();
             bombs.add(new Bomb(new Vector2D(x, y), 32));
         }
     }

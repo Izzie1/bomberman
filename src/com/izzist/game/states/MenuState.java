@@ -3,7 +3,7 @@ package com.izzist.game.states;
 import com.izzist.game.GamePanel;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.managers.Sound;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
@@ -14,6 +14,7 @@ public class MenuState extends GameState {
     private Animation animation;
     private Font font;
     private int select;
+    private AudioPlayer bgMusic;
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -21,7 +22,6 @@ public class MenuState extends GameState {
         animation = new Animation();
         animation.setFrames(Sprite.beginning);
         animation.setDelay(10);
-
         try {
             InputStream file = new BufferedInputStream(new FileInputStream("data/font/bm.ttf"));
             font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(24f);
@@ -29,12 +29,15 @@ public class MenuState extends GameState {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));
         } catch (FontFormatException | IOException ignored) {
         }
+        bgMusic = new AudioPlayer("/sound/2stepfromhell.wav");
+        bgMusic.play();
 
     }
 
     @Override
     public void update() {
         animation.update();
+
     }
 
     @Override
@@ -51,9 +54,10 @@ public class MenuState extends GameState {
 
         key.enter.tick();
         if (key.enter.clicked && select == 1) {
+            bgMusic.stop();
             gameStateManager.pop(GameStateManager.MENU);
             gameStateManager.add(GameStateManager.PLAY);
-        } else if(key.enter.clicked && select == 0) {
+        } else if (key.enter.clicked && select == 0) {
             System.exit(0);
         }
     }
@@ -67,7 +71,7 @@ public class MenuState extends GameState {
 
         g2D.setFont(font);
         g2D.setColor(Color.YELLOW);
-        if(select==1){
+        if (select == 1) {
             g2D.drawString("start", GamePanel.width / 2 - 55, GamePanel.height / 2 - 15);
         } else {
             g2D.drawString("quit", GamePanel.width / 2 - 40, GamePanel.height / 2 - 15);
