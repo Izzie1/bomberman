@@ -13,13 +13,14 @@ public class Sprite extends SpriteSheet {
     public static BufferedImage menu;
     public static BufferedImage gameOver;
     public static BufferedImage victory;
-
+    public static BufferedImage title;
     public static BufferedImage balloom;
     public static BufferedImage beginningImg;
     public static BufferedImage oneal;
-
-    public static BufferedImage hud;
     public static BufferedImage live;
+
+    public static BufferedImage[] hud;
+    public static BufferedImage[] bomImg;
     public static BufferedImage[] level;
     public static BufferedImage[] beginning;
     public static BufferedImage[] playerDead;
@@ -36,8 +37,8 @@ public class Sprite extends SpriteSheet {
     public static BufferedImage[] doll_right;
     public static BufferedImage[] doll_dead;
     public static BufferedImage[] minvo_left;
-    public static BufferedImage[] minvo_right ;
-    public static BufferedImage[] minvo_dead ;
+    public static BufferedImage[] minvo_right;
+    public static BufferedImage[] minvo_dead;
 
 
     public Sprite(String path, int tileSizeWidth, int tileSizeHeight) {
@@ -47,14 +48,14 @@ public class Sprite extends SpriteSheet {
         spritePerWidth = spriteSheet.getWidth() / tileSizeWidth;
         spriteHeight = spriteSheet.getHeight() / tileSizeWidth;
         loadSpriteArray();
-        init();
+
     }
 
     public Sprite() {
-        init();
+
     }
 
-    private void init() {
+    public static void init() {
         balloom = loadSprite("assets/Balloom.png");
         player = loadSprite("assets/bomberman 24x24.png");
         oneal = loadSprite("assets/Oneal.png");
@@ -62,9 +63,10 @@ public class Sprite extends SpriteSheet {
         menu = loadSprite("states/background.png");
         beginningImg = loadSprite("states/beginning.png");
         victory = loadSprite("states/end.png");
-        hud = loadSprite("hudsprite/1.png");
         live = loadSprite("hudsprite/live.png");
+        title = loadSprite("hudsprite/Title_Sprite.png");
 
+        hud = new BufferedImage[26];
         level = new BufferedImage[4];
         playerDead = new BufferedImage[8];
         balloom_right = new BufferedImage[3];
@@ -83,6 +85,7 @@ public class Sprite extends SpriteSheet {
         minvo_right = new BufferedImage[3];
         minvo_dead = new BufferedImage[4];
         beginning = new BufferedImage[5];
+        bomImg = new BufferedImage[10];
 
         level[0] = loadSprite("hudsprite/level1.png");
         level[1] = loadSprite("hudsprite/level2.png");
@@ -164,7 +167,14 @@ public class Sprite extends SpriteSheet {
         minvo_right[0] = loadSprite("assets/minvo_right1.png");
         minvo_right[1] = loadSprite("assets/minvo_right2.png");
         minvo_right[2] = loadSprite("assets/minvo_right3.png");
+        for (int i = 0; i < 10; i++) {
+            bomImg[i] = title.getSubimage(0, 172 * i, 597, 172);
+        }
 
+        for (int i = 0; i < 26; i++) {
+            int png = i + 1;
+            hud[i] = loadSprite("hudsprite/" + png + ".png");
+        }
     }
 
 

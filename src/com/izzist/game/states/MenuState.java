@@ -14,14 +14,16 @@ public class MenuState extends GameState {
     private Animation animation;
     private Font font;
     private int select;
-    private AudioPlayer bgMusic;
-
+    private Animation title;
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
         select = 1;
         animation = new Animation();
+        title = new Animation();
         animation.setFrames(Sprite.beginning);
         animation.setDelay(10);
+        title.setFrames(Sprite.bomImg);
+        title.setDelay(10);
         try {
             InputStream file = new BufferedInputStream(new FileInputStream("data/font/bm.ttf"));
             font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(24f);
@@ -29,7 +31,7 @@ public class MenuState extends GameState {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, file));
         } catch (FontFormatException | IOException ignored) {
         }
-        bgMusic = new AudioPlayer("/sound/2stepfromhell.wav");
+        bgMusic = new AudioPlayer("/sound/Menu.mp3");
         bgMusic.play();
 
     }
@@ -37,7 +39,7 @@ public class MenuState extends GameState {
     @Override
     public void update() {
         animation.update();
-
+        title.update();
     }
 
     @Override
@@ -68,7 +70,8 @@ public class MenuState extends GameState {
         g2D.drawImage(animation.getImage(), GamePanel.width / 2 - 100,
                 GamePanel.height / 2 - 100, 200, 200, null);
 
-
+        g2D.drawImage(title.getImage(), GamePanel.width / 2 - 298,
+                20, 597, 172, null);
         g2D.setFont(font);
         g2D.setColor(Color.YELLOW);
         if (select == 1) {

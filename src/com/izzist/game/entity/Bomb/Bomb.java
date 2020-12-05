@@ -5,6 +5,7 @@ import com.izzist.game.entity.Enemy.Minvo;
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
@@ -15,6 +16,7 @@ public class Bomb extends Entity {
     private int explodeTime = 160;
     private boolean isExploded = false;
     private boolean allowToPass = true;
+    private AudioPlayer bang;
 
     public Bomb(Vector2D position, int size) {
         this.position = position;
@@ -28,6 +30,7 @@ public class Bomb extends Entity {
         this.position.y = yt * 32;
         rectangle = new Rectangle((int) this.position.x,
                 (int) this.position.y, size, size);
+        bang = new AudioPlayer("/sound/bomb_bang.wav");
     }
 
     @Override
@@ -49,6 +52,9 @@ public class Bomb extends Entity {
         } else if (explodeTime == 0) {
             isExploded = true;
             explodeTime = 160;
+        }
+        if(isExploded){
+            bang.play();
         }
 
     }

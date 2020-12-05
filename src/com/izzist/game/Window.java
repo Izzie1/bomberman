@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
     public Window() {
+        Sprite.init();
         setTitle("bomberman");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new GamePanel(32*31,32*20));

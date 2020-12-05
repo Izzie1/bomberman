@@ -1,10 +1,7 @@
 package com.izzist.game.map;
 
 import com.izzist.game.entity.Enemy.*;
-import com.izzist.game.entity.Item.Item;
-import com.izzist.game.entity.Item.ItemBomb;
-import com.izzist.game.entity.Item.ItemFlame;
-import com.izzist.game.entity.Item.ItemSpeed;
+import com.izzist.game.entity.Item.*;
 import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.managers.ItemManager;
 import com.izzist.game.managers.TileManager;
@@ -108,6 +105,15 @@ public class MapLoader {
                         TileManager.tileManager.add(tileGrass);
                         break;
                     }
+                    case 'l': {
+                        TileBrick tileBrick = new TileBrick(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileBrickManager.add(tileBrick);
+                        ItemLive itemLive = new ItemLive(new Vector2D(x * TILE_SIZE + 4, y * TILE_SIZE + 4));
+                        ItemManager.items.add(itemLive);
+                        TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
+                        TileManager.tileManager.add(tileGrass);
+                        break;
+                    }
                     case '1': {
                         EnemyManager.enemies.add(new Balloom(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32));
                         TileGrass tileGrass = new TileGrass(new Vector2D(x * TILE_SIZE, y * TILE_SIZE), 32);
@@ -159,7 +165,6 @@ public class MapLoader {
 
 
     public void render(Graphics2D g2D) {
-
         if (TileManager.tileManager != null) {
             for (Tile tile : TileManager.tileManager) {
                 tile.render(g2D);
@@ -196,7 +201,10 @@ public class MapLoader {
         }
 
         portal.update();
+        removeBrick();
+    }
 
+    public void removeBrick(){
         for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
             if (TileManager.tileBrickManager.get(i).isBreak()
                     && TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {

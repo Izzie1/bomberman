@@ -1,6 +1,7 @@
 package com.izzist.game.states;
 
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.Graphics2D;
@@ -8,6 +9,7 @@ import java.awt.Graphics2D;
 public abstract class GameState {
     protected GameStateManager gameStateManager;
     protected Sprite sprite;
+    protected AudioPlayer bgMusic;
 
 
     public GameState(GameStateManager gameStateManager) {

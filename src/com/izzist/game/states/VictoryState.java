@@ -2,6 +2,7 @@ package com.izzist.game.states;
 
 import com.izzist.game.GamePanel;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
@@ -9,6 +10,8 @@ import java.awt.*;
 public class VictoryState extends GameState {
     public VictoryState(GameStateManager gameStateManager) {
         super(gameStateManager);
+        bgMusic = new AudioPlayer("/sound/victory.mp3");
+        bgMusic.play();
     }
 
     @Override
@@ -20,6 +23,7 @@ public class VictoryState extends GameState {
     public void input(KeyHandler key) {
         key.enter.tick();
         if(key.enter.clicked){
+            bgMusic.stop();
             gameStateManager.pop(GameStateManager.VICTORY);
             gameStateManager.add(GameStateManager.MENU);
         }

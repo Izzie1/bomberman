@@ -18,7 +18,7 @@ public abstract class Enemy extends Character {
     protected int temp2;
     protected int temp3;
     protected int temp4;
-    protected int thinkSpeed = 40;
+    protected int thinkSpeed = 20;
 
 
     public Enemy(Vector2D position, int size) {
@@ -75,7 +75,7 @@ public abstract class Enemy extends Character {
             thinkSpeed--;
         } else if (temp1 == (int) position.x && temp2 == (int) position.y && thinkSpeed == 0) {
             random = new Random().nextInt(4);
-            thinkSpeed = 40;
+            thinkSpeed = 20;
         }
     }
 
@@ -84,7 +84,7 @@ public abstract class Enemy extends Character {
             thinkSpeed--;
         } else if (temp3 == (int) position.x && temp4 == (int) position.y && thinkSpeed == 0) {
             random = new Random().nextInt(4);
-            thinkSpeed = 40;
+            thinkSpeed = 20;
         }
     }
 

@@ -2,6 +2,7 @@ package com.izzist.game.states;
 
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Player;
+import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.managers.BombManager;
@@ -16,16 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayState extends GameState {
+    private Animation cloud;
     private MapLoader map;
     public static Player player;
     private BombManager bombManager;
     public static List<Flame> flames = new ArrayList<>();
     private EnemyManager enemyManager;
     private int level = 1;
-    private AudioPlayer bgMusic;
 
     public PlayState(GameStateManager gameStateManager) {
         super((gameStateManager));
+        cloud = new Animation();
+        cloud.setFrames(Sprite.hud);
+        cloud.setDelay(5);
         player = new Player(new Vector2D(0, 0), 32);
         map = new MapLoader("data/map/Level1.txt");
         bombManager = new BombManager();
@@ -36,6 +40,7 @@ public class PlayState extends GameState {
 
     @Override
     public void update() {
+        cloud.update();
         player.update();
         bombManager.update();
         updateFlame();
@@ -63,7 +68,7 @@ public class PlayState extends GameState {
         renderFlame(g2D);
         enemyManager.render(g2D);
         player.render(g2D);
-        g2D.drawImage(Sprite.hud,0,32*13,32*31,32*7,null);
+        g2D.drawImage(cloud.getImage(), 0,32*13,32*31,32*7,null);
         hud(g2D);
         lives(g2D);
     }
@@ -144,19 +149,8 @@ public class PlayState extends GameState {
     }
 
     public void lives(Graphics2D g2D){
-        switch (player.getLives()) {
-            case 1:
-                g2D.drawImage(Sprite.live,0,32*13,32,30,null);
-                break;
-            case 2:
-                g2D.drawImage(Sprite.live,0,32*13,32,30,null);
-                g2D.drawImage(Sprite.live,32,32*13,32,30,null);
-                break;
-            case 3:
-                g2D.drawImage(Sprite.live,0,32*13,32,30,null);
-                g2D.drawImage(Sprite.live,32,32*13,32,30,null);
-                g2D.drawImage(Sprite.live,64,32*13,32,30,null);
-                break;
+        for(int i =0;i<player.getLives();i++) {
+            g2D.drawImage(Sprite.live, i*32, 32 * 13, 32, 30, null);
         }
     }
 }

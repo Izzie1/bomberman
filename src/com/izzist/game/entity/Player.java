@@ -3,9 +3,7 @@ package com.izzist.game.entity;
 import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.entity.Enemy.Enemy;
-import com.izzist.game.entity.Item.ItemBomb;
-import com.izzist.game.entity.Item.ItemFlame;
-import com.izzist.game.entity.Item.ItemSpeed;
+import com.izzist.game.entity.Item.*;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.AudioPlayer;
@@ -39,6 +37,7 @@ public class Player extends Character {
 
     private int respawnTime = 100;
     private boolean isInvincible = true;
+
     public Player(Vector2D position, int size) {
 
         this.sprite = new Sprite("assets/bomberman 24x24.png", 24, 24);
@@ -135,7 +134,7 @@ public class Player extends Character {
         }
     }
 
-    public void resetProperties(){
+    public void resetProperties() {
         speed = 2;
         acceleration = 0.1f;
         deAcceleration = 0.5f;
@@ -189,7 +188,6 @@ public class Player extends Character {
             bombs.add(new Bomb(new Vector2D(x, y), 32));
         }
     }
-
 
 
     public void removeBomb() {
@@ -313,6 +311,10 @@ public class Player extends Character {
             if (flameRange < maxFlameRange) {
                 flameRange += 1;
             }
+            ItemManager.items.remove(ItemManager.getItem(xt, yt));
+        }
+        if (ItemManager.getItem(xt, yt) instanceof ItemLive) {
+            lives++;
             ItemManager.items.remove(ItemManager.getItem(xt, yt));
         }
     }
