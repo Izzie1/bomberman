@@ -26,7 +26,7 @@ public class TilePortal extends Tile {
     }
 
     public void update() {
-        if(EnemyManager.enemies.size() == 0){
+        if (EnemyManager.enemies.size() == 0) {
             isActive = true;
             animation.update();
         }

@@ -15,6 +15,7 @@ public class MenuState extends GameState {
     private Font font;
     private int select = 1;
     private Animation title;
+
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
         animation = new Animation();

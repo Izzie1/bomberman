@@ -204,7 +204,7 @@ public class MapLoader {
         removeBrick();
     }
 
-    public void removeBrick(){
+    public void removeBrick() {
         for (int i = TileManager.tileBrickManager.size() - 1; i >= 0; i--) {
             if (TileManager.tileBrickManager.get(i).isBreak()
                     && TileManager.tileBrickManager.get(i).getAnimation1().playOnce()) {

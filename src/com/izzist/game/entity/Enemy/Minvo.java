@@ -25,6 +25,7 @@ public class Minvo extends Enemy {
                 120 * 2 + (int) rectangle.getWidth(), 120 * 2 + (int) rectangle.getHeight());
     }
 
+    @Override
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {
@@ -45,6 +46,9 @@ public class Minvo extends Enemy {
         }
     }
 
+    /**
+     * update toc do khi duoi bomber.
+     */
     public void updateSpeed() {
         if (chase.intersects(PlayState.player.getRectangle())) {
             speed = 2.5f;
@@ -57,10 +61,10 @@ public class Minvo extends Enemy {
     public void moveCondition() {
         temp1 = (int) position.x;
         temp2 = (int) position.y;
-        if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) ) {
+        if (!collisionWall(dx, 0) && !collisionBrick(dx, 0)) {
             position.x += dx;
         }
-        if (!collisionWall(0, dy) && !collisionBrick(0, dy) ) {
+        if (!collisionWall(0, dy) && !collisionBrick(0, dy)) {
             position.y += dy;
         }
     }
@@ -97,6 +101,9 @@ public class Minvo extends Enemy {
         }
     }
 
+    /**
+     * update vung duoi bomber.
+     */
     public void updateChase() {
         chase.setLocation((int) rectangle.getX() - 120, (int) rectangle.getY() - 120);
     }

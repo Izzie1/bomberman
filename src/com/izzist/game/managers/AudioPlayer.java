@@ -26,7 +26,7 @@ public class AudioPlayer {
     }
 
     public void play() {
-        if (clip == null){
+        if (clip == null) {
             return;
         }
         stop();

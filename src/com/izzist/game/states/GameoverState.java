@@ -22,7 +22,7 @@ public class GameoverState extends GameState {
     @Override
     public void input(KeyHandler key) {
         key.enter.tick();
-        if(key.enter.clicked){
+        if (key.enter.clicked) {
             bgMusic.stop();
             gameStateManager.pop(GameStateManager.GAMEOVER);
             gameStateManager.add(GameStateManager.MENU);
@@ -31,6 +31,6 @@ public class GameoverState extends GameState {
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawImage(Sprite.gameOver,0,0, GamePanel.width,GamePanel.height,null);
+        g2D.drawImage(Sprite.gameOver, 0, 0, GamePanel.width, GamePanel.height, null);
     }
 }

@@ -8,18 +8,25 @@ import java.awt.geom.Rectangle2D;
 
 public class Balloom extends Enemy {
 
+    /**
+     * khoi tao.
+     *
+     * @param position vi tri enemy
+     * @param size     do lon sprite
+     */
     public Balloom(Vector2D position, int size) {
-        super(position,size);
+        super(position, size);
         this.xOffSet = 4;
         this.yOffSet = 0;
         dead_animation.setFrames(Sprite.balloom_dead);
         dead_animation.setDelay(20);
         setAnimation(RIGHT, Sprite.balloom_right, 10);
-        rectangle = new Rectangle2D.Float( position.x + xOffSet,
-                 position.y + yOffSet, 24, 32);
+        rectangle = new Rectangle2D.Float(position.x + xOffSet,
+                position.y + yOffSet, 24, 32);
         speed = 0.5f;
     }
 
+    @Override
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {

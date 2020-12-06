@@ -18,6 +18,11 @@ public class Bomb extends Entity {
     private boolean allowToPass = true;
     private AudioPlayer bang;
 
+    /**
+     * Khoi tao.
+     * @param position vi tri bom
+     * @param size do lon sprite
+     */
     public Bomb(Vector2D position, int size) {
         this.position = position;
         this.size = size;
@@ -53,12 +58,15 @@ public class Bomb extends Entity {
             isExploded = true;
             explodeTime = 160;
         }
-        if(isExploded){
+        if (isExploded) {
             bang.play();
         }
 
     }
 
+    /**
+     * va cham bom no.
+     */
     public boolean flameCollision() {
         if (PlayState.flames != null) {
             for (Flame f : PlayState.flames) {
@@ -74,6 +82,9 @@ public class Bomb extends Entity {
         return false;
     }
 
+    /**
+     * va cham minvo.
+     */
     public boolean minvoCollision() {
         if (EnemyManager.enemies != null) {
             for (Enemy m : EnemyManager.enemies) {
@@ -85,6 +96,9 @@ public class Bomb extends Entity {
         return false;
     }
 
+    /**
+     * check xem player con dung tren bom khong.
+     */
     public void checkStandingOnBomb() {
         if (!rectangle.intersects(PlayState.player.getRectangle())) {
             allowToPass = false;

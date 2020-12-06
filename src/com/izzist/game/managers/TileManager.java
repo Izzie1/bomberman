@@ -15,7 +15,7 @@ public class TileManager {
     public static Tile getTile(int x, int y) {
         Tile temp = null;
         for (Tile t : tileManager) {
-            if ((int)t.getPosition().x/32 == x && (int)t.getPosition().y/32 == y) {
+            if ((int) t.getPosition().x / 32 == x && (int) t.getPosition().y / 32 == y) {
                 temp = t;
             }
         }
@@ -25,7 +25,7 @@ public class TileManager {
     public static TileBrick getBrick(int x, int y) {
         TileBrick temp = null;
         for (TileBrick b : tileBrickManager) {
-            if ((int)b.getPosition().x/32 == x && (int)b.getPosition().y/32 == y) {
+            if ((int) b.getPosition().x / 32 == x && (int) b.getPosition().y / 32 == y) {
                 temp = b;
             }
         }

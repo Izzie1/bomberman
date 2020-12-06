@@ -11,8 +11,8 @@ public class SpriteSheet {
     protected BufferedImage spriteSheet;
 
 
-    public SpriteSheet(String path,int tileSizeWidth,int tileSizeHeight){
-        this.path=path;
+    public SpriteSheet(String path, int tileSizeWidth, int tileSizeHeight) {
+        this.path = path;
         this.tileSizeWidth = tileSizeWidth;
         this.tileSizeHeight = tileSizeHeight;
         loadSprite(path);

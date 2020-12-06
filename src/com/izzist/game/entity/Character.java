@@ -33,6 +33,14 @@ public abstract class Character extends Entity {
     protected boolean isAlive = true;
     protected Animation dead_animation;
 
+    /**
+     * animation.
+     */
+    public abstract void animate();
+
+    /**
+     * check va cham tuong.
+     */
     public boolean collisionWall(float ax, float ay) {
         if (TileManager.tileManager != null) {
             for (Tile t : TileManager.tileManager) {
@@ -44,6 +52,9 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    /**
+     * check va cham gach.
+     */
     public boolean collisionBrick(float ax, float ay) {
         if (TileManager.tileBrickManager != null) {
             for (Tile t : TileManager.tileBrickManager) {
@@ -55,6 +66,9 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    /**
+     * check va cham bomb.
+     */
     public boolean collisionBomb(float ax, float ay) {
         if (BombManager.bombs != null) {
             for (Bomb b : BombManager.bombs) {
@@ -66,6 +80,9 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    /**
+     * check va cham flame.
+     */
     public boolean flameCollision() {
         if (PlayState.flames != null) {
             for (Flame f : PlayState.flames) {
@@ -81,8 +98,11 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    /**
+     * update hitbox.
+     */
     public void updateRect() {
-        rectangle.setRect( position.x + xOffSet,position.y + yOffSet,
+        rectangle.setRect(position.x + xOffSet, position.y + yOffSet,
                 rectangle.getWidth(), rectangle.getHeight());
     }
 
@@ -118,6 +138,9 @@ public abstract class Character extends Entity {
         this.dead_animation = dead_animation;
     }
 
+    /**
+     * check hitbox di chuyen.
+     */
     public Rectangle2D collisionRect(float ax, float ay) {
         return new Rectangle2D.Float((float) (rectangle.getX() + ax), (float) (rectangle.getY() + ay),
                 (float) rectangle.getWidth(), (float) rectangle.getHeight());

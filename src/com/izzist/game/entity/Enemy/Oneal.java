@@ -1,11 +1,11 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class Oneal extends Enemy {
     public Oneal(Vector2D position, int size) {
@@ -22,6 +22,7 @@ public class Oneal extends Enemy {
                 60 * 2 + (int) rectangle.getWidth(), 60 * 2 + (int) rectangle.getHeight());
     }
 
+    @Override
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {
@@ -42,11 +43,23 @@ public class Oneal extends Enemy {
         }
     }
 
+    /**
+     * update vung duoi bomber.
+     */
     public void updateChase() {
         chase.setLocation((int) rectangle.getX() - 60, (int) rectangle.getY() - 60);
     }
 
+    /**
+     * random speed.
+     */
     public void updateSpeed() {
+        if (randomSpeed > 0) {
+            randomSpeed--;
+        } else {
+            random2 = new Random().nextInt(2) + 1;
+            randomSpeed = 150;
+        }
         speed = random2;
     }
 

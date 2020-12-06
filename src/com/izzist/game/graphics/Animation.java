@@ -16,7 +16,7 @@ public class Animation {
     public void setFrames(BufferedImage[] frames) {
         this.frames = frames;
         currentFrame = 0;
-        timePlay=0;
+        timePlay = 0;
         count = 0;
         delay = 2;
         numFrames = frames.length;
@@ -67,7 +67,7 @@ public class Animation {
         return frames[currentFrame];
     }
 
-    public boolean playOnce(){
+    public boolean playOnce() {
         return timePlay > 0;
     }
 
