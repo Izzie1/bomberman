@@ -5,6 +5,7 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class Kondoria extends Enemy{
     public Kondoria(Vector2D position, int size) {
@@ -39,10 +40,31 @@ public class Kondoria extends Enemy{
         }
     }
 
+    @Override
+    public void moveCondition() {
+        temp3 = (int) position.x;
+        temp4 = (int) position.y;
+        if (!collisionWall(dx, 0) && !collisionBomb(dx, 0)) {
+            position.x += dx;
+        }
+        if (!collisionWall(0, dy) && !collisionBomb(0, dy)) {
+            position.y += dy;
+        }
+    }
+
+    @Override
+    public void randomDirection() {
+        if (thinkSpeed > 0) {
+            thinkSpeed--;
+        } else if (temp3 == (int) position.x && temp4 == (int) position.y && thinkSpeed == 0) {
+            random = new Random().nextInt(4);
+            thinkSpeed = 20;
+        }
+    }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
+        //g2D.drawRect((int)rectangle.getX(),(int)rectangle.getY(),(int)rectangle.getWidth(),(int)rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         } else {
@@ -56,8 +78,8 @@ public class Kondoria extends Enemy{
             animation.update();
             move();
             animate();
-            randomDirection2();
-            moveCondition2();
+            randomDirection();
+            moveCondition();
             updateRect();
         } else {
             rectangle = new Rectangle();

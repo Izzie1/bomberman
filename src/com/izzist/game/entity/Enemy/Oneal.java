@@ -1,6 +1,7 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -41,16 +42,20 @@ public class Oneal extends Enemy {
         }
     }
 
+    public void updateChase() {
+        chase.setLocation((int) rectangle.getX() - 60, (int) rectangle.getY() - 60);
+    }
+
     public void updateSpeed() {
         speed = random2;
     }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
+        //g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-            g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
+            //g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         }

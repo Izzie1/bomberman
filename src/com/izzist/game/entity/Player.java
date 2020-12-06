@@ -367,4 +367,20 @@ public class Player extends Character {
     public void setSpawnY(int spawnY) {
         this.spawnY = spawnY;
     }
+
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    public int getRespawnTime() {
+        return respawnTime;
+    }
+
+    public void setRespawnTime(int respawnTime) {
+        this.respawnTime = respawnTime;
+    }
 }

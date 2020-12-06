@@ -20,7 +20,6 @@ public abstract class Enemy extends Character {
     protected int temp4;
     protected int thinkSpeed = 20;
 
-
     public Enemy(Vector2D position, int size) {
         this.position = position;
         this.size = size;
@@ -40,29 +39,6 @@ public abstract class Enemy extends Character {
         }
     }
 
-
-    public void moveCondition2() {
-        temp3 = (int) position.x;
-        temp4 = (int) position.y;
-        if (!collisionWall(dx, 0) && !collisionBomb(dx, 0)) {
-            position.x += dx;
-        }
-        if (!collisionWall(0, dy) && !collisionBomb(0, dy)) {
-            position.y += dy;
-        }
-    }
-
-    public void moveCondition3() {
-        temp1 = (int) position.x;
-        temp2 = (int) position.y;
-        if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) ) {
-            position.x += dx;
-        }
-        if (!collisionWall(0, dy) && !collisionBrick(0, dy) ) {
-            position.y += dy;
-        }
-    }
-
     public void randomDirection() {
         if (randomSpeed > 0) {
             randomSpeed--;
@@ -74,15 +50,6 @@ public abstract class Enemy extends Character {
         if (thinkSpeed > 0) {
             thinkSpeed--;
         } else if (temp1 == (int) position.x && temp2 == (int) position.y && thinkSpeed == 0) {
-            random = new Random().nextInt(4);
-            thinkSpeed = 20;
-        }
-    }
-
-    public void randomDirection2() {
-        if (thinkSpeed > 0) {
-            thinkSpeed--;
-        } else if (temp3 == (int) position.x && temp4 == (int) position.y && thinkSpeed == 0) {
             random = new Random().nextInt(4);
             thinkSpeed = 20;
         }

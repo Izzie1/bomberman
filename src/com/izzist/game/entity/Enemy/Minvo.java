@@ -53,14 +53,24 @@ public class Minvo extends Enemy {
         }
     }
 
-
+    @Override
+    public void moveCondition() {
+        temp1 = (int) position.x;
+        temp2 = (int) position.y;
+        if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) ) {
+            position.x += dx;
+        }
+        if (!collisionWall(0, dy) && !collisionBrick(0, dy) ) {
+            position.y += dy;
+        }
+    }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
+        //g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-            g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
+            //g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         }
@@ -74,7 +84,7 @@ public class Minvo extends Enemy {
             updateChase();
             move2();
             randomDirection();
-            moveCondition3();
+            moveCondition();
             updateRect();
             updateSpeed();
         } else {
