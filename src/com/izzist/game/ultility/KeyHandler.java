@@ -46,7 +46,8 @@ public class KeyHandler implements KeyListener {
     public Key attack = new Key();
     public Key enter = new Key();
     public Key clear = new Key();
-
+    public Key cheat1 = new Key();
+    public Key cheat2 = new Key();
 
     public KeyHandler(GamePanel game) {
         game.addKeyListener(this);
@@ -87,6 +88,12 @@ public class KeyHandler implements KeyListener {
                 break;
             case KeyEvent.VK_7:
                 clear.toggle(pressed);
+                break;
+            case KeyEvent.VK_8:
+                cheat1.toggle(pressed);
+                break;
+            case KeyEvent.VK_9:
+                cheat2.toggle(pressed);
                 break;
         }
     }

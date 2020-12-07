@@ -39,7 +39,6 @@ public class Player extends Character {
     private boolean isInvincible = true;
 
     public Player(Vector2D position, int size) {
-
         this.sprite = new Sprite("assets/bomberman 24x24.png", 24, 24);
         this.xOffSet = 8;
         this.yOffSet = 4;
@@ -60,6 +59,7 @@ public class Player extends Character {
         setBomb = new AudioPlayer("/sound/newbomb.wav");
     }
 
+    @Override
     public void animate() {
         if (up) {
             if (currentAnimation != UP) {
@@ -82,8 +82,8 @@ public class Player extends Character {
         }
     }
 
+    @Override
     public void update() {
-
         if ((flameCollision() || isKilled()) && !isInvincible) {
             isAlive = false;
         }
@@ -134,6 +134,9 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * reset chi so khi bomber chet.
+     */
     public void resetProperties() {
         speed = 2;
         acceleration = 0.1f;
@@ -142,6 +145,9 @@ public class Player extends Character {
         flameRange = 1;
     }
 
+    /**
+     * check va cham bomb.
+     */
     public boolean collisionBombPlayer(float ax, float ay) {
         if (BombManager.bombs != null) {
             for (Bomb b : BombManager.bombs) {
@@ -153,6 +159,9 @@ public class Player extends Character {
         return false;
     }
 
+    /**
+     * set nhan vat chet khi va cham enemy.
+     */
     public boolean isKilled() {
         if (EnemyManager.enemies != null) {
             for (Enemy e : EnemyManager.enemies) {
@@ -164,6 +173,9 @@ public class Player extends Character {
         return false;
     }
 
+    /**
+     * va cham flame.
+     */
     public boolean flameCollision() {
         if (PlayState.flames != null) {
             for (Flame f : PlayState.flames) {
@@ -179,7 +191,9 @@ public class Player extends Character {
         return false;
     }
 
-
+    /**
+     * check dat bom.
+     */
     public void setBomb() {
         if (attack && bombs.size() < bombQuantity) {
             float x = this.position.x;
@@ -189,7 +203,9 @@ public class Player extends Character {
         }
     }
 
-
+    /**
+     * xoa bom.
+     */
     public void removeBomb() {
         for (int i = bombs.size() - 1; i >= 0; i--) {
             if (bombs.get(i).getIsExploded()) {
@@ -200,12 +216,18 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * update bomb.
+     */
     public void updateBomb() {
         for (Bomb bomb : bombs) {
             bomb.update();
         }
     }
 
+    /**
+     * bomber di chuyen.
+     */
     public void move() {
         if (up) {
             dy -= acceleration;
@@ -261,6 +283,9 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * dieu khien nhan vat.
+     */
     public void input(KeyHandler key) {
         if (key.up.down) {
             up = true;
@@ -290,6 +315,9 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * xu ly khi an item.
+     */
     public void takeItem() {
         int xt = (int) (position.x + 16) / 32;
         int yt = (int) (position.y + 16) / 32;
@@ -318,8 +346,7 @@ public class Player extends Character {
             ItemManager.items.remove(ItemManager.getItem(xt, yt));
         }
     }
-
-
+    
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
@@ -366,5 +393,21 @@ public class Player extends Character {
 
     public void setSpawnY(int spawnY) {
         this.spawnY = spawnY;
+    }
+
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    public int getRespawnTime() {
+        return respawnTime;
+    }
+
+    public void setRespawnTime(int respawnTime) {
+        this.respawnTime = respawnTime;
     }
 }

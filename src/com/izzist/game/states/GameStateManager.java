@@ -53,7 +53,7 @@ public class GameStateManager {
 
     public void update() {
         for (int i = 0; i < states.length; i++) {
-            if (states[i]!=null){
+            if (states[i] != null) {
                 states[i].update();
             }
         }
@@ -61,7 +61,7 @@ public class GameStateManager {
 
     public void input(KeyHandler key) {
         for (int i = 0; i < states.length; i++) {
-            if (states[i]!=null){
+            if (states[i] != null) {
                 states[i].input(key);
             }
         }
@@ -69,7 +69,7 @@ public class GameStateManager {
 
     public void render(Graphics2D g2D) {
         for (int i = 0; i < states.length; i++) {
-            if (states[i]!=null){
+            if (states[i] != null) {
                 states[i].render(g2D);
             }
         }

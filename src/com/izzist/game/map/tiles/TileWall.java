@@ -7,12 +7,12 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
-public class TileWall extends Tile{
+public class TileWall extends Tile {
 
 
-    public TileWall(Vector2D position,int size) {
-        super(position,size);
-        switch (MapLoader.level){
+    public TileWall(Vector2D position, int size) {
+        super(position, size);
+        switch (MapLoader.level) {
             case 1:
                 this.sprite = new Sprite(MapLoader.mapSprite[1], 16, 16);
                 break;
@@ -31,8 +31,8 @@ public class TileWall extends Tile{
     @Override
     public void render(Graphics2D g2D) {
         g2D.setColor(Color.RED);
-        g2D.drawRect((int) (position.x), (int) (position.y ), 32, 32);
-        g2D.drawImage(sprite.getSprite(1,1), (int) (position.x), (int) (position.y), size, size, null);
+        g2D.drawRect((int) (position.x), (int) (position.y), 32, 32);
+        g2D.drawImage(sprite.getSprite(1, 1), (int) (position.x), (int) (position.y), size, size, null);
     }
 
 }

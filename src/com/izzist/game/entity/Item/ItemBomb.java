@@ -5,11 +5,11 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
-public class ItemBomb extends Item{
-    public ItemBomb(Vector2D position){
+public class ItemBomb extends Item {
+    public ItemBomb(Vector2D position) {
         this.position = position;
         animation = new Animation();
-        setAnimation2(sprite.getSpriteArray2(0),8 );
+        setAnimation2(sprite.getSpriteArray2(0), 8);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class ItemManager {
     public static Item getItem(int x, int y) {
         Item temp = null;
         for (Item b : items) {
-            if ((int)(b.getPosition().x-4)/32 == x && (int)(b.getPosition().y-4)/32 == y) {
+            if ((int) (b.getPosition().x - 4) / 32 == x && (int) (b.getPosition().y - 4) / 32 == y) {
                 temp = b;
             }
         }

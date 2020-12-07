@@ -2,7 +2,7 @@ package com.izzist.game;
 
 public class Launcher {
 
-    public Launcher(){
+    public Launcher() {
         new Window();
     }
 

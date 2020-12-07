@@ -16,7 +16,6 @@ public class Flame extends Entity {
     private int radius;
     private boolean isExploded = false;
 
-
     private Animation animation_up;
     private Animation animation_down;
     private Animation animation_left;
@@ -25,6 +24,12 @@ public class Flame extends Entity {
     private Animation animation_vertical;//doc
     private ArrayList<Rectangle> rectangles;
 
+    /**
+     * khoi tao.
+     * @param position vi tri flame
+     * @param size do lon sprite
+     * @param radius do dai flame
+     */
     public Flame(Vector2D position, int size, int radius) {
         rectangles = new ArrayList<>();
         this.radius = radius;
@@ -54,24 +59,16 @@ public class Flame extends Entity {
         animation_vertical.setDelay(10);
     }
 
-    public void setIsExploded(boolean exploded) {
-        this.isExploded = exploded;
-    }
-
-    public boolean getIsExploded() {
-        return isExploded;
-    }
-
     @Override
     public void render(Graphics2D g2D) {
         g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-        Rectangle center = new Rectangle((int) (position.x),(int) (position.y),32,32);
+        Rectangle center = new Rectangle((int) (position.x), (int) (position.y), 32, 32);
         rectangles.add(center);
-        //Trai
+        //trai
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) - i) * 32;
             int y = (int) ((position.y));
-            Rectangle temp = new Rectangle(x,y,32,32);
+            Rectangle temp = new Rectangle(x, y, 32, 32);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -89,7 +86,7 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) ((position.x / 32) + i) * 32;
             int y = (int) ((position.y));
-            Rectangle temp = new Rectangle(x,y,32,32);
+            Rectangle temp = new Rectangle(x, y, 32, 32);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -107,7 +104,7 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) - i) * 32;
-            Rectangle temp = new Rectangle(x,y,32,32);
+            Rectangle temp = new Rectangle(x, y, 32, 32);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -125,7 +122,7 @@ public class Flame extends Entity {
         for (int i = 1; i <= radius; i++) {
             int x = (int) (position.x);
             int y = (int) ((position.y / 32) + i) * 32;
-            Rectangle temp = new Rectangle(x,y,32,32);
+            Rectangle temp = new Rectangle(x, y, 32, 32);
             rectangles.add(temp);
             if (isWallCollision(x, y)) {
                 break;
@@ -153,6 +150,9 @@ public class Flame extends Entity {
         updateFlame();
     }
 
+    /**
+     * update animation flame.
+     */
     public void updateFlame() {
         animation.update();
         animation_left.update();
@@ -163,6 +163,9 @@ public class Flame extends Entity {
         animation_vertical.update();
     }
 
+    /**
+     * check va cham tuong.
+     */
     private boolean isWallCollision(int xt, int yt) {
         if (TileManager.getTile(xt / 32, yt / 32) != null) {
             return TileManager.getTile(xt / 32, yt / 32) instanceof TileWall;
@@ -170,10 +173,12 @@ public class Flame extends Entity {
         return false;
     }
 
+    /**
+     * check va cham gach.
+     */
     private boolean isBrickCollision(int xt, int yt) {
         return TileManager.getBrick(xt / 32, yt / 32) != null;
     }
-
 
     public void setPosition(int x, int y) {
         position.x = x;
@@ -190,5 +195,13 @@ public class Flame extends Entity {
 
     public ArrayList<Rectangle> getRectangles() {
         return rectangles;
+    }
+
+    public void setIsExploded(boolean exploded) {
+        this.isExploded = exploded;
+    }
+
+    public boolean getIsExploded() {
+        return isExploded;
     }
 }

@@ -13,11 +13,11 @@ import java.io.*;
 public class MenuState extends GameState {
     private Animation animation;
     private Font font;
-    private int select;
+    private int select = 1;
     private Animation title;
+
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        select = 1;
         animation = new Animation();
         title = new Animation();
         animation.setFrames(Sprite.beginning);

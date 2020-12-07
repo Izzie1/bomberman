@@ -22,11 +22,11 @@ public class TilePortal extends Tile {
     @Override
     public void render(Graphics2D g2D) {
         g2D.drawImage(animation.getImage(), (int) position.x, (int) position.y, size, size, null);
-        g2D.drawRect((int) position.x, (int) position.y, size, size);
+        //g2D.drawRect((int) position.x, (int) position.y, size, size);
     }
 
     public void update() {
-        if(EnemyManager.enemies.size() == 0){
+        if (EnemyManager.enemies.size() == 0) {
             isActive = true;
             animation.update();
         }

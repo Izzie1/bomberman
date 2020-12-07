@@ -17,7 +17,7 @@ public class TileBrick extends Tile {
         super(position, size);
         animation = new Animation();
         animation1 = new Animation();
-        switch (MapLoader.level){
+        switch (MapLoader.level) {
             case 1:
                 this.sprite = new Sprite(MapLoader.mapSprite[0], 16, 16);
                 break;

@@ -7,12 +7,12 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
-public class TileGrass extends Tile{
+public class TileGrass extends Tile {
 
 
     public TileGrass(Vector2D position, int size) {
-        super(position,size);
-        switch (MapLoader.level){
+        super(position, size);
+        switch (MapLoader.level) {
             case 1:
                 this.sprite = new Sprite(MapLoader.mapSprite[1], 16, 16);
                 break;
@@ -30,7 +30,7 @@ public class TileGrass extends Tile{
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawImage(sprite.getSprite(3,0), (int) (position.x), (int) (position.y), size, size, null);
+        g2D.drawImage(sprite.getSprite(3, 0), (int) (position.x), (int) (position.y), size, size, null);
     }
 
 }

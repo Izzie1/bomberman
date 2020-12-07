@@ -5,6 +5,7 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class Oneal extends Enemy {
     public Oneal(Vector2D position, int size) {
@@ -21,6 +22,7 @@ public class Oneal extends Enemy {
                 60 * 2 + (int) rectangle.getWidth(), 60 * 2 + (int) rectangle.getHeight());
     }
 
+    @Override
     public void animate() {
         if (random == 0) {
             if (currentAnimation != UP) {
@@ -41,16 +43,32 @@ public class Oneal extends Enemy {
         }
     }
 
+    /**
+     * update vung duoi bomber.
+     */
+    public void updateChase() {
+        chase.setLocation((int) rectangle.getX() - 60, (int) rectangle.getY() - 60);
+    }
+
+    /**
+     * random speed.
+     */
     public void updateSpeed() {
+        if (randomSpeed > 0) {
+            randomSpeed--;
+        } else {
+            random2 = new Random().nextInt(2) + 1;
+            randomSpeed = 150;
+        }
         speed = random2;
     }
 
     @Override
     public void render(Graphics2D g2D) {
-        g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
+        //g2D.drawRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
         if (isAlive) {
             g2D.drawImage(animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
-            g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
+            //g2D.drawRect(chase.x, chase.y, chase.width, chase.height);
         } else {
             g2D.drawImage(dead_animation.getImage(), (int) (position.x), (int) (position.y), size, size, null);
         }

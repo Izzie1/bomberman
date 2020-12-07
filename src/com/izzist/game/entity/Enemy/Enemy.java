@@ -11,7 +11,7 @@ import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int random;
-    protected float random2;
+    protected int random2;
     protected int randomSpeed = 150;
     protected Rectangle chase;
     protected int temp1;
@@ -20,7 +20,12 @@ public abstract class Enemy extends Character {
     protected int temp4;
     protected int thinkSpeed = 20;
 
-
+    /**
+     * khoi tao.
+     *
+     * @param position vi tri
+     * @param size     do lon sprite
+     */
     public Enemy(Vector2D position, int size) {
         this.position = position;
         this.size = size;
@@ -29,6 +34,9 @@ public abstract class Enemy extends Character {
         animation = new Animation();
     }
 
+    /**
+     * check va cham tiles va bomb.
+     */
     public void moveCondition() {
         temp1 = (int) position.x;
         temp2 = (int) position.y;
@@ -40,37 +48,10 @@ public abstract class Enemy extends Character {
         }
     }
 
-
-    public void moveCondition2() {
-        temp3 = (int) position.x;
-        temp4 = (int) position.y;
-        if (!collisionWall(dx, 0) && !collisionBomb(dx, 0)) {
-            position.x += dx;
-        }
-        if (!collisionWall(0, dy) && !collisionBomb(0, dy)) {
-            position.y += dy;
-        }
-    }
-
-    public void moveCondition3() {
-        temp1 = (int) position.x;
-        temp2 = (int) position.y;
-        if (!collisionWall(dx, 0) && !collisionBrick(dx, 0) ) {
-            position.x += dx;
-        }
-        if (!collisionWall(0, dy) && !collisionBrick(0, dy) ) {
-            position.y += dy;
-        }
-    }
-
+    /**
+     * random huong di enemy.
+     */
     public void randomDirection() {
-        if (randomSpeed > 0) {
-            randomSpeed--;
-        } else {
-            random2 = new Random().nextFloat() + 0.5f;
-            randomSpeed = 150;
-        }
-
         if (thinkSpeed > 0) {
             thinkSpeed--;
         } else if (temp1 == (int) position.x && temp2 == (int) position.y && thinkSpeed == 0) {
@@ -79,15 +60,9 @@ public abstract class Enemy extends Character {
         }
     }
 
-    public void randomDirection2() {
-        if (thinkSpeed > 0) {
-            thinkSpeed--;
-        } else if (temp3 == (int) position.x && temp4 == (int) position.y && thinkSpeed == 0) {
-            random = new Random().nextInt(4);
-            thinkSpeed = 20;
-        }
-    }
-
+    /**
+     * di chuyen random cho enemy.
+     */
     public void move() {
         if (random == 0) {
             dy = -speed;
@@ -103,6 +78,9 @@ public abstract class Enemy extends Character {
         }
     }
 
+    /**
+     * di chuyen duoi bomber khi bomber lai gan.
+     */
     public void move2() {
         if (!chase.intersects(PlayState.player.getRectangle())) {
             move();
@@ -122,6 +100,9 @@ public abstract class Enemy extends Character {
         }
     }
 
+    /**
+     * update vung duoi cho enemy.
+     */
     public void updateChase() {
         chase.setLocation((int) rectangle.getX() - 60, (int) rectangle.getY() - 60);
     }

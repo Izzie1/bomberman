@@ -24,7 +24,7 @@ public abstract class Entity {
         animation.setDelay(delay);
     }
 
-    public void setAnimation2( BufferedImage[] frames, int delay) {
+    public void setAnimation2(BufferedImage[] frames, int delay) {
         animation.setFrames(frames);
         animation.setDelay(delay);
     }
