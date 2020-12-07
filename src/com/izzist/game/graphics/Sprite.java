@@ -69,7 +69,7 @@ public class Sprite extends SpriteSheet {
         player = loadSprite("assets/bomberman 24x24.png");
         oneal = loadSprite("assets/Oneal.png");
         gameOver = loadSprite("states/gameover.png");
-        menu = loadSprite("states/background.png");
+        menu = loadSprite("states/Background.png");
         beginningImg = loadSprite("states/beginning.png");
         victory = loadSprite("states/end.png");
         live = loadSprite("hudsprite/live.png");
