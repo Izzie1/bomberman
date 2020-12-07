@@ -37,7 +37,7 @@ public class Bomb extends Entity {
         this.position.y = yt * 32;
         rectangle = new Rectangle((int) this.position.x,
                 (int) this.position.y, size, size);
-        bang = new AudioPlayer("/sound/bomb_bang.wav");
+        bang = new AudioPlayer("/sound/bomb_bang.mp3");
     }
 
     @Override

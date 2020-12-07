@@ -69,6 +69,7 @@ public class Kondoria extends Enemy {
 
     @Override
     public void update() {
+        super.update();
         if (isAlive) {
             animation.update();
             move();

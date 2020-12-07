@@ -60,7 +60,7 @@ public class Player extends Character {
         deAcceleration = 0.5f;
         rectangle = new Rectangle2D.Float(position.x + xOffSet,
                 position.y + yOffSet, 16, 24);
-        setBomb = new AudioPlayer("/sound/newbomb.wav");
+        setBomb = new AudioPlayer("/sound/newbomb.mp3");
     }
 
     @Override

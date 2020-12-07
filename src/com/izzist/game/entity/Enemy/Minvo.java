@@ -84,6 +84,7 @@ public class Minvo extends Enemy {
 
     @Override
     public void update() {
+        super.update();
         if (isAlive) {
             animate();
             animation.update();

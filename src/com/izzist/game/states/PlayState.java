@@ -124,7 +124,7 @@ public class PlayState extends GameState {
             switch (level) {
                 case 2:
                     map = new MapLoader("data/map/Level2.txt");
-                    bgMusic = new AudioPlayer("/sound/WARRIORS.mp3");
+                    bgMusic = new AudioPlayer("/sound/SOY.mp3");
                     bgMusic.play();
                     break;
                 case 3:

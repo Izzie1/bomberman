@@ -3,6 +3,7 @@ package com.izzist.game.entity.Enemy;
 import com.izzist.game.entity.Character;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.AudioPlayer;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
@@ -20,7 +21,8 @@ public abstract class Enemy extends Character {
     protected int temp1;
     protected int temp2;
     protected int thinkSpeed = 20;
-
+    protected AudioPlayer dead;
+    protected int playOnce = 1;
     /**
      * khoi tao.
      * @param position vi tri
@@ -32,6 +34,16 @@ public abstract class Enemy extends Character {
         this.sprite = new Sprite();
         dead_animation = new Animation();
         animation = new Animation();
+        dead = new AudioPlayer("/sound/monster_die.mp3");
+    }
+
+    public void update(){
+        if(!isAlive){
+            playOnce--;
+        }
+        if(playOnce==0){
+            dead.play();
+        }
     }
 
     /**

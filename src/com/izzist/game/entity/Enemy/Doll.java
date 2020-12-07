@@ -1,6 +1,8 @@
 package com.izzist.game.entity.Enemy;
 
+import com.izzist.game.entity.Bomb.Bomb;
 import com.izzist.game.graphics.Sprite;
+import com.izzist.game.managers.BombManager;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
@@ -56,6 +58,7 @@ public class Doll extends Enemy {
 
     @Override
     public void update() {
+        super.update();
         if (isAlive) {
             animate();
             animation.update();
@@ -72,4 +75,6 @@ public class Doll extends Enemy {
             isAlive = false;
         }
     }
+
+
 }
