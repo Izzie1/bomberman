@@ -9,7 +9,9 @@ import java.awt.*;
 
 public class TileWall extends Tile {
 
-
+    /**
+     * class cho vat the tuong.
+     */
     public TileWall(Vector2D position, int size) {
         super(position, size);
         switch (MapLoader.level) {

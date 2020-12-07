@@ -6,14 +6,11 @@ import com.izzist.game.ultility.Vector2D;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Enemy Balloom.
+ */
 public class Balloom extends Enemy {
 
-    /**
-     * khoi tao.
-     *
-     * @param position vi tri enemy
-     * @param size     do lon sprite
-     */
     public Balloom(Vector2D position, int size) {
         super(position, size);
         this.xOffSet = 4;

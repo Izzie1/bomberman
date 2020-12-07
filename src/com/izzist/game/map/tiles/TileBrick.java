@@ -7,6 +7,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * class cho gach trong game.
+ */
 public class TileBrick extends Tile {
     private Animation animation;
     private boolean isBreak = false;

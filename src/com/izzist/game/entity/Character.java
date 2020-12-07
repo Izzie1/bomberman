@@ -13,6 +13,9 @@ import com.izzist.game.states.PlayState;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Lop truu tuong danh cho cac nhan vat nhu enemy hay  bomber.
+ */
 public abstract class Character extends Entity {
     protected boolean up;
     protected boolean down;

@@ -3,6 +3,9 @@ package com.izzist.game.graphics;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
+/**
+ * Class dung de lay Spritesheet.
+ */
 public class SpriteSheet {
 
     protected String path;

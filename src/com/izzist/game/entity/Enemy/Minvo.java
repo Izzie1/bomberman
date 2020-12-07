@@ -1,7 +1,6 @@
 package com.izzist.game.entity.Enemy;
 
 import com.izzist.game.entity.Bomb.Bomb;
-import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.BombManager;
 import com.izzist.game.states.PlayState;
@@ -10,6 +9,9 @@ import com.izzist.game.ultility.Vector2D;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * class Enemy Minvo.
+ */
 public class Minvo extends Enemy {
     public Minvo(Vector2D position, int size) {
         super(position, size);
@@ -91,6 +93,7 @@ public class Minvo extends Enemy {
             moveCondition();
             updateRect();
             updateSpeed();
+            minvoSkill();
         } else {
             rectangle = new Rectangle();
             dead_animation.update();
@@ -98,6 +101,19 @@ public class Minvo extends Enemy {
 
         if (flameCollision()) {
             isAlive = false;
+        }
+    }
+
+    /**
+     * va cham minvo.
+     */
+    public void minvoSkill() {
+        if (BombManager.bombs != null) {
+            for (Bomb b : BombManager.bombs) {
+                if (rectangle.intersects(b.getRectangle())) {
+                    b.setExplodeTime(0);
+                }
+            }
         }
     }
 

@@ -18,6 +18,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+/**
+ * class cua doi tuong Bomber.
+ */
 public class Player extends Character {
 
     private AudioPlayer setBomb;
@@ -29,6 +32,7 @@ public class Player extends Character {
     private int maxSpeed = 4;
     private int maxBomb = 3;
     private int maxFlameRange = 4;
+    private int maxLives = 6;
 
     private int bombQuantity = 1;
     private int flameRange = 1;
@@ -199,7 +203,7 @@ public class Player extends Character {
             float x = this.position.x;
             float y = this.position.y;
             setBomb.play();
-            bombs.add(new Bomb(new Vector2D(x, y), 32));
+            bombs.add(new Bomb(new Vector2D(x, y), 32, flameRange));
         }
     }
 
@@ -209,9 +213,9 @@ public class Player extends Character {
     public void removeBomb() {
         for (int i = bombs.size() - 1; i >= 0; i--) {
             if (bombs.get(i).getIsExploded()) {
-                Flame f = new Flame(bombs.get(i).getPosition(), 32, flameRange);
-                PlayState.flames.add(f);
+                Flame f = new Flame(bombs.get(i).getPosition(), 32, bombs.get(i).getRadius());
                 bombs.remove(i);
+                PlayState.flames.add(f);
             }
         }
     }
@@ -342,11 +346,13 @@ public class Player extends Character {
             ItemManager.items.remove(ItemManager.getItem(xt, yt));
         }
         if (ItemManager.getItem(xt, yt) instanceof ItemLive) {
-            lives++;
+            if (lives < maxLives) {
+                lives++;
+            }
             ItemManager.items.remove(ItemManager.getItem(xt, yt));
         }
     }
-    
+
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }

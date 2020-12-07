@@ -7,6 +7,9 @@ import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
 
+/**
+ * Man hinh khi thua.
+ */
 public class GameoverState extends GameState {
     public GameoverState(GameStateManager gameStateManager) {
         super(gameStateManager);

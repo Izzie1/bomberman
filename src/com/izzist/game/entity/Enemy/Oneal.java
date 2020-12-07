@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
+/**
+ * class Enemy Oneal.
+ */
 public class Oneal extends Enemy {
     public Oneal(Vector2D position, int size) {
         super(position, size);

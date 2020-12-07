@@ -9,7 +9,9 @@ import com.izzist.game.ultility.KeyHandler;
 import java.awt.*;
 import java.io.*;
 
-
+/**
+ * Menu cua game.
+ */
 public class MenuState extends GameState {
     private Animation animation;
     private Font font;

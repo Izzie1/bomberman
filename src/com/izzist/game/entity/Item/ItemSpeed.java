@@ -5,6 +5,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * Class cho Item them toc do.
+ */
 public class ItemSpeed extends Item {
     public ItemSpeed(Vector2D position) {
         this.position = position;

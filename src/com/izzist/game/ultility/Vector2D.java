@@ -1,5 +1,9 @@
 package com.izzist.game.ultility;
 
+/**
+ * Lop toa ra de quan ly vi tri cua nhan vat hay hinh anh cac thu.
+ * Noi chung de tinh toan toa do
+ */
 public class Vector2D {
     public float x;
     public float y;

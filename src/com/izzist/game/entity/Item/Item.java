@@ -3,6 +3,9 @@ package com.izzist.game.entity.Item;
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Sprite;
 
+/**
+ * Class cho Item.
+ */
 public abstract class Item extends Entity {
 
     public Item() {

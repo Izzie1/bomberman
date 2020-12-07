@@ -2,6 +2,9 @@ package com.izzist.game.graphics;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * class chay Animation.
+ */
 public class Animation {
     private BufferedImage[] frames;
     private int currentFrame;

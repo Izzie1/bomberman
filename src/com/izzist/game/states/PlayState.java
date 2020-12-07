@@ -16,6 +16,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Man choi.
+ */
 public class PlayState extends GameState {
     private Animation cloud;
     private MapLoader map;

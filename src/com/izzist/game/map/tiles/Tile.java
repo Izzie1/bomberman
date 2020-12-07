@@ -1,11 +1,13 @@
 package com.izzist.game.map.tiles;
 
-import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * class cho Tile trong game.
+ */
 public abstract class Tile {
     protected Vector2D position;
     protected Sprite sprite;

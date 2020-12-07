@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * class Entity.
+ */
 public abstract class Entity {
     protected int currentAnimation;
     protected Animation animation;

@@ -2,9 +2,12 @@ package com.izzist.game.graphics;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Class dung de cat Sprite va phan chia cac Sprite trong Spritesheet.
+ */
 public class Sprite extends SpriteSheet {
 
-    private static BufferedImage player;
+
     private BufferedImage[][] spriteArray;
 
     private int spritePerWidth;
@@ -18,6 +21,12 @@ public class Sprite extends SpriteSheet {
     public static BufferedImage beginningImg;
     public static BufferedImage oneal;
     public static BufferedImage live;
+    public static BufferedImage select;
+    public static BufferedImage deSelect;
+    public static BufferedImage selectImg;
+    public static BufferedImage deSelectImg;
+    public static BufferedImage Icon;
+    public static BufferedImage player;
 
     public static BufferedImage[] hud;
     public static BufferedImage[] bomImg;
@@ -65,6 +74,11 @@ public class Sprite extends SpriteSheet {
         victory = loadSprite("states/end.png");
         live = loadSprite("hudsprite/live.png");
         title = loadSprite("hudsprite/Title_Sprite.png");
+        select = loadSprite("hudsprite/Select.png");
+        deSelect = loadSprite("hudsprite/Deselect.png");
+        selectImg = loadSprite("hudsprite/SelectButton.png");
+        deSelectImg = loadSprite("hudsprite/Deselectbutton.png");
+        Icon = loadSprite("hudsprite/bomb.png");
 
         hud = new BufferedImage[26];
         level = new BufferedImage[4];

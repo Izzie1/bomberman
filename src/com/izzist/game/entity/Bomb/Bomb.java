@@ -1,29 +1,31 @@
 package com.izzist.game.entity.Bomb;
 
-import com.izzist.game.entity.Enemy.Enemy;
-import com.izzist.game.entity.Enemy.Minvo;
 import com.izzist.game.entity.Entity;
 import com.izzist.game.graphics.Animation;
 import com.izzist.game.graphics.Sprite;
 import com.izzist.game.managers.AudioPlayer;
-import com.izzist.game.managers.EnemyManager;
 import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * class Bomb.
+ */
 public class Bomb extends Entity {
     private int explodeTime = 160;
     private boolean isExploded = false;
     private boolean allowToPass = true;
     private AudioPlayer bang;
+    private int radius;
 
     /**
      * Khoi tao.
      * @param position vi tri bom
-     * @param size do lon sprite
+     * @param size     do lon sprite
      */
-    public Bomb(Vector2D position, int size) {
+    public Bomb(Vector2D position, int size, int radius) {
+        this.radius = radius;
         this.position = position;
         this.size = size;
         this.sprite = new Sprite("assets/BombGreen_16_16.png", 16, 16);
@@ -50,7 +52,7 @@ public class Bomb extends Entity {
         if (explodeTime > 0) {
             isExploded = false;
             explodeTime--;
-            if (flameCollision() || minvoCollision()) {
+            if (flameCollision()) {
                 isExploded = true;
                 explodeTime = 160;
             }
@@ -82,19 +84,6 @@ public class Bomb extends Entity {
         return false;
     }
 
-    /**
-     * va cham minvo.
-     */
-    public boolean minvoCollision() {
-        if (EnemyManager.enemies != null) {
-            for (Enemy m : EnemyManager.enemies) {
-                if (m instanceof Minvo && m.getRectangle().intersects(rectangle)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * check xem player con dung tren bom khong.
@@ -128,4 +117,13 @@ public class Bomb extends Entity {
     public void setAllowToPass(boolean allowToPass) {
         this.allowToPass = allowToPass;
     }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
 }
+

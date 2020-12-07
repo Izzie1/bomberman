@@ -5,6 +5,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * Class cho Item them bomb.
+ */
 public class ItemBomb extends Item {
     public ItemBomb(Vector2D position) {
         this.position = position;

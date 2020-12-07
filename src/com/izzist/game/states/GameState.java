@@ -6,6 +6,9 @@ import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.Graphics2D;
 
+/**
+ * lop truu tuong cho cac state.
+ */
 public abstract class GameState {
     protected GameStateManager gameStateManager;
     protected Sprite sprite;

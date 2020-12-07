@@ -5,6 +5,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * Class cho Item tang do dai lua.
+ */
 public class ItemFlame extends Item {
     public ItemFlame(Vector2D position) {
         this.position = position;

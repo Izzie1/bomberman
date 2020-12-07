@@ -7,6 +7,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * class cho cong dic chuyen trong game.
+ */
 public class TilePortal extends Tile {
     private boolean isActive = false;
     private Animation animation;

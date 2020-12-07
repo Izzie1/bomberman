@@ -9,6 +9,9 @@ import com.izzist.game.ultility.Vector2D;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Lop truu tuong Enemy.
+ */
 public abstract class Enemy extends Character {
     protected int random;
     protected int random2;
@@ -16,13 +19,10 @@ public abstract class Enemy extends Character {
     protected Rectangle chase;
     protected int temp1;
     protected int temp2;
-    protected int temp3;
-    protected int temp4;
     protected int thinkSpeed = 20;
 
     /**
      * khoi tao.
-     *
      * @param position vi tri
      * @param size     do lon sprite
      */

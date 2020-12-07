@@ -5,6 +5,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * class chay nhac.
+ */
 public class AudioPlayer {
     private Clip clip;
 
@@ -36,11 +39,6 @@ public class AudioPlayer {
 
     public void stop() {
         if (clip.isRunning()) clip.stop();
-    }
-
-    public void close() {
-        stop();
-        clip.close();
     }
 
 }

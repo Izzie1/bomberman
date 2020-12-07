@@ -5,6 +5,9 @@ import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 
+/**
+ * Class cho Item them mang.
+ */
 public class ItemLive extends Item {
     public ItemLive(Vector2D position) {
         this.position = position;

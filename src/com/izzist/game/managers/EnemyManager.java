@@ -8,6 +8,9 @@ import com.izzist.game.entity.Enemy.Minvo;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * class dung de quan ly enemy trong Game.
+ */
 public class EnemyManager {
     public static ArrayList<Enemy> enemies = new ArrayList<>();
 

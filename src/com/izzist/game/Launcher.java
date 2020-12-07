@@ -1,5 +1,8 @@
 package com.izzist.game;
 
+/**
+ * Sinh ra chi de chay game.
+ */
 public class Launcher {
 
     public Launcher() {

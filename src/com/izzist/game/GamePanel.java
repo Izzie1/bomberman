@@ -1,6 +1,5 @@
 package com.izzist.game;
 
-import com.izzist.game.graphics.Sprite;
 import com.izzist.game.states.GameStateManager;
 import com.izzist.game.ultility.KeyHandler;
 
@@ -11,6 +10,10 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+/**
+ * class dung che phan chia thread tao gameloop.
+ * phan luong update van van va may may
+ */
 public class GamePanel extends JPanel implements Runnable {
     public static int width;
     public static int height;

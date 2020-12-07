@@ -8,6 +8,9 @@ import com.izzist.game.map.tiles.TileBrick;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * class dung de quan ly gach va tuong trong Game.
+ */
 public class TileManager {
     public static ArrayList<Tile> tileManager = new ArrayList<>();
     public static ArrayList<TileBrick> tileBrickManager = new ArrayList<>();

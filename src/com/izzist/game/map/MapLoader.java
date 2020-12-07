@@ -15,6 +15,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * Class dung de load map
+ */
 public class MapLoader {
     public static int level;
     private int width;

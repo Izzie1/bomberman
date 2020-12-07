@@ -8,13 +8,18 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * xu ly cac thao tac nhap xua tu ban phim.
+ */
 public class KeyHandler implements KeyListener {
 
     public static List<Key> keys = new ArrayList<Key>();
 
     public class Key {
-        public int presses, absorbs;
-        public boolean down, clicked;
+        public int presses;
+        public int absorbs;
+        public boolean down;
+        public boolean clicked;
 
         public Key() {
             keys.add(this);
@@ -30,11 +35,11 @@ public class KeyHandler implements KeyListener {
         }
 
         public void tick() {
-            if (absorbs < presses) {
+            if (absorbs == presses) {
+                clicked = false;
+            } else {
                 absorbs++;
                 clicked = true;
-            } else {
-                clicked = false;
             }
         }
     }
@@ -53,31 +58,19 @@ public class KeyHandler implements KeyListener {
         game.addKeyListener(this);
     }
 
-    public void releaseAll() {
-        for (int i = 0; i < keys.size(); i++) {
-            keys.get(i).down = false;
-        }
-    }
-
-    public void tick() {
-        for (int i = 0; i < keys.size(); i++) {
-            keys.get(i).tick();
-        }
-    }
-
 
     public void toggle(KeyEvent e, boolean pressed) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
                 up.toggle(pressed);
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
                 down.toggle(pressed);
                 break;
-            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
                 left.toggle(pressed);
                 break;
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
                 right.toggle(pressed);
                 break;
             case KeyEvent.VK_SPACE:

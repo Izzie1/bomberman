@@ -1,12 +1,15 @@
 package com.izzist.game.managers;
 
 import com.izzist.game.entity.Bomb.Bomb;
+import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.states.PlayState;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-
+/**
+ * class dung de quan ly bomb trong Game.
+ */
 public class BombManager {
 
     public static ArrayList<Bomb> bombs;

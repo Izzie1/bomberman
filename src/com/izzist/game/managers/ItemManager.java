@@ -4,6 +4,9 @@ import com.izzist.game.entity.Item.Item;
 
 import java.util.ArrayList;
 
+/**
+ * class dung de quan ly Item trong Game.
+ */
 public class ItemManager {
     public static ArrayList<Item> items = new ArrayList<>();
 

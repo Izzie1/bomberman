@@ -4,6 +4,9 @@ import com.izzist.game.ultility.KeyHandler;
 
 import java.awt.*;
 
+/**
+ * Quan ly cac state trong game.
+ */
 public class GameStateManager {
 
     private GameState[] states;

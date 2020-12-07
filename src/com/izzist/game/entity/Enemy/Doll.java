@@ -1,21 +1,16 @@
 package com.izzist.game.entity.Enemy;
 
-import com.izzist.game.entity.Bomb.Flame;
 import com.izzist.game.graphics.Sprite;
-import com.izzist.game.managers.EnemyManager;
-import com.izzist.game.states.PlayState;
 import com.izzist.game.ultility.Vector2D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Class Enemy Doll.
+ */
 public class Doll extends Enemy {
 
-    /**
-     * khoi tao.
-     * @param position vi tri
-     * @param size do lon sprite
-     */
     public Doll(Vector2D position, int size) {
         super(position, size);
         this.xOffSet = 4;
@@ -68,7 +63,6 @@ public class Doll extends Enemy {
             updateRect();
             move();
             moveCondition();
-
         } else {
             rectangle = new Rectangle();
             dead_animation.update();
